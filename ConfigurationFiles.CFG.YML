@@ -234,29 +234,29 @@ wireless_telecom_and_io:
       quantity: 2
       matching: "50Ω Impedance-Matched Low-Loss Grooved Paths"
     provisioned_carriers:
-      - { id: 1,  name: "AeroMobile",           mcc: "901", mnc: "14",  apn: "aeromobile",          qos: "High",     type: "IPv4v6" }
-      - { id: 2,  name: "Bharti Airtel",        mcc: "404", mnc: "10",  apn: "airtelgprs.com",      qos: "Maximum",  type: "IPv4v6" }
-      - { id: 3,  name: "AT&T Mobility",        mcc: "310", mnc: "410", apn: "enhancedphone",      qos: "Maximum",  type: "IPv4v6" }
-      - { id: 4,  name: "BPL Mobile",           mcc: "404", mnc: "21",  apn: "bplmobile.net",       qos: "Normal",   type: "IPv4v6" }
-      - { id: 5,  name: "BSNL",                 mcc: "404", mnc: "38",  apn: "bsnlnet",             qos: "High",     type: "IPv4v6" }
-      - { id: 6,  name: "du UAE",               mcc: "424", mnc: "03",  apn: "du",                  qos: "Maximum",  type: "IPv4v6" }
-      - { id: 7,  name: "EE UK",                mcc: "234", mnc: "30",  apn: "everywhere",          qos: "Maximum",  type: "IPv4v6" }
-      - { id: 8,  name: "Etisalat / e&",        mcc: "424", mnc: "02",  apn: "eaelive",             qos: "Maximum",  type: "IPv4v6" }
-      - { id: 9,  name: "Reliance Jio",         mcc: "405", mnc: "854", apn: "jionet",              qos: "Maximum",  type: "IPv4v6" }
-      - { id: 10, name: "Loop Mobile",          mcc: "404", mnc: "08",  apn: "loopmobile.net",      qos: "Normal",   type: "IPv4v6" }
-      - { id: 11, name: "MTNL",                 mcc: "404", mnc: "69",  apn: "mtnl.net",            qos: "High",     type: "IPv4v6" }
-      - { id: 12, name: "O2 UK",                mcc: "234", mnc: "10",  apn: "mobile.o2.co.uk",     qos: "Maximum",  type: "IPv4v6" }
-      - { id: 13, name: "OnAir In-Flight",      mcc: "901", mnc: "15",  apn: "onair",               qos: "High",     type: "IPv4v6" }
-      - { id: 14, name: "Orange France",        mcc: "208", mnc: "01",  apn: "orange",              qos: "Maximum",  type: "IPv4v6" }
-      - { id: 15, name: "QoS DIPF Safe",        mcc: "999", mnc: "99",  apn: "qos.dipf.safe.iot",   qos: "Critical", type: "IPv4v6" }
-      - { id: 16, name: "Reliance Comms",       mcc: "404", mnc: "04",  apn: "rcomnet",             qos: "Normal",   type: "IPv4v6" }
-      - { id: 17, name: "Starlink Mobile",      mcc: "901", mnc: "05",  apn: "starlink.data",       qos: "Maximum",  type: "IPv4v6" }
-      - { id: 18, name: "STC / Zain Arabia",    mcc: "420", mnc: "01",  apn: "jawalnet.com.sa",     qos: "Maximum",  type: "IPv4v6" }
-      - { id: 19, name: "Tata Teleservices",    mcc: "405", mnc: "025", apn: "tatadocomo.internet", qos: "High",     type: "IPv4v6" }
-      - { id: 20, name: "T-Mobile USA",         mcc: "310", mnc: "260", apn: "fast.t-mobile.com",  qos: "Maximum",  type: "IPv4v6" }
-      - { id: 21, name: "Verizon Wireless",     mcc: "311", mnc: "480", apn: "vzwinternet",        qos: "Maximum",  type: "IPv4v6" }
-      - { id: 22, name: "Virgin Mobile UAE",    mcc: "424", mnc: "03",  apn: "virgin",              qos: "Maximum",  type: "IPv4v6" }
-      - { id: 23, name: "Vodafone Idea",        mcc: "404", mnc: "20",  apn: "portalnmms",          qos: "Maximum",  type: "IPv4v6" }
+      - { id: 1,  name: "AeroMobile",            mcc: "901", mnc: "14",  apn: "aeromobile",           qos: "High",     type: "IPv4v6" }
+      - { id: 2,  name: "Bharti Airtel",         mcc: "404", mnc: "10",  apn: "airtelgprs.com",      qos: "Maximum",  type: "IPv4v6" }
+      - { id: 3,  name: "AT&T Mobility",         mcc: "310", mnc: "410", apn: "enhancedphone",       qos: "Maximum",  type: "IPv4v6" }
+      - { id: 4,  name: "BPL Mobile",            mcc: "404", mnc: "21",  apn: "bplmobile.net",        qos: "Normal",   type: "IPv4v6" }
+      - { id: 5,  name: "BSNL",                  mcc: "404", mnc: "38",  apn: "bsnlnet",              qos: "High",     type: "IPv4v6" }
+      - { id: 6,  name: "du UAE",                mcc: "424", mnc: "03",  apn: "du",                   qos: "Maximum",  type: "IPv4v6" }
+      - { id: 7,  name: "EE UK",                 mcc: "234", mnc: "30",  apn: "everywhere",           qos: "Maximum",  type: "IPv4v6" }
+      - { id: 8,  name: "Etisalat / e&",         mcc: "424", mnc: "02",  apn: "eaelive",              qos: "Maximum",  type: "IPv4v6" }
+      - { id: 9,  name: "Reliance Jio",          mcc: "405", mnc: "854", apn: "jionet",               qos: "Maximum",  type: "IPv4v6" }
+      - { id: 10, name: "Loop Mobile",           mcc: "404", mnc: "08",  apn: "loopmobile.net",      qos: "Normal",   type: "IPv4v6" }
+      - { id: 11, name: "MTNL",                  mcc: "404", mnc: "69",  apn: "mtnl.net",             qos: "High",     type: "IPv4v6" }
+      - { id: 12, name: "O2 UK",                 mcc: "234", mnc: "10",  apn: "mobile.o2.co.uk",     qos: "Maximum",  type: "IPv4v6" }
+      - { id: 13, name: "OnAir In-Flight",       mcc: "901", mnc: "15",  apn: "onair",                qos: "High",     type: "IPv4v6" }
+      - { id: 14, name: "Orange France",         mcc: "208", mnc: "01",  apn: "orange",               qos: "Maximum",  type: "IPv4v6" }
+      - { id: 15, name: "QoS DIPF Safe",         mcc: "999", mnc: "99",  apn: "qos.dipf.safe.iot",    qos: "Critical", type: "IPv4v6" }
+      - { id: 16, name: "Reliance Comms",        mcc: "404", mnc: "04",  apn: "rcomnet",              qos: "Normal",   type: "IPv4v6" }
+      - { id: 17, name: "Starlink Mobile",       mcc: "901", mnc: "05",  apn: "starlink.data",        qos: "Maximum",  type: "IPv4v6" }
+      - { id: 18, name: "STC / Zain Arabia",     mcc: "420", mnc: "01",  apn: "jawalnet.com.sa",      qos: "Maximum",  type: "IPv4v6" }
+      - { id: 19, name: "Tata Teleservices",     mcc: "405", mnc: "025", apn: "tatadocomo.internet", qos: "High",     type: "IPv4v6" }
+      - { id: 20, name: "T-Mobile USA",          mcc: "310", mnc: "260", apn: "fast.t-mobile.com",    qos: "Maximum",  type: "IPv4v6" }
+      - { id: 21, name: "Verizon Wireless",      mcc: "311", mnc: "480", apn: "vzwinternet",          qos: "Maximum",  type: "IPv4v6" }
+      - { id: 22, name: "Virgin Mobile UAE",     mcc: "424", mnc: "03",  apn: "virgin",               qos: "Maximum",  type: "IPv4v6" }
+      - { id: 23, name: "Vodafone Idea",         mcc: "404", mnc: "20",  apn: "portalnmms",           qos: "Maximum",  type: "IPv4v6" }
   short_range_wireless:
     vendor: "Qualcomm"
     part_number: "WCN7851-AERO"
@@ -290,6 +290,21 @@ wireless_telecom_and_io:
       part_number: "TB5-IC-80GBPS"
       bandwidth_gbps: 80 # Symmetric (120Gbps Asymmetric Boost)
       interface: "PCIe Gen4 Tunneling / USB4 v2"
+    usb2_port:
+      vendor: "Molex"
+      part_number: "USB-2.0-TYPE-A-SINGLE"
+      speed_mbps: 480.0
+      quantity: 1
+    usb32_ports:
+      vendor: "TE Connectivity"
+      part_number: "USB-C-3.2-GEN2"
+      speed_gbps: 20.0
+      quantity: 2
+    usb4_ports:
+      vendor: "Intel"
+      part_number: "USB4-TYPE-C-40G"
+      speed_gbps: 40.0
+      quantity: 2
     usb4_v2:
       vendor: "Amphenol"
       part_number: "USB4-V2-120G"
@@ -312,6 +327,11 @@ wireless_telecom_and_io:
     telephone_line:
       vendor: "Conexant"
       part_number: "RJ11-MODEM-SLIM"
+      speed_kbps: 56.0
+      galvanic_isolation_v: 1500
+    fax_port:
+      vendor: "Amphenol"
+      part_number: "FAX-RJ11-54601"
       speed_kbps: 56.0
       galvanic_isolation_v: 1500
 
