@@ -1,89 +1,103 @@
 # Security Policy
 
 ## Manufacturer Information
-- **OEM Components**: Intel, NVIDIA, Samsung, Micron, Infineon, Microsoft, Yubico, LowRISC, AUO, Panasonic, CoolerMaster, Dyson, QuantumScape, Texas Instruments, NXP, Murata, TDK, Vishay, Coilcraft.
-- **Assembly Programming Languages**: C, C++, Rust, Assembly (x86_64, ARM64), VHDL/Verilog for FPGA/DSP blocks.
-- **Restrictions**: No unsigned binaries, no deprecated libraries, no downgrade of dependencies.
+
+* **OEM Components**: Intel, NVIDIA, Samsung, Micron, Infineon, Microsoft, Yubico, LowRISC, AUO, Panasonic, CoolerMaster, Dyson, QuantumScape, Texas Instruments, NXP, Amphenol, Molex, Arista, Conexant, Murata, TDK, Vishay, Coilcraft.
+* **Assembly Programming Languages**: C, C++, Rust, Assembly (x86_64, ARM64), VHDL/Verilog for FPGA/DSP blocks.
+* **Restrictions**: No unsigned binaries, no deprecated libraries, no downgrade of dependencies, and strict supply chain verification via OpenTitan Root of Trust.
 
 ---
 
 ## Data Processing & File Access
-- **Checksum Validation**: SHA‑256 enforced for all binaries and configuration files.
-- **File Access Rules**: Read‑only for system binaries, restricted write access to `/configs` and `/security`.
-- **Firewall Enforcement**: Mandatory host‑based firewall with carrier‑grade packet inspection.
-- **Logging**: All access attempts logged and audited.
+
+* **Checksum Validation**: SHA‑512 enforced for all binaries, kernel modules, firmware payloads, and configuration files.
+* **File Access Rules**: Read‑only access for core system binaries and secure firmware partitions; restricted write access limited to `/configs` and `/security` under multi-factor authorization.
+* **Firewall & Interface Enforcement**: Mandatory host‑based firewall with deep packet inspection across all network interfaces, including Cat 8 Ethernet, QSFP-DD 400G, Wi-Fi 7, 5G NR WWAN, and legacy Conexant telephone/fax data lines.
+* **Logging**: All system access attempts, interface handshakes, and cryptographic state changes are logged and audited via secure syslog.
 
 ---
 
 ## Mobile Network & Carrier Departments
-- **Regional Authorities**:  
-  - TRAI (Telecom Regulatory Authority of India)  
-  - DOT (Department of Telecommunications, India)  
-  - DoT (UAE Telecommunications and Digital Government Regulatory Authority)  
-  - ITU‑R (International Telecommunication Union – Radiocommunication Sector)  
-  - ITU‑T (Telecommunication Standardization Sector)  
-  - ITU‑F (ITU Financial/Administrative)  
-- **Carrier Compliance**: Airtel, Jio, BSNL, MTNL, Vodafone Idea, AT&T, Verizon, T‑Mobile, EE, O2, Orange, Etisalat, du, STC, Zain, Virgin Mobile UAE, Starlink, AeroMobile, OnAir.
+
+* **Regional Authorities**:
+* TRAI (Telecom Regulatory Authority of India)
+* Department of Telecommunications (DoT, India)
+* UAE Telecommunications and Digital Government Regulatory Authority (TDRA)
+* ITU‑R (International Telecommunication Union – Radiocommunication Sector)
+* ITU‑T (Telecommunication Standardization Sector)
+* ITU‑F (ITU Financial/Administrative)
+* FCC (Federal Communications Commission, USA – Part 68/15/96)
+
+
+* **Carrier Compliance**: Airtel, Jio, BSNL, MTNL, Vodafone Idea, AT&T, Verizon, T‑Mobile, EE, O2, Orange, Etisalat, du, STC, Zain, Virgin Mobile UAE, Starlink, AeroMobile, OnAir.
 
 ---
 
 ## Calibration & Testing
-- **Thermal Cycling**: −40°C to +85°C, 100 cycles.
-- **Vibration/Shock**: MIL‑STD‑810G compliance.
-- **Humidity Chamber**: 85% RH, 240 hours.
-- **Code Validation**: All commits require signed integrity, checksum verification, and CI/CD pipeline enforcement.
-- **Assembly Calibration**: FPGA/DSP bitstreams validated against golden reference.
+
+* **Thermal Cycling**: −40°C to +85°C across 100 operational cycles.
+* **Vibration/Shock**: MIL‑STD‑810G compliance (Method 514.6 random vibration, Method 516.6 mechanical drop testing).
+* **Humidity Chamber**: 85% RH at +40°C for 240 hours.
+* **Code Validation**: All commits require signed integrity hashes, checksum verification, and automated CI/CD pipeline enforcement.
+* **Assembly Calibration**: FPGA/DSP bitstreams (Dirac Live) validated against golden reference clocks (Crystek <82fs jitter).
 
 ---
 
 ## Restrictions
-- No unsigned execution (`Set‑ExecutionPolicy AllSigned` enforced).
-- No unauthorized SIM/eSIM activation (GSMA‑SGP.32 provisioning required).
-- No bypass of TPM/HSM/fTPM/Pluton/OpenTitan secure enclaves.
-- No downgrade of QoS/PDP contexts once activated.
-- No root access without signed authorization.
+
+* No unsigned execution (`Set‑ExecutionPolicy AllSigned` and Secure Boot MOK enforcement required).
+* No unauthorized SIM/eSIM activation (GSMA‑SGP.32 eUICC provisioning required).
+* No bypass of TPM 2.0, Microsoft Pluton, LowRISC OpenTitan, or ARM TrustZone secure enclaves.
+* No downgrade of QoS/PDP contexts once active.
+* No root access without cryptographically signed hardware token authorization.
+* No unisolated analog interface bridging across telephone and fax lines (mandating 1500V galvanic isolation).
 
 ---
 
 ## Localisation & Rules
-- **Language Packs**: English (Global), Hindi (India), Arabic (UAE/KSA), French (EU).
-- **Regional Rules**: Carrier APN/eSIM profiles must align with local TRAI/DOT/ITU standards.
-- **Data Sovereignty**: Logs stored regionally per compliance.
+
+* **Language Packs**: English (Global), Hindi (India), Arabic (UAE/KSA), French (EU).
+* **Regional Rules**: Carrier APN/eSIM profiles must align strictly with local TRAI, DoT, FCC, and ITU standards.
+* **Data Sovereignty**: System logs and telemetry stored regionally per local compliance mandates.
 
 ---
 
 ## QoS, PDP & Virtualization
-- **QoS Policies**: Max priority, min latency, UL/DL throughput enforced.
-- **PDP Contexts**: Defined per APN, activated with signed provisioning.
-- **Virtualization**: Proxmox/KVM, VMware ESXi, Hyper‑V — all with GPU/NPU passthrough, secure enclave validation.
+
+* **QoS Policies**: Maximum priority, minimum latency, strict uplink/downlink throughput allocation enforced across cellular and wired links.
+* **PDP Contexts**: Defined per APN, activated with signed multi-PDP provisioning credentials.
+* **Virtualization**: Proxmox VE/KVM, VMware ESXi, and Hyper‑V configurations enforce direct PCIe/USB hardware passthrough and secure enclave attestation.
 
 ---
 
 ## Compliance Standards
-- **Security**: FIPS140‑3, NIST SP800‑193.
-- **Safety**: IEC62368‑1, RoHS, CE, BIS, UL, CCC.
-- **Telecom**: GSMA‑SGP.32, ITU‑R/T/F.
-- **Environmental**: MIL‑STD‑810G, humidity/vibration validated.
+
+* **Security**: FIPS 140-3 Level 3, NIST SP800‑193 Platform Firmware Resiliency.
+* **Safety**: IEC 62368‑1, UL 62368-1 3rd Ed, UL 9540A, RoHS, CE, BIS, CCC.
+* **Telecom**: GSMA‑SGP.32, FCC Part 68, ITU‑R/T/F operational conformance.
+* **Environmental**: MIL‑STD‑810G (shock, vibration, humidity, altitude).
 
 ---
 
 ## Assembly Programming & Code Validation
-- **Languages**: C, C++, Rust, Assembly, VHDL/Verilog.
-- **Validation**: All commits signed, CI/CD pipelines enforce dependency alignment.
-- **Restrictions**: No deprecated APIs, no unsafe pointer arithmetic without bounds checking.
+
+* **Languages**: C, C++, Rust, Assembly, VHDL/Verilog.
+* **Validation**: All repository commits cryptographically signed; CI/CD pipelines enforce strict dependency alignment and static analysis.
+* **Restrictions**: No deprecated APIs, no unsafe pointer arithmetic without explicit bounds checking.
 
 ---
 
 ## Safety Actions
-- Enforce **Root of Trust** across all domains.
-- Apply **firewall and file access restrictions**.
-- Validate **QoS/PDP contexts** before activation.
-- Run **calibration and environmental testing** before deployment.
-- Maintain **regional compliance** with TRAI, DOT, ITU‑R/T/F.
-- Audit **assembly programming and FPGA/DSP code** for safety.
+
+* Enforce hardware **Root of Trust** across all compute and communication domains.
+* Apply strict **firewall, port isolation, and file access restrictions**.
+* Validate all **QoS/PDP contexts** prior to radio or network activation.
+* Execute rigorous **calibration and environmental stress testing** prior to deployment.
+* Maintain full **regional compliance** with TRAI, DoT, FCC, and ITU directives.
+* Audit all **assembly, FPGA, and DSP codebases** for memory safety and zero-defect reliability.
 
 ---
 
 ## Reporting Security Issues
-Please report vulnerabilities via the repository’s issue tracker or contact the maintainers directly.  
-All reports must include: affected component, reproduction steps, and compliance impact.
+
+All vulnerability reports must include: affected component, verifiable reproduction steps, and potential compliance or security impact.
