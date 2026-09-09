@@ -858,3 +858,32 @@ For eco-tech positioning, **Emerald Green + Black** or **Forest Green + Sandston
 )
 
 ```
+
+```
+
+## Complete Bill of Tools, Materials & Hardware
+
+* Screws: Stainless Steel | Silver | Qty: M2×50 (50), M2.5×40 (40), M3×60 (60), M4×30 (30) | Shape: Threaded Cylindrical | Manufacturer: McMaster-Carr
+* Hinges: Grade 5 Titanium (Ti-6Al-4V) | Metallic Gray | Qty: 4 | Shape: Dual-Axis Rectangular Bracket | Manufacturer: Sandvik Aerospace
+* Drill bits: High-Speed Steel (HSS) & Tungsten Carbide | Gold/Silver | Qty: HSS Ø1–10mm (20), PCB micro‑drills (15) | Shape: Fluted Cylindrical | Manufacturer: Kyocera / Dormer Pramet
+* Tools: Chrome Vanadium & Rubberized Steel | Black/Red | Qty: Screwdrivers (5), Pliers (3), Tweezers (4), Cutters (2), Torque Wrench (1) | Shape: Ergonomic Hand Tools | Manufacturer: Wiha / Wera
+* Testers: ABS Plastic Housing | Dark Gray/Blue | Qty: Multimeters (2), Oscilloscope (1), Logic Analyzer (1) | Shape: Benchtop/Handheld Rectangular | Manufacturer: Keysight / Fluke
+* Solder: Tin-Lead & Lead-Free Alloy | Silver-Gray | Qty: Sn63/Pb37 (3 spools), SAC305 (3 spools) | Shape: Spooled Wire | Manufacturer: Alpha Assembly / Kester
+* Flux: Rosin, No-Clean, Liquid, Cream | Amber/Clear | Qty: Rosin (2 jars), No-Clean (2 pens), Liquid (1 bottle), Cream (1 syringe) | Shape: Viscous/Liquid/Solid | Manufacturer: MG Chemicals / AIM
+* PCB substrates: FR-4, Rogers 4350B, Polyimide | Green/Amber/Black | Qty: FR‑4 (10 sheets), Rogers 4350B (5 sheets), Polyimide flex (5 sheets) | Shape: Flat Rectangular Sheets | Manufacturer: Rogers Corp / Dupont
+* Cables: PVC/Braided Shielded | Black/Silver | Qty: USB‑C (20), QSFP‑DD (10), SATA (15), LVDS (10) | Shape: Flexible Multi-conductor Bundles | Manufacturer: Amphenol / Molex
+* Wires: Tinned Copper & PTFE Insulated | Red/Black/Clear | Qty: 22–28 AWG copper (100m), PTFE (50m) | Shape: Spooled Single-Core Wire | Manufacturer: Alpha Wire / Belden
+* Batteries: Solid-State Graphene & Li-ion | Dark Gray | Qty: Solid‑state (2 packs), Li‑ion arrays (4 packs) | Shape: Prismatic Pouch / Block | Manufacturer: QuantumScape / Samsung SDI
+* Fiber: Singlemode/Multimode Optic Glass | Yellow/Aqua | Qty: OS2 LC (10), OM4 SC (10) | Shape: Spooled/Pre-terminated Patch Cords | Manufacturer: Corning
+* Washers: PEEK Thermoplastic | Beige/Natural | Qty: 100 | Shape: Annular Ring (Shoulder Washer) | Manufacturer: McMaster-Carr
+* Gaskets: Conductive Fabric-Over-Foam | Dark Gray | Qty: 5m roll | Shape: Rectangular Strip with Adhesive Backing | Manufacturer: Laird Performance Materials
+* Threadlocker: Methacrylate Ester | Blue | Qty: 2 bottles (10ml each) | Shape: Liquid Dropper Bottle | Manufacturer: Henkel Loctite
+* Thermal Pads: Phase Change Paraffin/Ceramic Matrix | Gray | Qty: 10 sheets (100x100x0.5mm) | Shape: Flat Square Sheets | Manufacturer: Honeywell (PTM7950)
+* Tape: High-Temperature Polyimide | Amber | Qty: 5 rolls | Shape: Adhesive Roll | Manufacturer: 3M
+* Thermocouples: Type-K Glass braid insulated | Brown/White | Qty: 10m spool | Shape: Dual Twisted Wire Pair | Manufacturer: Omega Engineering
+* Micro-Coax Jumpers: Silver-Plated Copper with PTFE | Black | Qty: 20 | Shape: Flexible RF Coaxial Cable Assembly (U.FL to MHF4) | Manufacturer: Hirose
+* Heat Shrink: Cross-linked Polyolefin with Adhesive Liner | Black | Qty: 1 kit (assorted sizes) | Shape: Tubing Rolls/Cuts | Manufacturer: TE Connectivity
+* Riser Cards: FR-4 Multilayer PCB with PCIe Edge Connectors | Green | Qty: 2 | Shape: Rigid PCB Right-Angle Extender | Manufacturer: ADT-Link
+* Probe Tips: Beryllium Copper | Gold/Silver | Qty: 10 | Shape: Fine-Point Needle Tips | Manufacturer: Tektronix
+
+```
