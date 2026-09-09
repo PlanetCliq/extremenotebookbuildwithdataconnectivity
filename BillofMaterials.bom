@@ -173,7 +173,7 @@
   )
 
   ;; =========================================================================
-  ;; 6. Cellular, Short-Range Wireless & High-Bandwidth Networking
+  ;; 6. Cellular, Short-Range Wireless & High-Bandwidth Networking (Updated I/O)
   ;; =========================================================================
   (ITEM WWAN_MODULE_QUALCOMM_X90
     (MANUFACTURER Qualcomm) (PART_NUMBER SDX90-M2-3052) (COUNTRY USA)
@@ -214,35 +214,10 @@
   )
   (ITEM ETHERNET_PORT_CAT8
     (MANUFACTURER Amphenol) (PART_NUMBER CAT8-RJ45-SLIM) (COUNTRY USA)
-    (SPEC Speed=40Gbps Bandwidth=2000MHz Connector=RJ45 Shielded=Yes Size=14x16mm
+    (SPEC Speed=40Gbps Bandwidth=2000MHz Connector=RJ45_Cat8 Shielded=Yes Size=14x16mm
           Height=8mm SlimProfile=Yes Weight=12g ThermalDissipation=1.5W)
     (QTY 1)
   )
-  (ITEM QSFP_DD_400G_FR4
-    (MANUFACTURER Arista) (PART_NUMBER QSFP-400G-FR4) (COUNTRY USA)
-    (SPEC Speed=400Gbps Connector=LC_Duplex Reach=2km Protocol=8x50G_PAM4 Voltage=3.3V Power=10W
-          Size=18x72mm Height=8.5mm SlimProfile=Yes Weight=28g ThermalDissipation=10W)
-    (QTY 1)
-  )
-  (ITEM QSFP_DD_400G_ZR
-    (MANUFACTURER Arista) (PART_NUMBER QSFP-400G-ZR) (COUNTRY USA)
-    (SPEC Speed=400Gbps Reach=120km Modulation=Coherent_Optics Voltage=3.3V Power=14W
-          Size=18x72mm Height=8.5mm SlimProfile=Yes Weight=30g ThermalDissipation=14W)
-    (QTY 1)
-  )
-  (ITEM QSFP_DD_400G_ZR_PLUS
-    (MANUFACTURER Arista) (PART_NUMBER QSFP-400G-ZR-PLUS) (COUNTRY USA)
-    (SPEC Speed=400Gbps Reach=>1000km AmplifiedDWDM Voltage=3.3V Power=16W
-          Size=18x72mm Height=8.5mm SlimProfile=Yes Weight=32g ThermalDissipation=16W)
-    (QTY 1)
-  )
-  (ITEM QSFP_DD_PORT_MOLEX
-    (MANUFACTURER Molex) (PART_NUMBER 74752-SFP28) (COUNTRY USA)
-    (SPEC Cage=QSFP-DD Voltage=3.3V Cap=100nF EMIFingers=Yes Size=18x72mm Height=8.5mm
-          SlimProfile=Yes Weight=18g ThermalDissipation=0.5W)
-    (QTY 1)
-  )
-  ;; --- Required Communication Ports Update ---
   (ITEM TELEPHONE_PORT
     (MANUFACTURER Amphenol) (PART_NUMBER TEL-RJ11-54601) (COUNTRY USA)
     (SPEC Connector=RJ11 Voltage=3.3V Function=TelephoneLineSupport Isolation=1500V
@@ -272,6 +247,30 @@
     (SPEC Voltage=5V Speed=40Gbps Thunderbolt4Compatible Connector=USB_Type_C ESDProtection=Yes
           SlimProfile=Yes Weight=5g ThermalDissipation=1.0W)
     (QTY 2)
+  )
+  (ITEM QSFP_DD_400G_FR4
+    (MANUFACTURER Arista) (PART_NUMBER QSFP-400G-FR4) (COUNTRY USA)
+    (SPEC Speed=400Gbps Connector=LC_Duplex Reach=2km Protocol=8x50G_PAM4 Voltage=3.3V Power=10W
+          Size=18x72mm Height=8.5mm SlimProfile=Yes Weight=28g ThermalDissipation=10W)
+    (QTY 1)
+  )
+  (ITEM QSFP_DD_400G_ZR
+    (MANUFACTURER Arista) (PART_NUMBER QSFP-400G-ZR) (COUNTRY USA)
+    (SPEC Speed=400Gbps Reach=120km Modulation=Coherent_Optics Voltage=3.3V Power=14W
+          Size=18x72mm Height=8.5mm SlimProfile=Yes Weight=30g ThermalDissipation=14W)
+    (QTY 1)
+  )
+  (ITEM QSFP_DD_400G_ZR_PLUS
+    (MANUFACTURER Arista) (PART_NUMBER QSFP-400G-ZR-PLUS) (COUNTRY USA)
+    (SPEC Speed=400Gbps Reach=>1000km AmplifiedDWDM Voltage=3.3V Power=16W
+          Size=18x72mm Height=8.5mm SlimProfile=Yes Weight=32g ThermalDissipation=16W)
+    (QTY 1)
+  )
+  (ITEM QSFP_DD_PORT_MOLEX
+    (MANUFACTURER Molex) (PART_NUMBER 74752-SFP28) (COUNTRY USA)
+    (SPEC Cage=QSFP-DD Voltage=3.3V Cap=100nF EMIFingers=Yes Size=18x72mm Height=8.5mm
+          SlimProfile=Yes Weight=18g ThermalDissipation=0.5W)
+    (QTY 1)
   )
   (ITEM PORT_USB_PD
     (MANUFACTURER Amphenol) (PART_NUMBER USB-C-EPR-240W) (COUNTRY USA)
