@@ -1,0 +1,115 @@
+// =====================================================================
+// EXTREME AEROSPACE NOTEBOOK - FULL UNIBODY, HINGES & COMPONENT ASSEMBLY
+// Dimensions: 360mm x 250mm x 22mm Envelope
+// =====================================================================
+
+$fn = 40;
+
+// Material Color Palette
+c_aluminum  = [0.82, 0.82, 0.88, 0.85]; // 7075-T6 Unibody (Transparent view)
+c_titanium  = [0.55, 0.55, 0.60, 1.0]; // Grade 5 Ti Hinges & Reinforcements
+c_pcb       = [0.05, 0.22, 0.10, 1.0]; // Rogers RO4003C Substrate
+c_copper    = [0.95, 0.55, 0.20, 1.0]; // Vapor Chamber / Copper Rails
+c_silicon   = [0.12, 0.12, 0.12, 1.0]; // BGA Packages / Chips
+c_battery   = [0.18, 0.18, 0.22, 1.0]; // QuantumScape Solid-State Pack
+c_gold      = [0.85, 0.70, 0.20, 1.0]; // Connectors & Jumpers
+c_audio     = [0.30, 0.50, 0.80, 1.0]; // Audio Section
+c_security  = [0.70, 0.20, 0.20, 1.0]; // Security Enclaves
+
+module extreme_aerospace_notebook() {
+    
+    // --- 1. AEROSPACE UNIBODY CHASSIS (7075-T6 + Titanium Reinforcements) ---
+    color(c_aluminum)
+    difference() {
+        // Outer Envelope: 360mm x 250mm x 22mm
+        cube([360, 250, 22]);
+        
+        // Internal Cavity Cutout (Leaving 6mm walls, 2mm floor)
+        translate([6, 6, 2])
+            cube([348, 238, 20]);
+            
+        // Port Cutouts - Left Margin (USB, Thunderbolt, DC Jack, Optical)
+        translate([-1, 220, 4]) cube([8, 10, 10]); // DC1 Barrel Jack
+        translate([-1, 190, 4]) cube([8, 10, 6]);  // USB2 Type-C
+        translate([-1, 180, 4]) cube([8, 12, 8]);  // TB5_1 Thunderbolt
+        translate([-1, 170, 4]) cube([8, 10, 6]);  // USB1 Type-C
+        translate([-1, 115, 4]) cube([8, 10, 8]);  // TEL1 RJ11 Modem
+        translate([-1, 90, 4])  cube([12, 25, 12]); // OPT1 Blu-ray Drive
+        
+        // Port Cutouts - Right Margin (QSFP-DD 400G, Ethernet, SIM/SD)
+        translate([353, 195, 4]) cube([8, 25, 10]); // QSFP-DD Cage
+        translate([353, 165, 4]) cube([8, 15, 10]); // ETH1 Cat8 RJ45
+        translate([353, 45, 4])  cube([8, 15, 6]);  // SD1/SD2 Slots
+    }
+
+    // --- 2. DUAL-AXIS TITANIUM HINGES (Ti-6Al-4V Grade 5) ---
+    // Left Hinge Assembly
+    translate([40, 242, 2])
+    color(c_titanium)
+    cube([30, 12, 16]);
+    
+    // Right Hinge Assembly
+    translate([290, 242, 2])
+    color(c_titanium)
+    cube([30, 12, 16]);
+
+    // --- 3. 10-LAYER ROGERS RO4003C PCB SUBSTRATE ---
+    translate([0, 0, 2])
+    color(c_pcb)
+    cube([360, 250, 1.6]);
+
+    // --- 4. TOP EDGE CONTROLS & RF KILL SWITCHES ---
+    translate([25, 235, 3.6]) color(c_gold) cube([6, 6, 3]); // WLAN
+    translate([35, 235, 3.6]) color(c_gold) cube([6, 6, 3]); // WWAN
+    translate([45, 235, 3.6]) color(c_gold) cube([6, 6, 3]); // BT
+    translate([55, 235, 3.6]) color(c_gold) cube([6, 6, 3]); // NFC
+    translate([175, 235, 3.6]) color(c_gold) cube([30, 8, 3]); // Cap Touch Slider
+    translate([295, 235, 3.6]) color(c_gold) cube([8, 8, 3]); // AI Key
+    translate([340, 235, 3.6]) color(c_gold) cube([10, 8, 3]); // Power Button
+
+    // --- 5. MEMORY ZONE: QUAD DDR5X DIMM SLOTS ---
+    translate([90, 215, 3.6]) color(c_gold) cube([30, 10, 4.0]);  // M1
+    translate([140, 215, 3.6]) color(c_gold) cube([30, 10, 4.0]); // M2
+    translate([210, 215, 3.6]) color(c_gold) cube([30, 10, 4.0]); // M3
+    translate([260, 215, 3.6]) color(c_gold) cube([30, 10, 4.0]); // M4
+
+    // --- 6. CENTRAL COMPUTE & ACCELERATOR CORE ---
+    translate([125, 120, 3.6]) color(c_silicon) cube([35, 35, 3.5]); // U1: CPU (i9-14900HX)
+    translate([225, 120, 3.6]) color(c_silicon) cube([40, 40, 4.0]); // U2: GPU (RTX Ada5090M)
+    translate([225, 155, 3.6]) color(c_copper) cube([20, 15, 2.2]); // M5: HBM3 Stack
+    translate([175, 170, 3.6]) color(c_silicon) cube([30, 30, 3.5]); // U3: Quantum AI GPU
+    translate([175, 70, 3.6]) color(c_silicon) cube([25, 25, 3.0]); // U4: NPU (TOPS45)
+
+    // --- 7. THERMAL & POWER CONVERSION CORE ---
+    translate([120, 80, 7.6]) color(c_copper) cube([120, 80, 2.0]); // CoolerMaster Vapor Chamber
+    translate([120, 150, 3.6]) color(c_silicon) cube([10, 10, 3]); // VRM1 (TPS53689)
+    translate([110, 145, 3.6]) color(c_silicon) cube([8, 8, 3]); // Q1 (OptiMOS)
+    translate([100, 150, 3.6]) color(c_silicon) cube([10, 10, 3]); // PMIC1 (PF8100)
+    translate([20, 210, 3.6]) color(c_silicon) cube([12, 12, 4]); // DCDC1 (Vicor 48V->12V)
+
+    // --- 8. SECURITY ROOTS OF TRUST & ENCLAVES ---
+    translate([80, 90, 3.6]) color(c_security) cube([8, 8, 2]); // SE1
+    translate([90, 90, 3.6]) color(c_security) cube([8, 8, 2]); // OT1
+    translate([100, 90, 3.6]) color(c_security) cube([8, 8, 2]); // PLUTON1
+    translate([110, 90, 3.6]) color(c_security) cube([8, 8, 2]); // TPM1
+    translate([120, 75, 3.6]) color(c_security) cube([8, 8, 2]); // SPI1
+    translate([80, 75, 3.6]) color(c_security) cube([6, 6, 3]); // RTC1
+
+    // --- 9. QUANTUMSCAPE SOLID-STATE BATTERY PACK ---
+    translate([105, 20, 3.6]) color(c_battery) cube([150, 100, 6.0]); // BAT1
+
+    // --- 10. STUDIO ACOUSTIC ENGINE (Bottom Layer) ---
+    translate([15, 15, 1.0]) color(c_audio) cube([10, 10, 6]); // SPK1
+    translate([20, 25, 1.0]) color(c_audio) cube([10, 10, 4]); // AMP1 (THX AAA-888)
+    translate([35, 35, 1.0]) color(c_audio) cube([10, 10, 3]); // DAC1 (ES9039PRO)
+    translate([175, 25, 1.0]) color(c_audio) cube([25, 15, 8]); // SUB1 (Tectonic Sub-Bass)
+    translate([30, 50, 1.0]) color(c_audio) cube([6, 6, 2]); // JMP1
+    translate([48, 25, 1.0]) color(c_audio) cube([6, 6, 2]); // OSC1
+    translate([58, 25, 1.0]) color(c_audio) cube([6, 6, 2]); // OSC2
+    translate([5, 15, 1.0]) color(c_audio) cube([8, 8, 6]); // J1 (Audio Jack)
+    translate([50, 45, 1.0]) color(c_audio) cube([12, 12, 3]); // DSP1
+    translate([335, 15, 1.0]) color(c_audio) cube([10, 10, 6]); // SPK2
+    translate([325, 20, 1.0]) color(c_audio) cube([10, 10, 3]); // FP1 (Fingerprint)
+}
+
+extreme_aerospace_notebook();
