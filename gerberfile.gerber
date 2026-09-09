@@ -1,70 +1,19 @@
 (EXPERT_MASTER_GERBER
-  (VERSION 1.1)
-  (TITLE "Extreme Performance Laptop - Aerospace Grade Gerber Outputs (Re‑worked)")
-
-  ;; ===========================
-  ;; Copper Layers
-  ;; ===========================
-  (FILE TopCopper.GBR
-    (CONTENT "Layer1: High-speed signal traces, 2oz copper")
-    (RULES "DDR5 50Ω single-ended, PCIe Gen5 100Ω differential, USB PD 90Ω differential")
+  (VERSION 2.9-HIGHEST)
+  (LAYERS
+    (TopCopper_L1.GBR "Layer1: Signal Microstrip, 2oz copper, FastConnect 7900 / DDR5X")
+    (InnerGround_L2.GBR "Layer2: Solid RF Reference Ground Plane")
+    (InnerSignal_L3.GBR "Layer3: Stripline PCIe Gen5 x16, HBM3 1024-bit, QSFP-DD 400G")
+    (InnerPower_L4.GBR "Layer4: Split Power Plane 1.2V Core / 1.1V Mem / 1.0V QPU")
+    (InnerGround_L5.GBR "Layer5: Solid Ground Shield Barrier Matrix")
+    (InnerSignal_L6.GBR "Layer6: EC Discrete Kill Switches / AI Hotkey NMI / Fingerprint SPI")
+    (InnerPower_L7.GBR "Layer7: High-Voltage Bus 48V EPR / 12V DC / 11.1V Solid-State Battery")
+    (InnerSignal_L8.GBR "Layer8: Dual NVMe Gen5 x4 / SD Express 8.0 Striplines")
+    (InnerGround_L9.GBR "Layer9: Isolated Star Ground for Audio & Crystek Master Clocks")
+    (BottomCopper_L10.GBR "Layer10: Audio Transducers, Sub-Bass Driver, Knowles Speakers, 2oz copper")
   )
-  (FILE InnerCopper1.GBR
-    (CONTENT "Layer3: PCIe/DDR5 matched differential pairs")
-    (RULES "Length match ±5 mils, jitter budget <0.15UI, impedance controlled")
-  )
-  (FILE InnerCopper2.GBR
-    (CONTENT "Layer4: Power distribution plane 1.2V/3.3V/5V")
-    (RULES "VRM rails, decoupling capacitors within 2mm of BGA pins")
-  )
-  (FILE BottomCopper.GBR
-    (CONTENT "Layer10: Audio and auxiliary signal traces, 2oz copper")
-    (RULES "Shielded audio nets, THD+N ≤ -120dB, low-noise routing")
-  )
-
-  ;; ===========================
-  ;; Drill Files
-  ;; ===========================
-  (FILE Drill.DRL
-    (CONTENT "Plated through holes 0.3–0.5mm, microvias 0.1mm laser-drilled")
-    (RULES "Blind/buried vias enabled, backdrill applied for PCIe Gen5 lanes")
-  )
-
-  ;; ===========================
-  ;; Solder Mask
-  ;; ===========================
-  (FILE SolderMaskTop.GBR
-    (CONTENT "Green solder mask, precision openings for BGA pads")
-    (RULES "IPC-7351 compliant clearances, controlled mask expansion")
-  )
-  (FILE SolderMaskBottom.GBR
-    (CONTENT "Green solder mask, precision openings for connectors")
-    (RULES "Moisture/ESD conformal coating applied, reliability validated")
-  )
-
-  ;; ===========================
-  ;; Silkscreen
-  ;; ===========================
-  (FILE SilkscreenTop.GBR
-    (CONTENT "Component outlines, reference designators, polarity indicators")
-    (RULES "Readable font ≥0.8mm, white epoxy ink")
-  )
-  (FILE SilkscreenBottom.GBR
-    (CONTENT "Assembly notes, connector orientation, test point markers")
-    (RULES "Readable font ≥0.8mm, white epoxy ink")
-  )
-
-  ;; ===========================
-  ;; Fabrication Notes
-  ;; ===========================
-  (FABRICATION
-    (Compliance "RoHS, CE, BIS, UL, CCC, FIPS140-3, NIST-SP800-193, IEC62368-1")
-    (Finish "ENIG - Electroless Nickel Immersion Gold, aerospace-grade durability")
-    (Dielectric "Rogers RO4003, 0.2mm core, impedance-controlled")
-    (AOI "Orbotech AOI validation for trace integrity")
-    (FlyingProbe "ATG impedance and continuity test")
-    (ThermalCycling "Validation chamber -40°C to +85°C, 100 cycles")
-    (VibrationShock "MIL-STD-810G compliance, drop/vibration tested")
-    (Humidity "85% RH chamber validation, conformal coating intact")
+  (DRILLS
+    (PrimaryDrill.DRL "0.10mm Laser Microvias, 0.25mm-0.50mm Mechanical PTH")
+    (Backdrill_PCIe_Gen5.DRL "Controlled depth backdrill stub removal <0.10mm on Gen5/QSFP-DD")
   )
 )
