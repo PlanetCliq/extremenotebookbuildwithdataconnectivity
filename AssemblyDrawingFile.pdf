@@ -1,80 +1,27 @@
-(EXPERT_MASTER_ASSEMBLY_DRAWING
-  (VERSION 2.6)
-  (TITLE "Extreme Performance Laptop - Aerospace Grade Assembly Guide (X75 Edition)")
-
-  ;; ===========================
-  ;; SMT Assembly
-  ;; ===========================
-  (PROCESS SMT_LINE
-    (Machines "ASM SIPLACE TX, Panasonic NPM-W2")
-    (Steps
-      (Step1 "Load CPU (Snapdragon X75), GPU (Ada5090M), NPU (Intel TOPS45) BGA packages with precision pick-and-place")
-      (Step2 "Place DDR5X DIMMs and HBM3 stack sockets")
-      (Step3 "Mount NVMe Gen5 M.2 connectors, TPM, Pluton, OpenTitan chips")
-      (Step4 "Install WiFi7/BT6 module, QSFP-DD cage, Thunderbolt5 controller")
-      (Step5 "Populate DAC, AMP, DSP, Audio Jack")
-      (Step6 "Install WWAN M.2 3052 Key B slot and Nano-SIM cage")
-    )
-    (Validation "AOI inspection, X-ray for BGA solder joints, WWAN RF integrity check")
-  )
-
-  ;; ===========================
-  ;; THT Assembly
-  ;; ===========================
-  (PROCESS THT_LINE
-    (Machines "Ersa selective soldering")
-    (Steps
-      (Step1 "Insert DC barrel jack, USB-C PD ports")
-      (Step2 "Mount SD Express slot, Blu-ray SATA drive")
-      (Step3 "Install Amphenol audio jack, mechanical connectors")
-      (Step4 "Solder WWAN antenna connectors and RF shielding")
-    )
-    (Validation "Flying probe test, continuity validation, RF impedance matching")
-  )
-
-  ;; ===========================
-  ;; Mechanical Integration
-  ;; ===========================
-  (PROCESS CNC_MACHINING
-    (Machines "DMG Mori 5-axis milling, Trumpf TruLaser DXF cutting")
-    (Materials "Aerospace Aluminum 7075-T6, Titanium Ti-6Al-4V, Copper alloy inserts, Graphene battery housing")
-    (Steps
-      (Step1 "Mill chassis base and lid with ±0.05mm tolerance")
-      (Step2 "Laser cut venting and port openings")
-      (Step3 "Install titanium hinges rated 50,000 cycles")
-      (Step4 "Fit copper alloy thermal inserts under CPU/GPU/NPU zones")
-      (Step5 "Machine cavity for graphene 150 Wh/kg battery pack")
-      (Step6 "CNC cutout for Nano-SIM slot with dust shield")
-    )
-    (Validation "Dimensional inspection, vibration/shock compliance MIL-STD-810G, endurance validation for 30+ hours")
-  )
-
-  ;; ===========================
-  ;; Coatings & Shielding
-  ;; ===========================
-  (PROCESS SURFACE_TREATMENT
-    (Steps
-      (Step1 "Apply anodized aluminum coating for scratch resistance")
-      (Step2 "Apply PVD coating for wear protection")
-      (Step3 "Apply conformal PCB coating for moisture/ESD shielding")
-      (Step4 "Add copper pour shielding for PCIe lanes and WWAN RF paths")
-      (Step5 "Install ferrite beads and ESD diodes on power rails and ports")
-    )
-    (Validation "Humidity chamber 85% RH, ESD discharge compliance IEC61000-4-2, WWAN RF shielding validation")
-  )
-
-  ;; ===========================
-  ;; Final Assembly
-  ;; ===========================
-  (PROCESS FINAL_ASSEMBLY
-    (Steps
-      (Step1 "Integrate MicroLED display, keyboard, trackpad")
-      (Step2 "Install graphene solid-state battery pack and CMOS battery")
-      (Step3 "Apply liquid metal TIM and mount graphene vapor chamber")
-      (Step4 "Install Dyson ionic blower")
-      (Step5 "Install WWAN M.2 3052 module, Nano-SIM cage, and antenna connectors")
-      (Step6 "Perform full system validation: thermal cycling, OS boot tests, WWAN multi-active profile provisioning")
-    )
-    (Validation "Windows 11 Enterprise, Linux, BSD, Solaris, ESXi compatibility tests, secure boot chain validation, IMS/VoLTE/VoNR comms check")
-  )
-)
+%PDF-1.7
+1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
+2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj
+3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R >> endobj
+4 0 obj << /Length 380 >> stream
+BT
+/F1 16 Tf 50 790 Td (AEROSPACE EXTREME LAPTOP ASSEMBLY BLUEPRINT) Tj
+/F1 10 Tf 50 760 Td (Model Build: v2.9-HIGHEST - Monolithic Aluminum 7075-T6 Unibody & Titanium Ti-6Al-4V Hinges) Tj
+/F1 10 Tf 50 730 Td (Torque Matrix: M2.0 = 0.25 N*m +/-0.02 | M2.5 = 0.45 N*m +/-0.03 | Hinge Ti = 1.40 N*m +/-0.05) Tj
+/F1 10 Tf 50 700 Td (Cavity Specs: Graphene VC 120x80x2.1mm | QuantumScape Battery 150x100x5.2mm) Tj
+/F1 10 Tf 50 670 Td (Blower Array: 3x Large 80mm + 3x Medium 60mm + 1x Ionic Micro Bladeless Matrix) Tj
+/F1 10 Tf 50 640 Td (RF Isolation: 4x Discrete Kill Switches WLAN/WWAN/BT/NFC wired to non-maskable EC interrupts) Tj
+/F1 10 Tf 50 610 Td (Biometrics: Goodix 508 DPI Sapphire Sensor mated to ARM TrustZone enclave directly) Tj
+/F1 10 Tf 50 580 Td (Quality Standard: IPC-A-610 Class 3 High Reliability Aerospace Electronic Enclosure) Tj
+ET
+endstream endobj
+xref
+0 5
+0000000000 65535 f 
+0000000010 00000 n 
+0000000060 00000 n 
+0000000115 00000 n 
+0000000212 00000 n 
+trailer << /Root 1 0 R /Size 5 >>
+startxref
+645
+%%EOF
