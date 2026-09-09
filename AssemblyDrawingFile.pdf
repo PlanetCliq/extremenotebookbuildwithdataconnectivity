@@ -2,16 +2,17 @@
 1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
 2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj
 3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R >> endobj
-4 0 obj << /Length 380 >> stream
+4 0 obj << /Length 485 >> stream
 BT
 /F1 16 Tf 50 790 Td (AEROSPACE EXTREME LAPTOP ASSEMBLY BLUEPRINT) Tj
 /F1 10 Tf 50 760 Td (Model Build: v2.9-HIGHEST - Monolithic Aluminum 7075-T6 Unibody & Titanium Ti-6Al-4V Hinges) Tj
 /F1 10 Tf 50 730 Td (Torque Matrix: M2.0 = 0.25 N*m +/-0.02 | M2.5 = 0.45 N*m +/-0.03 | Hinge Ti = 1.40 N*m +/-0.05) Tj
 /F1 10 Tf 50 700 Td (Cavity Specs: Graphene VC 120x80x2.1mm | QuantumScape Battery 150x100x5.2mm) Tj
 /F1 10 Tf 50 670 Td (Blower Array: 3x Large 80mm + 3x Medium 60mm + 1x Ionic Micro Bladeless Matrix) Tj
-/F1 10 Tf 50 640 Td (RF Isolation: 4x Discrete Kill Switches WLAN/WWAN/BT/NFC wired to non-maskable EC interrupts) Tj
-/F1 10 Tf 50 610 Td (Biometrics: Goodix 508 DPI Sapphire Sensor mated to ARM TrustZone enclave directly) Tj
-/F1 10 Tf 50 580 Td (Quality Standard: IPC-A-610 Class 3 High Reliability Aerospace Electronic Enclosure) Tj
+/F1 10 Tf 50 640 Td (I/O Array: Cat 8 Ethernet (40Gbps), Telephone, Fax, x1 USB 2.0, x2 USB 3.2, x2 USB 4) Tj
+/F1 10 Tf 50 610 Td (RF Isolation: 4x Discrete Kill Switches WLAN/WWAN/BT/NFC wired to non-maskable EC interrupts) Tj
+/F1 10 Tf 50 580 Td (Biometrics: Goodix 508 DPI Sapphire Sensor mated to ARM TrustZone enclave directly) Tj
+/F1 10 Tf 50 550 Td (Quality Standard: IPC-A-610 Class 3 High Reliability Aerospace Electronic Enclosure) Tj
 ET
 endstream endobj
 xref
@@ -23,5 +24,5 @@ xref
 0000000212 00000 n 
 trailer << /Root 1 0 R /Size 5 >>
 startxref
-645
+750
 %%EOF
