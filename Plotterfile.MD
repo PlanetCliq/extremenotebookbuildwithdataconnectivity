@@ -1,3 +1,5 @@
+```
+
 (EXPERT_MASTER_MANUFACTURING_BLUEPRINT
   (DRAWING_NUMBER "DWG-AERO-2026-BOM29-HIGHEST")
   (REVISION "2.9-HIGHEST")
@@ -306,3 +308,4 @@
     (NOTE_8 "Statutory and sustainability adherence confirmed: TCO Certified Gen 10 (Dec 2024 Criteria), EPEAT Gold 2024, UL ECVP 2809-2 (recycled cobalt ≥82.9%), MIL-STD-810G, FIPS 140-3 Level 3, and TRAI/DoT MTCTE.")
   )
 )
+```
