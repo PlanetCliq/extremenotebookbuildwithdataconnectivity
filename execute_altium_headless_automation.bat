@@ -2,6 +2,7 @@
 REM ==============================================================================
 REM Altium Designer Headless CLI Automation Pipeline
 REM Target Platform: Extreme Performance Laptop (v2.9-HIGHEST Master BOM)
+REM Consolidated Scope: Cat 8 Ethernet, Telephone/Fax, USB 2.0/3.2/4 Support
 REM ==============================================================================
 
 set ALTIUM_EXE="C:\Program Files\Altium\AD24\X2.EXE"
@@ -21,7 +22,7 @@ echo [+] Step 1: Launching Project %PRJ_PATH%
 echo [+] Step 2: Executing Auto-Placement, Rule Injection, and Rat's-Nest Alignment...
 %ALTIUM_EXE% -R %SCRIPT_PATH% -P %PRJ_PATH% AutoPlaceAndLockAllBOMComponents
 
-echo [+] Step 3: Color-coding Rat's-Nest Connection Lines...
+echo [+] Step 3: Color-coding Rat's-Nest Connection Lines (Including Cat 8, USB & Telecom Subsystems)...
 %ALTIUM_EXE% -R "%CD%\Rat_Nets_Display_Manager.pas" -P %PRJ_PATH% ConfigureSubsystemRatNets
 
 echo ==============================================================================
