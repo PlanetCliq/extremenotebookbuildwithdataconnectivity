@@ -40,6 +40,11 @@
         "tb5_controller.sys (Intel TB5-IC-80GBPS Controller 80Gbps/120Gbps), "
         "qc_fastconnect.sys (Qualcomm FastConnect 7900 Wi-Fi 7 / BT 5.4 / UWB), "
         "qcom_sdx90_wwan.sys (Qualcomm Snapdragon X90 5G NR Baseband Modem), "
+        "cat8_ethernet.sys (Amphenol Cat 8 40Gbps Shielded Ethernet Driver), "
+        "conexant_tel_fax.sys (Conexant RJ11 Telephone & Fax Modem Driver), "
+        "usb2_xhci.sys (x1 USB 2.0 Host Controller Driver), "
+        "usb32_gen2x2.sys (x2 USB 3.2 Gen 2x2 Controller Drivers), "
+        "usb4_v2_host.sys (x2 USB 4 Host Router Drivers), "
         "ess9039pro_thx_dsp.sys (ESS Sabre ES9039PRO 32-Bit/768kHz + THX AAA-888 + Dirac Live), "
         "goodix_sapphire_fp.sys (Goodix 508 DPI Sapphire Match-On-Chip Biometric Driver), "
         "universal_ai_key.sys (Alps Alpine Dedicated Universal AI Hotkey Dispatcher)"
@@ -56,6 +61,8 @@
       (PRELOADED_DRIVERS
         "arista_qsfp400g.sys (Arista QSFP-DD 400G Optical RoCEv2 / RDMA Driver), "
         "amphenol_cat8.sys (Amphenol Cat8 RJ45 40Gbps Low-Latency Network Driver), "
+        "conexant_tel_fax.sys (Conexant RJ11 Telephone & Fax Modem Driver), "
+        "usb4_v2_host.sys (USB 4 Host Router and Port Telemetry Monitor), "
         "vicor_pi3749.sys (Vicor 48V-to-12V Power Telemetry Monitor), "
         "quantumscape_bms.sys (QuantumScape 480Wh/kg Solid-State Battery SMBus Monitor)"
       )
@@ -73,6 +80,10 @@
         "intel_ivpu_tops45.ko (Intel TOPS45 NPU OpenVINO / ONNX runtime driver), "
         "ath12k_fastconnect.ko (Qualcomm FastConnect 7900 Wi-Fi 7 MLO & Bluetooth 5.4), "
         "qmi_wwan_sdx90.ko (Qualcomm Snapdragon X90 5G NR Baseband QMI Driver), "
+        "cat8_ethernet.ko (Amphenol Cat 8 40Gbps Ethernet Driver), "
+        "cdc_acm_telephone_fax.ko (Conexant RJ11 Telephone & Fax TTY Driver), "
+        "usbcore_xhci_hcd.ko (x1 USB 2.0 Host Controller Driver), "
+        "usb4_host.ko (x2 USB 3.2 Gen 2x2 and x2 USB 4 Host Router Drivers), "
         "thunderbolt5.ko (Thunderbolt 5 / USB4 v2 Host Controller), "
         "snd-soc-dirac-ess9039.ko (ALSA ASoC ESS Sabre ES9039PRO & Dual Crystek Clock Driver), "
         "goodix_fp_tee.ko (Goodix Sapphire Match-On-Chip Driver via ARM TrustZone TEE), "
@@ -91,7 +102,7 @@
       (FILESYSTEM "XFS with Integrity Metadata and DM-Crypt Hardware Binding")
       (PRELOADED_MODULES
         "PCIe Gen5 backdrill low-latency kernel, Arista QSFP-DD 400G high-throughput network stack, "
-        "OpenTitan PKCS#11 cryptographic provider engine"
+        "Amphenol Cat 8 network driver, OpenTitan PKCS#11 cryptographic provider engine"
       )
       (SECURITY_CONFIG "SELinux Multi-Level Security (MLS) Hardened, FIPS 140-3 Kernel Mode Enforced")
     )
@@ -103,7 +114,8 @@
       (FILESYSTEM "Btrfs with subvolume layout and zstd transparent compression")
       (PRELOADED_MODULES
         "Wayland pure compositor, PipeWire with Dirac Live room correction impulse filters, "
-        "Qualcomm FastConnect 7900 Ultra-Wideband (UWB) spatial tracking stack"
+        "Qualcomm FastConnect 7900 Ultra-Wideband (UWB) spatial tracking stack, "
+        "USB 3.2/4 high-speed interface device handlers"
       )
     )
 
@@ -112,7 +124,7 @@
       (OS_NAME "SUSE Linux Enterprise Desktop 15 SP5")
       (TARGET_STORAGE "Samsung MZVL24T0HBLU-G5 NVMe Gen5")
       (FILESYSTEM "Btrfs on Root with Snapper automatic rollback integration on boot failure")
-      (PRELOADED_MODULES "Storage Spaces Direct, QSFP-DD 400G RoCEv2, Qualcomm SDX90 QMI stack")
+      (PRELOADED_MODULES "Storage Spaces Direct, QSFP-DD 400G RoCEv2, Cat 8 Ethernet, Qualcomm SDX90 QMI stack")
     )
 
     ;; --- Tier 3: UNIX, BSD & Bare-Metal Hypervisors ---
@@ -123,6 +135,7 @@
       (FILESYSTEM "OpenZFS with Native ZFS Dataset Encryption (AES-256-GCM)")
       (PRELOADED_DRIVERS
         "NVMe Gen5 CAM driver, bhyve hypervisor GPU passthrough for NVIDIA Ada5090M, "
+        "Cat 8 Ethernet driver, USB 2.0/3.2/4 xHCI stack, "
         "Crystek audio master clock selector and ESS Sabre ES9039PRO sound engine"
       )
     )
@@ -134,7 +147,7 @@
       (FILESYSTEM "ZFS Boot Pool (rpool)")
       (PRELOADED_DRIVERS
         "DTrace hardware telemetry instrumentation, SMF service manifests for Dyson ionic blower monitoring, "
-        "QSFP-DD 400G network interface controllers"
+        "QSFP-DD 400G network interface controllers, Cat 8 network stack"
       )
     )
 
@@ -145,7 +158,8 @@
       (FILESYSTEM "ZFS Root with Proxmox VE Storage Engine")
       (PRELOADED_DRIVERS
         "KVM VFIO PCIe Gen5 passthrough for NVIDIA Ada5090M, Intel TOPS45 NPU, "
-        "Qualcomm SDX90 5G Baseband, SR-IOV 400G network virtual functions, "
+        "Qualcomm SDX90 5G Baseband, Cat 8 Ethernet, SR-IOV 400G network virtual functions, "
+        "USB 2.0/3.2/4 controller passthrough, "
         "Alps Alpine dedicated Universal AI Hotkey evdev passthrough"
       )
     )
@@ -157,7 +171,8 @@
       (FILESYSTEM "VMFS 6.0 Enterprise Virtual Storage Pool")
       (PRELOADED_DRIVERS
         "vSphere Native NVMe Driver, NVIDIA Virtual GPU (vGPU) Manager vibs, "
-        "Arista 400G QSFP-DD high-throughput network adapters"
+        "Arista 400G QSFP-DD high-throughput network adapters, "
+        "Amphenol Cat 8 network adapter vibs"
       )
     )
   )
