@@ -1,100 +1,72 @@
 (EXPERT_MASTER_OS_IMAGES
-  (VERSION 2.6)
-  (TITLE "Extreme Performance Laptop - Aerospace Grade OS Images (X75 Edition)")
+  (VERSION 2.9-HIGHEST)
+  (TITLE "Extreme Performance Laptop - Aerospace Grade OS Images & Boot Manifest")
 
-  ;; ===========================
-  ;; Windows Builds
-  ;; ===========================
-  (WINDOWS_ISO
-    (File "win11_enterprise.iso")
-    (OS "Windows 11 Enterprise")
-    (Features "UEFI Secure Boot, Pluton integration, TPM validation, WWAN provisioning")
-    (Drivers "GPU, NPU, Thunderbolt5, WiFi7, NVMe Gen5, WWAN X75 preloaded")
-    (Productivity "Office, AutoCAD, Adobe Creative Suite, .NET Core, VS Code, QMI SDK")
-    (WWAN "20 stored profiles, 1–5 active, IMS/VoLTE/VoNR, USSD, APN/QoS")
-  )
-  (WINDOWS_SERVER_ISO
-    (File "win_server2025.iso")
-    (OS "Windows Server 2022/2025")
-    (Features "Hyper-V, Active Directory, Pluton secure enclave, WWAN integration")
-    (Drivers "Storage, QSFP-DD networking, Thunderbolt5, WWAN X75")
+  (SIGNING_SPECIFICATION
+    (HASH_ALGORITHM "SHA-512")
+    (SIGNATURE_STANDARD "RSA-4096 / ECC-P384 per NIST SP800-193 standards")
+    (SECURE_BOOT_KEYS "Microsoft Windows Production PCA 2011, Canonical Ltd. Master CA, Red Hat Keyring")
   )
 
-  ;; ===========================
-  ;; Linux Builds
-  ;; ===========================
-  (UBUNTU_ISO
-    (File "ubuntu_24.04.iso")
-    (OS "Ubuntu 22.04/24.04 LTS")
-    (Features "Systemd, Snap, AppArmor, WWAN kernel integration")
-    (Drivers "GPU CUDA, NPU ONNX, WiFi7, NVMe Gen5, WWAN X75 kernel module")
-    (Provisioning "Docker, Kubernetes, VS Code, QMI SDK for APN/QoS")
-  )
-  (REDHAT_ISO
-    (File "rhel_ubi9.iso")
-    (OS "Red Hat UBI8/UBI9")
-    (Features "SELinux, Podman, OpenShift ready, WWAN integration")
-    (Drivers "PCIe Gen5, QSFP-DD, Thunderbolt5, WWAN X75")
-  )
-  (ROCKY_ISO
-    (File "rocky_2026.iso")
-    (OS "Rocky/AlmaLinux 2026")
-    (Features "Enterprise stability, kernel 6.x, WWAN stack")
-    (Drivers "GPU/NPU, NVMe, WiFi7, WWAN X75")
-  )
-  (FEDORA_ISO
-    (File "fedora_2026.iso")
-    (OS "Fedora 2026")
-    (Features "Wayland, PipeWire, SELinux, WWAN integration")
-    (Drivers "GPU Vulkan, DSP audio stack, WWAN X75")
-  )
-  (SUSE_ISO
-    (File "suse_15sp5.iso")
-    (OS "SUSE Linux Enterprise 15 SP5")
-    (Features "YaST, Btrfs, Snapper rollback, WWAN integration")
-    (Drivers "Storage, QSFP-DD networking, WWAN X75")
+  (CATALOG
+    (IMAGE WIN11_ENTERPRISE_AERO
+      (FILE_NAME "win11_enterprise_24h2_aero.iso")
+      (OS_NAME "Windows 11 Enterprise 64-Bit Workstation Edition (Build 26100+)")
+      (PRELOADED_DRIVERS
+        "NVIDIA Ada5090M DCH WHQL, Intel TOPS45 NPU Driver, Intel TB5 Controller, "
+        "Qualcomm FastConnect 7900 Wi-Fi 7 / BT 5.4 / UWB, Qualcomm SDX90 Cellular QMI Driver, "
+        "ESS Sabre ES9039PRO 32-Bit Audio Driver, Goodix Sapphire Match-On-Chip Fingerprint Driver, "
+        "Alps Alpine Dedicated Universal AI Hotkey Dispatcher Service"
+      )
+      (SECURITY_STATE "UEFI Secure Boot, Pluton Co-Processor, VBS/HVCI Enabled, BitLocker XTS-AES-256")
+      (AI_HOTKEY_HOOK "Direct ACPI event mapped to Gemini Workspace, Claude, Grok, and local ONNX models")
+    )
+
+    (IMAGE WIN_SERVER_2025_AERO
+      (FILE_NAME "win_server2025_datacenter_aero.iso")
+      (OS_NAME "Windows Server 2025 Datacenter Edition")
+      (PRELOADED_DRIVERS "Arista QSFP-DD 400G RDMA RoCEv2 Drivers, Storage Spaces Direct, NVMe Gen5 RAID")
+      (SECURITY_STATE "Shielded VM Host, TPM 2.0 Attestation, Guarded Fabric Validation")
+    )
+
+    (IMAGE UBUNTU_2404_LTS_AERO
+      (FILE_NAME "ubuntu_24.04_lts_aero_kernel6.8.iso")
+      (OS_NAME "Ubuntu 24.04 LTS (Noble Numbat) Custom Aerospace Respin")
+      (PRELOADED_MODULES
+        "nvidia-open-dkms, ath12k_fastconnect, intel_ivpu_tops45, thunderbolt5, qmi_wwan_sdx90, "
+        "snd-soc-dirac-ess9039, thx-aaa888-amp, goodix_fp_tee, extreme_ai_switch"
+      )
+      (PROVISIONING "Docker, Containerd, PyTorch 2.4+CUDA 12.6, ROS2 Iron, QMI Carrier Provisioning SDK")
+    )
+
+    (IMAGE RHEL_UBI9_AERO
+      (FILE_NAME "rhel_ubi9_enterprise_workstation.iso")
+      (OS_NAME "Red Hat Enterprise Linux 9.4 (UBI9 Compatible)")
+      (PRELOADED_MODULES "PCIe Gen5 low-latency stripline kernel, QSFP-DD 400G high-throughput network stack")
+      (SECURITY_STATE "SELinux MLS Hardened, FIPS 140-3 Kernel Mode Enforced, OpenTitan PKCS#11 Provider")
+    )
+
+    (IMAGE FREEBSD_14_AERO
+      (FILE_NAME "freebsd_14_release_zfs.img")
+      (OS_NAME "FreeBSD 14.1-RELEASE-AERO")
+      (PRELOADED_DRIVERS "OpenZFS native encryption, NVMe Gen5 CAM driver, bhyve GPU passthrough")
+    )
+
+    (IMAGE PROXMOX_VE8_AERO
+      (FILE_NAME "proxmox_ve_8.2_aero.iso")
+      (OS_NAME "Proxmox Virtual Environment 8.2 (Debian 12 Bookworm Base)")
+      (PRELOADED_DRIVERS "ZFS on root, KVM SR-IOV for QSFP-DD 400G, IOMMU grouping for Ada5090M & NPU")
+    )
+
+    (IMAGE VMWARE_ESXI8_AERO
+      (FILE_NAME "esxi_8.0u2_custom_aero.iso")
+      (OS_NAME "VMware ESXi 8.0 Update 2 Custom ISO")
+      (PRELOADED_DRIVERS "vSphere Native NVMe Driver, NVIDIA Virtual GPU (vGPU) Manager vibs")
+    )
   )
 
-  ;; ===========================
-  ;; BSD & Solaris Builds
-  ;; ===========================
-  (FREEBSD_ISO
-    (File "freebsd_14.iso")
-    (OS "FreeBSD 14")
-    (Features "ZFS, Jails, PF firewall, WWAN stack")
-    (Drivers "NVMe Gen5, QSFP-DD, Audio stack, WWAN X75")
-  )
-  (SOLARIS_ISO
-    (File "solaris_11.iso")
-    (OS "Solaris 11")
-    (Features "SMF, ZFS, DTrace, WWAN integration")
-    (Drivers "PCIe Gen5, GPU/NPU integration, WWAN X75")
-  )
-
-  ;; ===========================
-  ;; Virtualization Builds
-  ;; ===========================
-  (PROXMOX_ISO
-    (File "proxmox_8.iso")
-    (OS "Proxmox VE 8")
-    (Features "KVM, LXC, Ceph integration, WWAN provisioning")
-    (Drivers "GPU passthrough, NVMe storage, WWAN X75")
-  )
-  (VMWARE_ESXI_ISO
-    (File "esxi_8.iso")
-    (OS "VMware ESXi 7/8")
-    (Features "vSphere, VMX config support, WWAN integration")
-    (Drivers "GPU/NPU passthrough, QSFP-DD networking, WWAN X75")
-  )
-
-  ;; ===========================
-  ;; Image Packaging
-  ;; ===========================
-  (PACKAGING
-    (Format ".ISO and .IMG")
-    (Boot "UEFI Secure Boot enabled")
-    (Signing "SHA-512, RSA-4096, Pluton keychain, OpenTitan RoT")
-    (Provisioning "Preloaded drivers, automated install scripts, WWAN APN/QoS provisioning")
-    (Recovery "Dual image fallback, rollback protection, WWAN profile persistence")
+  (RECOVERY_FALLBACK
+    (METHOD "Hardware A/B Dual SPI Partition Switching via Embedded Controller Watchdog")
+    (RULE "If boot sequence fails 3 consecutive times, EC forces Flash B SPI and boots Golden Safe Environment")
   )
 )
