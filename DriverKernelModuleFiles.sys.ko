@@ -27,6 +27,36 @@
       (FEATURES "MBIM 3.0 protocol, QMI multiplexing, GSMA-SGP.32 dual-SIM/eSIM switching, VoNR audio sink")
       (SIGNING "Microsoft WHQL Certified")
     )
+    (DRIVER_ETHERNET_CAT8
+      (FILE "cat8_ethernet.sys")
+      (COMPONENT "Amphenol Cat 8 40Gbps Shielded Ethernet Port")
+      (FEATURES "40GBASE-T, jumbo frames up to 16KB, advanced energy-efficient Ethernet, hardware offloading")
+      (SIGNING "Microsoft WHQL Certified")
+    )
+    (DRIVER_TELEPHONE_FAX
+      (FILE "conexant_tel_fax.sys")
+      (COMPONENT "Conexant RJ11 Telephone & Fax Modem Ports")
+      (FEATURES "V.92 56Kbps data/fax protocol, 1500V galvanic isolation handling, Class 1/2.0 fax stack")
+      (SIGNING "Microsoft WHQL Certified")
+    )
+    (DRIVER_USB2
+      (FILE "usb2_xhci.sys")
+      (COMPONENT "x1 USB 2.0 Host Controller")
+      (FEATURES "EHCI/xHCI compliance, legacy device support, low-power suspend states")
+      (SIGNING "Microsoft WHQL Certified")
+    )
+    (DRIVER_USB32
+      (FILE "usb32_gen2x2.sys")
+      (COMPONENT "x2 USB 3.2 Gen 2x2 Controllers")
+      (FEATURES "Dual-lane 20Gbps operation, SuperSpeed Plus streaming, UASP protocol acceleration")
+      (SIGNING "Microsoft WHQL Certified")
+    )
+    (DRIVER_USB4
+      (FILE "usb4_v2_host.sys")
+      (COMPONENT "x2 USB 4 Host Routers")
+      (FEATURES "USB4 v2 protocol, multi-protocol packet tunneling (PCIe, DisplayPort, USB), power delivery governance")
+      (SIGNING "Microsoft WHQL Certified")
+    )
     (DRIVER_THUNDERBOLT5
       (FILE "tb5_controller.sys")
       (COMPONENT "Intel TB5-IC-80GBPS Controller")
@@ -76,6 +106,30 @@
       (FILE "qmi_wwan_sdx90.ko")
       (COMPONENT "Qualcomm Snapdragon X90 5G NR Interface")
       (FEATURES "cdc-wdm passthrough, multiple PDN context multiplexing, raw-ip mode")
+      (SIGNING "SHA-512 MOK Enforced")
+    )
+    (MODULE_ETHERNET_CAT8
+      (FILE "cat8_ethernet.ko")
+      (COMPONENT "Amphenol Cat 8 Ethernet Driver")
+      (FEATURES "igc / phylink network driver stack, 40GBASE-T multi-gigabit speeds")
+      (SIGNING "SHA-512 MOK Enforced")
+    )
+    (MODULE_TELEPHONE_FAX
+      (FILE "cdc_acm_telephone_fax.ko")
+      (COMPONENT "Conexant RJ11 Modem & Fax Driver")
+      (FEATURES "TTY ACM serial line discipline, HylaFAX backend compatibility")
+      (SIGNING "SHA-512 MOK Enforced")
+    )
+    (MODULE_USB2
+      (FILE "usbcore_xhci_hcd.ko")
+      (COMPONENT "USB 2.0 Host Controller Driver")
+      (FEATURES "Standard Linux USB core and xHCI host controller interface")
+      (SIGNING "SHA-512 MOK Enforced")
+    )
+    (MODULE_USB32_USB4
+      (FILE "usb4_host.ko")
+      (COMPONENT "USB 3.2 & USB 4 Host Router Drivers")
+      (FEATURES "Linux USB4 subsystem fabric, thunderbolt router management, lane bonding")
       (SIGNING "SHA-512 MOK Enforced")
     )
     (MODULE_THUNDERBOLT5
