@@ -1,85 +1,106 @@
-(EXPERT_MASTER_FIRMWARE
-  (VERSION 2.6)
-  (TITLE "Extreme Performance Laptop - Aerospace Grade Firmware (X75 Edition)")
+(EXPERT_MASTER_FIRMWARE_SPECIFICATION
+  (VERSION 2.9-HIGHEST)
+  (TITLE "Extreme Performance Laptop - Aerospace Grade Firmware Binary Manifest")
 
-  ;; ===========================
-  ;; Embedded Controller (EC)
-  ;; ===========================
-  (EC_FIRMWARE
-    (File "ec_controller.hex")
-    (Component "Embedded Controller for power, keyboard, trackpad")
-    (Functions
-      (Fn1 "Battery monitoring via SMBus, graphene solid-state pack endurance validation")
-      (Fn2 "Fan control for Dyson ionic blower, PWM regulation")
-      (Fn3 "Thermal sensor polling for graphene vapor chamber")
-      (Fn4 "RTC synchronization with CMOS battery")
+  (FIRMWARE_EC
+    (FILE "ec_controller.hex")
+    (TARGET_MCU "Microchip MEC172x 32-Bit ARM Cortex-M4F Embedded Controller")
+    (BASE_ADDRESS "0x00000000")
+    (IMAGE_SIZE_BYTES 524288) ;; 512KB Code Flash
+    (ROUTINES
+      (FN1 "Active SMBus v3.2 polling of QuantumScape Graphene Solid-State Battery (Endurance >30hrs)")
+      (FN2 "Dynamic closed-loop PWM fan control for triple large, triple medium & ionic blowers (<28dBA)")
+      (FN3 "Discrete hardware kill-switch non-maskable interrupt (NMI) gating: WLAN, WWAN, BT, NFC")
+      (FN4 "Dedicated Universal AI Hotkey debounce and ACPI host interrupt dispatch in <5ms")
+      (FN5 "Alps Alpine deep-press 1.5mm travel power button debounce filter and power sequencing")
+      (FN6 "CMOS battery VL2330 trickle charge and real-time clock integrity retention")
     )
-    (Signed "SHA-512, RSA-4096, OpenTitan root-of-trust, Pluton enclave")
+    (SECURITY "Signed with SHA-512, RSA-4096, and OpenTitan RoT cryptographic certificate")
   )
 
-  ;; ===========================
-  ;; FPGA Bitstreams
-  ;; ===========================
-  (FPGA_FIRMWARE
-    (File "dirac_dsp.elf")
-    (Component "Dirac Live DSP FPGA")
-    (Functions
-      (Fn1 "Audio signal processing, THD+N ≤-120dB")
-      (Fn2 "Dynamic EQ and room correction")
-      (Fn3 "I2S bus integration with ESS DAC")
+  (FIRMWARE_FPGA_DSP
+    (FILE "dirac_dsp.elf")
+    (TARGET_FPGA "Lattice ECP5-5G Ultra-Low Power SerDes FPGA")
+    (BASE_ADDRESS "0x00040000")
+    (IMAGE_SIZE_BYTES 1048576) ;; 1MB Bitstream
+    (FUNCTIONS
+      (ROUTINE "Dirac Live active room correction and impulse-response finite filter calculations")
+      (ROUTINE "Dynamic clock multiplexing: Crystek 45.1584MHz vs 49.1520MHz selector (<82fs jitter)")
+      (ROUTINE "Active phase-matched sub-bass transducer low-pass separation filter (35Hz-350Hz)")
+      (ROUTINE "THD+N minimization feedback loop keeping output distortion below -120dB")
     )
-    (Signed "SHA-512, TPM validation, secure FPGA loader")
+    (SECURITY "Encrypted AES-256 bitstream verified by TPM 2.0 at power-on")
   )
 
-  ;; ===========================
-  ;; GPU/NPU Microcode
-  ;; ===========================
-  (GPU_MICROCODE
-    (File "nvidia_ada5090.elf")
-    (Component "NVIDIA Ada5090M GPU")
-    (Functions
-      (Fn1 "CUDA/TensorRT initialization")
-      (Fn2 "HBM3 stack memory controller setup")
-      (Fn3 "PCIe Gen5 lane training")
+  (FIRMWARE_GPU
+    (FILE "nvidia_ada5090.elf")
+    (TARGET_PROCESSOR "NVIDIA RTX Ada5090M GPU Engine")
+    (IMAGE_SIZE_BYTES 4194304) ;; 4MB Microcode
+    (FUNCTIONS
+      (INIT "PCIe Gen5 x16 PHY link equalization and link-state negotiation")
+      (INIT "Samsung HBM3 1024-bit stacked bus controller timings and flux calibration")
+      (INIT "Dynamic Thermal Throttling boundary clamp: Junction max <= 85 deg C sustained")
     )
-    (Signed "NVIDIA secure chain, Pluton enclave, ECC-P384 certificates")
-  )
-  (NPU_MICROCODE
-    (File "intel_npu.hex")
-    (Component "Intel TOPS45 NPU")
-    (Functions
-      (Fn1 "ONNX runtime acceleration")
-      (Fn2 "AI inference optimization")
-      (Fn3 "Secure enclave integration")
-    )
-    (Signed "Intel secure chain, TPM validation, OpenTitan RoT")
+    (SECURITY "NVIDIA Production Root Key Signed, measured into TPM PCR 2")
   )
 
-  ;; ===========================
-  ;; WWAN Firmware
-  ;; ===========================
-  (WWAN_FIRMWARE
-    (File "snapdragon_x75.hex")
-    (Component "Qualcomm Snapdragon X75 WWAN M.2 3052 Key B")
-    (Functions
-      (Fn1 "Multi-active APN/QoS provisioning, 20 stored profiles, 1–5 active simultaneously")
-      (Fn2 "IMS/VoLTE/VoNR stack initialization")
-      (Fn3 "USSD and PDP context management")
-      (Fn4 "Secure SIM/eSIM LPA integration, GSMA-SGP.32 compliance")
+  (FIRMWARE_NPU
+    (FILE "intel_npu.hex")
+    (TARGET_PROCESSOR "Intel TOPS45 VPU / NPU Engine")
+    (IMAGE_SIZE_BYTES 2097152) ;; 2MB Microcode
+    (FUNCTIONS
+      (EXEC "Direct hardware execution engine for ONNX Runtime, Int8/FP16 quantization matrices")
+      (EXEC "Direct memory pipeline to unified DDR5X system memory without CPU host wake")
     )
-    (Signed "Qualcomm secure chain, ARM TrustZone, SHA-512 validation")
+    (SECURITY "Intel Silicon Manifest Signed, verified against TPM PCR 2")
   )
 
-  ;; ===========================
-  ;; Diagnostics & Recovery
-  ;; ===========================
-  (DIAGNOSTICS
-    (File "diag_tools.elf")
-    (Functions
-      (Fn1 "Thermal cycling validation, graphene battery endurance logs")
-      (Fn2 "Vibration/shock MIL-STD-810G compliance logs")
-      (Fn3 "Humidity chamber monitoring, WWAN RF impedance validation")
+  (FIRMWARE_FASTCONNECT
+    (FILE "fastconnect_7900.hex")
+    (TARGET_PROCESSOR "Qualcomm FastConnect 7900 Subsystem Core")
+    (IMAGE_SIZE_BYTES 8388608) ;; 8MB Microcode
+    (FUNCTIONS
+      (EXEC "Wi-Fi 7 Multi-Link Operation (MLO) packet scheduling across 5GHz and 6GHz bands")
+      (EXEC "Snapdragon Sound aptX Lossless bit-exact digital audio encoding engine")
+      (EXEC "Ultra-Wideband (UWB) centimeter-level radar ranging and channel sounding")
     )
-    (Recovery "Dual firmware image, automatic failover, WWAN profile persistence")
+    (SECURITY "Qualcomm Secure Boot signed, measured into TPM PCR 2")
+  )
+
+  (FIRMWARE_WWAN
+    (FILE "snapdragon_sdx90.hex")
+    (TARGET_PROCESSOR "Qualcomm Snapdragon X90 / X75 5G Baseband Processor")
+    (IMAGE_SIZE_BYTES 33554432) ;; 32MB Modem Firmware Image
+    (FUNCTIONS
+      (COMM "5G NR mmWave & Sub-6 RF beamforming array coordination across dual Molex antennas")
+      (COMM "Multi-active eSIM LPA management under GSMA-SGP.32 (20 stored / 5 active)")
+      (COMM "Carrier interoperability stack: IMS, VoLTE, VoNR, USSD, and concurrent multi-PDP context")
+      (COMM "Hardware kill-switch pin state monitor: Drops transmission in <50 microseconds on trip")
+    )
+    (SECURITY "Qualcomm Secure Boot v3.1 signed, ARM TrustZone cryptographically validated")
+  )
+
+  (FIRMWARE_FINGERPRINT
+    (FILE "goodix_gf3208.hex")
+    (TARGET_PROCESSOR "Goodix GF3208 Internal Cortex-M3 Secure Core")
+    (IMAGE_SIZE_BYTES 262144) ;; 256KB Secure Firmware
+    (FUNCTIONS
+      (SEC "Match-On-Chip template matching engine (508 DPI high-definition image processor)")
+      (SEC "Direct hardware-level encryption of template biometric database via AES-256-GCM")
+    )
+    (SECURITY "Signed by Goodix Aerospace Authority, bound to ARM-SE-TZ Secure Enclave")
+  )
+
+  (FIRMWARE_DIAGNOSTICS
+    (FILE "diag_tools.elf")
+    (TARGET_PROCESSOR "Universal UEFI / Bare-Metal Diagnostics Execution Framework")
+    (IMAGE_SIZE_BYTES 8388608) ;; 8MB Diagnostics Payload
+    (FUNCTIONS
+      (TEST "Thermal stress endurance: -40 deg C to +85 deg C telemetry logging")
+      (TEST "MIL-STD-810G vibration, shock & drop test mechanical sensor polling")
+      (TEST "Audio THD+N, SNR, and phase jitter verification across dual Crystek oscillators")
+      (TEST "Automated memory stress test: Quad-channel DDR5X and HBM3 stack pattern validation")
+    )
+    (RECOVERY_MODE "Stored in protected ROM partition; boots automatically if Flash A is corrupted")
   )
 )
