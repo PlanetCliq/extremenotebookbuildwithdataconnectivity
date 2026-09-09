@@ -1,93 +1,16 @@
-(EXPERT_MASTER_IGES
-  (VERSION 2.6)
-  (TITLE "Extreme Performance Laptop - Aerospace Grade IGES Model (X75 Edition)")
-
-  ;; ===========================
-  ;; Enclosure Geometry
-  ;; ===========================
-  (ENTITY CHASSIS_BASE
-    (Material "Aerospace Aluminum 7075-T6")
-    (Dimensions "360mm x 250mm x 18mm")
-    (Tolerance "±0.05mm holes, ±0.1mm enclosure fit")
-    (Features
-      (MountingHoles "M2.5, countersunk, 12 positions")
-      (VentSlots "2mm x 40mm, evenly spaced")
-      (BatteryPocket "150mm x 95mm x 10mm cavity for graphene 150 Wh/kg pack")
-      (WWAN_M2_Slot "3052 Key B, reinforced mount")
-      (NanoSIM_Cage "Spring-loaded, CNC cutout, 1.2mm tolerance")
-    )
-  )
-  (ENTITY CHASSIS_LID
-    (Material "Aerospace Aluminum 7075-T6")
-    (Dimensions "360mm x 250mm x 5mm")
-    (Features
-      (DisplayOpening "340mm x 220mm cutout")
-      (SpeakerGrill "1mm perforations, 60% open area")
-      (HingeMounts "Titanium Ti-6Al-4V, 50,000 cycle rating")
-      (AntennaChannels "WWAN RF routing, shielded grooves")
-    )
-  )
-
-  ;; ===========================
-  ;; Display Integration
-  ;; ===========================
-  (ENTITY DISPLAY_PANEL
-    (Component "AUO MicroLED UHD")
-    (Opening "340mm x 220mm")
-    (Mount "Custom LVDS connector, recessed bezel")
-    (Flux "50W dissipation, copper spreaders integrated")
-    (Compliance "EMI/ESD shielding, MIL-STD-810G vibration tolerance")
-  )
-
-  ;; ===========================
-  ;; Thermal Inserts
-  ;; ===========================
-  (ENTITY THERMAL_INSERTS
-    (Material "Copper alloy + Graphene vapor chamber")
-    (CPU_Pocket "40mm x 40mm x 2mm")
-    (GPU_Pocket "50mm x 50mm x 2mm")
-    (NPU_Pocket "35mm x 35mm x 2mm")
-    (SensorMounts "Ø2mm drill holes")
-    (DysonBlowerMount "Bladeless ionic blower, 25dBA noise")
-  )
-
-  ;; ===========================
-  ;; Ports & Slots
-  ;; ===========================
-  (ENTITY PORTS
-    (USB_PD "2x USB-C EPR 240W, chamfered cutouts")
-    (DC_Jack "Ø8mm barrel jack opening")
-    (SDExpress "24mm x 2.1mm slot, right edge")
-    (QSFP_DD "18mm x 14mm cage opening")
-    (BluRayDrive "128mm x 12.7mm slimline slot")
-    (WWAN_Antenna "Dual RF connectors, shielded path")
-  )
-
-  ;; ===========================
-  ;; Ergonomics
-  ;; ===========================
-  (ENTITY ERGONOMICS
-    (Keypad "Numeric, white backlight, no RGB")
-    (Trackpad "130x90mm glass, centered")
-    (PowerButton "Isolated near hinge axis")
-    (SurfaceFinish "Anodized aluminum + PVD coating")
-    (NanoSIM_Access "Accessible slot, CNC cutout with dust shield")
-  )
-
-  ;; ===========================
-  ;; WWAN Integration
-  ;; ===========================
-  (ENTITY WWAN_X75
-    (Component "Qualcomm Snapdragon X75")
-    (Slot "M.2 3052 Key B")
-    (Profiles "20 stored, 1–5 active simultaneously")
-    (NanoSIM "Physical slot, hardware backed")
-    (LPA "Local Profile Assistant, GSMA-SGP.32 compliant")
-    (Voice "Enabled")
-    (SMS "Enabled")
-    (USSD "Enabled")
-    (APN_QoS "Multi-carrier, max throughput 256 Mbps UL/DL")
-    (PDP_Contexts "IPv4v6, multi-bearer, stable comms")
-    (Security "UEFI Secure Boot, Intel Boot Guard, ARM TrustZone, Microsoft Pluton, TPM, HSM, fTPM, OpenTitan RoT")
-  )
-)
+S      1                                                                        G      1
+1H,,1H;,4HNONE,4HNONE,16,38,6,38,15,,1.0D0,2,2HMM,1,0.25D0,15H20260910.000000,G      2
+0.0001D0,1000.D0,13HDravaspShroff,35HAerospaceExtremePerformanceLaptop,11,0;    G      3
+100      1       0       1       0       0       0       000000001D      1
+100      0       0       1       0                               0D      2
+102      2       0       1       0       0       0       000000001D      3
+102      0       0       1       0                               0D      4
+110      3       0       1       0       0       0       000000001D      5
+110      0       0       1       0                               0D      6
+120      4       0       1       0       0       0       000000001D      7
+120      0       0       1       0                               0D      8
+100,0.,0.,0.,360.,250.,18.;                                              1P      1
+102,2,3,4;                                                               2P      2
+110,0.,0.,0.,360.,0.,0.;                                                 3P      3
+120,1,2,0.,0.,0.,0.,0.,1.;                                               4P      4
+S      1G      3D      8P      4                                         T      1
