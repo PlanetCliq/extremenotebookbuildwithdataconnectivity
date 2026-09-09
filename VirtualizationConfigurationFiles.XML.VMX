@@ -62,6 +62,25 @@
           <address domain='0x0000' bus='0x05' slot='0x00' function='0x0'/>
         </source>
       </hostdev>
+      <!-- Amphenol Cat 8 Ethernet Passthrough / SR-IOV Virtual Function -->
+      <hostdev mode='subsystem' type='pci' managed='yes'>
+        <source>
+          <address domain='0x0000' bus='0x06' slot='0x00' function='0x0'/>
+        </source>
+      </hostdev>
+      <!-- Conexant Telephone & Fax Modem Serial/USB Passthrough -->
+      <hostdev mode='subsystem' type='usb' managed='yes'>
+        <source>
+          <vendor id='0x0572'/>
+          <product id='0x1340'/>
+        </source>
+      </hostdev>
+      <!-- x1 USB 2.0 & x2 USB 3.2 / USB 4 Host Controller Passthrough -->
+      <hostdev mode='subsystem' type='pci' managed='yes'>
+        <source>
+          <address domain='0x0000' bus='0x07' slot='0x00' function='0x0'/>
+        </source>
+      </hostdev>
       <!-- Optical QSFP-DD 400G Port Uplink -->
       <interface type='bridge'>
         <source bridge='vmbr0'/>
@@ -80,7 +99,7 @@
   </domain>
 
   <!-- ===================================================================== -->
-  <!-- 2. VMware ESXi 8.0 VMX Configuration File (win11_enterprise.vmx)       -->
+  <!-- 2. VMware ESXi 8.0 VMX Configuration File (win11_enterprise.vmx)      -->
   <!-- ===================================================================== -->
   <vmware_vmx_profile filename="win11_enterprise.vmx">
 <![CDATA[
@@ -122,24 +141,33 @@ pciPassthru1.present = "TRUE"
 pciPassthru1.deviceId = "0x7851" # Qualcomm FastConnect 7900
 pciPassthru1.vendorId = "0x17cb"
 
-# Optical Networking via QSFP-DD 400G Port
+# Wired Networking & High-Speed I/O Interfaces
 ethernet0.present = "TRUE"
 ethernet0.virtualDev = "vmxnet3"
 ethernet0.networkName = "QSFP-DD-400G-VLAN-100"
 ethernet0.addressType = "generated"
+
+ethernet1.present = "TRUE"
+ethernet1.virtualDev = "e1000e"
+ethernet1.networkName = "CAT8-ETHERNET-40G"
+
+# Analog Telephony & Fax Modem Passthrough
+serial0.present = "TRUE"
+serial0.fileType = "device"
+serial0.fileName = "/dev/ttyACM0" # Conexant RJ11 Modem Bridge
+
+# USB 2.0, USB 3.2 & USB 4 Host Controllers
+usb_xhci.present = "TRUE"
+usb_xhci:0.present = "TRUE"
+usb_xhci:0.deviceType = "hid"
+usb_xhci:0.port = "1"
+usb_xhci:0.parent = "-1"
 
 # Sound & Studio Audio Interconnect
 sound.present = "TRUE"
 sound.virtualDev = "hdaudio"
 sound.fileName = "default"
 sound.autodetect = "TRUE"
-
-# Biometric Fingerprint Sensor USB Redirection
-usb_xhci.present = "TRUE"
-usb_xhci:0.present = "TRUE"
-usb_xhci:0.deviceType = "hid"
-usb_xhci:0.port = "1"
-usb_xhci:0.parent = "-1"
 ]]>
   </vmware_vmx_profile>
 
@@ -155,6 +183,8 @@ usb_xhci:0.parent = "-1"
         <pci_express_device path="PCIROOT(0)#PCI(0100)#PCI(0000)"/> <!-- NVIDIA Ada5090M -->
         <pci_express_device path="PCIROOT(0)#PCI(0200)#PCI(0000)"/> <!-- Arista QSFP-DD 400G -->
         <pci_express_device path="PCIROOT(0)#PCI(0300)#PCI(0000)"/> <!-- Qualcomm SDX90 WWAN -->
+        <pci_express_device path="PCIROOT(0)#PCI(0600)#PCI(0000)"/> <!-- Amphenol Cat 8 Ethernet -->
+        <pci_express_device path="PCIROOT(0)#PCI(0700)#PCI(0000)"/> <!-- USB 2.0 / 3.2 / 4 Controllers -->
       </discrete_device_assignment>
       <shielded_vm_policies>
         <attestation_protocol>NIST-SP800-193-HGS</attestation_protocol>
