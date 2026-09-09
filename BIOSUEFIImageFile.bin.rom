@@ -18,7 +18,7 @@
     )
     (REGION_GBE
       (OFFSET "0x00800000") (SIZE "0x00008000") (ACCESS "Read/Write Factory")
-      (CONTENT "Amphenol Cat8 40Gbps RJ45 MAC Layer Configuration & Calibration Coefficients")
+      (CONTENT "Amphenol Cat 8 40Gbps RJ45 & Telephone/Fax MAC Layer Configuration & Calibration Coefficients")
     )
     (REGION_PLATFORM_DATA
       (OFFSET "0x00808000") (SIZE "0x000F8000") (ACCESS "Authenticated Write")
@@ -75,6 +75,18 @@
     )
     (DRIVER "SnapdragonX90Dxe.efi"
       (FUNCTION "Qualcomm SDX90 5G NR baseband M.2 3052 Key-B enum, GSMA-SGP.32 eUICC initialization, Nano-SIM link")
+    )
+    (DRIVER "EthernetCat8Dxe.efi"
+      (FUNCTION "Amphenol Cat 8 RJ45 40Gbps controller initialization and link training")
+    )
+    (DRIVER "TelephoneFaxModemDxe.efi"
+      (FUNCTION "Conexant RJ11 telephone and fax legacy analog line port initialization (1500V isolated)")
+    )
+    (DRIVER "UsbLegacyAndXhciDxe.efi"
+      (FUNCTION "Enumeration and power governance for x1 USB 2.0 (480Mbps) and x2 USB 3.2 Gen 2x2 ports")
+    )
+    (DRIVER "Usb4HostRouterDxe.efi"
+      (FUNCTION "Intel host router initialization for x2 USB 4 Type-C ports with tunneling protocols")
     )
     (DRIVER "Qsfp400gInitDxe.efi"
       (FUNCTION "Arista QSFP-DD 400G optical cage link training (FR4/ZR/ZR+ 8x50G PAM4)")
