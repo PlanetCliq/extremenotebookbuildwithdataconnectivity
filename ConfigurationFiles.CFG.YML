@@ -1,16 +1,32 @@
+# ==============================================================================
+# Extreme Performance Laptop – Aerospace Grade Master Configuration Matrix
+# Specification Standard: Version 2.9-HIGHEST (Fully Consolidated BOM Alignment)
+# Architecture: Monolithic 7075-T6 Chassis, Quad DDR5X, HBM3, Studio Acoustics,
+#               Qualcomm FastConnect 7900 + SDX90 Cellular, and RoT Security
+# ==============================================================================
+
 system:
   product_name: "Extreme Performance Laptop – Aerospace Grade Model"
   build_version: "2.9-HIGHEST"
   chassis:
-    material: "Aerospace Aluminum 7075-T6 Monolithic CNC"
-    hinge: "Titanium Ti-6Al-4V Grade 5 Dual-Axis, 50,000 Cycles"
-    finish: "MIL-A-8625 Type III Hardcoat Anodized with PVD Diamond-Like Carbon"
-    protection_rating: "IP54 Baseline, Optional IP65 Hermetic"
+    material: "Aerospace Aluminum 7075-T6 Monolithic CNC Unibody"
+    dimensions_mm:
+      length: 360.0
+      width: 250.0
+      thickness_base: 18.0
+      thickness_lid: 5.0
+    hinge:
+      material: "Titanium Alloy Ti-6Al-4V Grade 5 Dual-Axis"
+      cycle_rating: 50000
+      torque_rating_nm: 1.40
+    finish: "MIL-A-8625 Type III Hardcoat Anodization with PVD Diamond-Like Carbon"
+    protection_rating: "IP54 Baseline Dust/Splash Resistant, Optional IP65 Hermetic"
+    board_substrate: "10-Layer Rogers RO4003C Hydrocarbon Ceramic with ENIG Finish"
 
 compute_domains:
   cpu:
     model: "Intel Core i9-14900HX"
-    architecture: "Raptor Lake-HX Refresh"
+    part_number: "BX8071514900HX"
     cores: 24 # 8 P-Cores, 16 E-Cores
     threads: 32
     frequency_base_ghz: 2.2
@@ -18,180 +34,522 @@ compute_domains:
     tdp_watts_base: 125
     tdp_watts_pl2: 175
     nominal_voltage: 1.20
+    thermal_dissipation_watts: 15.0
   gpu_discrete:
     model: "NVIDIA RTX Ada5090M"
-    vram_gb: 24
+    part_number: "NVB5090M-24G-G7"
+    vram_capacity_gb: 24
     vram_type: "GDDR7 / HBM3 Hybrid"
     tgp_watts_base: 250
     dynamic_boost_flux_watts: 300
     boost_clock_ghz: 2.5
+    nominal_voltage: 1.80
+    thermal_dissipation_watts: 40.0
   gpu_quantum_ai:
     model: "Custom Nanowire AI Quantum Processor"
+    architecture: "Quantum Nanowire Co-Processor"
     flux_capacity_watts: 350
     tdp_watts: 300
     operating_voltage: 1.00
+    thermal_dissipation_watts: 50.0
   npu:
-    model: "Intel TOPS45 Dedicated NPU"
+    model: "Intel TOPS45 Dedicated Neural Processing Unit"
+    part_number: "NPU-TOPS45-BGA800"
     throughput_tops: 45
-    frameworks: ["ONNX", "DirectML", "OpenVINO"]
+    nominal_voltage: 1.20
+    framework_acceleration: ["ONNX", "DirectML", "OpenVINO"]
+    thermal_dissipation_watts: 8.0
 
 memory_subsystem:
-  ddr5x:
+  primary_ram:
     vendor: "Micron"
     part_number: "MTC40F4086S1HC88XD1R"
-    topology: "Quad-Channel (4x DIMM-288)"
+    technology: "DDR5X SDRAM"
+    topology: "Quad-Channel (4x DIMM-288 Sockets)"
     data_rate_mts: 6400
-    nominal_voltage: 1.10
     bus_width_bits: 128
+    nominal_voltage: 1.10
     timings:
       tCK_ns: 0.625
       tRCD_ns: 14.0
       tRP_ns: 14.0
       tRAS_ns: 32.0
-  hbm3:
+    trace_matching_tolerance_mils: 5.0
+    thermal_dissipation_watts: 2.0
+  secondary_stacked_ram:
     vendor: "Samsung"
     part_number: "HBM3-256GB"
+    technology: "High Bandwidth Memory (HBM3)"
     capacity_gb: 256
     bus_width_bits: 1024
     bandwidth_gbs: 819.0
     nominal_voltage: 1.20
+    thermal_dissipation_watts: 5.0
 
 storage_subsystem:
-  nvme_gen5:
+  nvme_gen5_primary:
+    vendor: "Samsung"
+    part_number: "MZVL24T0HBLU-G5"
     slots_active: 2
     form_factor: "M.2 2280"
-    part_number: "MZVL24T0HBLU-G5"
+    interface: "PCIe Gen5 x4"
     throughput_read_gbs: 14.0
     throughput_write_gbs: 12.5
-    interface: "PCIe Gen5 x4"
-  removable_media:
-    sd_card: "Micron Industrial 2TB 3D TLC SD Express 8.0 (985 MB/s)"
-    optical_drive: "Panasonic Slimline SATA 6x Blu-ray Re-Writer (128x12.7mm)"
+    nominal_voltage: 3.30
+    thermal_dissipation_watts: 3.0
+  removable_storage:
+    industrial_sd:
+      vendor: "Micron"
+      part_number: "IND-2TB-SD-TLC"
+      capacity_tb: 2.0
+      protocol: "SD Express 8.0 (PCIe Gen4 x1 / Gen3 x2)"
+      speed_mbs: 985.0
+      nand_type: "3D TLC"
+    sd_express_slot:
+      vendor: "Amphenol"
+      part_number: "SD-EXPRESS-8.0"
+      interface_voltage: 3.30
+    optical_drive:
+      vendor: "Panasonic"
+      part_number: "PAN-BD-SATA-SLIM"
+      form_factor: "Slimline SATA (128x12.7mm)"
+      speed: "6x Blu-ray Disc Write"
+      nominal_voltage: 5.00
+      thermal_dissipation_watts: 3.0
 
-acoustics_and_audio:
+display_and_imaging:
+  display_panel:
+    vendor: "AUO"
+    part_number: "AUO-MLED-16UHD"
+    technology: "MicroLED UHD Panel"
+    size_diagonal_inches: 16.0
+    resolution: "3840x2160"
+    refresh_rate_hz: 165
+    brightness_peak_nits: 1500
+    interface: "eDP 1.4b / LVDS"
+    operating_voltage: 12.0
+    thermal_dissipation_watts: 10.0
+  protective_optics:
+    vendor: "Corning"
+    part_number: "GORILLA-GLASS-7"
+    technology: "Direct Full-Surface Optical Resin Bonding"
+    thickness_mm: 0.7
+    surface_treatment: "Anti-Reflective, Anti-Scratch, Oleophobic"
+  imaging_subsystem:
+    main_camera:
+      vendor: "Sony"
+      part_number: "IMX585-LASER-8K"
+      resolution: "7680x4320 @ 60fps"
+      autofocus: "Class 1 Eye-Safe Laser-Guided Array (±0.01mm Focus Accuracy)"
+      low_light_sensitivity_lux: 0.001
+      thermal_dissipation_watts: 2.5
+    camera_controller:
+      vendor: "Intel"
+      part_number: "CAM-CTRL-LASER-8K"
+      interface: "MIPI CSI-2 4-Lane"
+      voltage: 3.30
+    ir_sensor:
+      vendor: "Omnivision"
+      part_number: "OV-IR-LASER-SYNC"
+      function: "Infrared Facial Mapping & Laser Depth Synchronization"
+    microphone_array:
+      vendor: "Knowles"
+      part_number: "KM-LASER-MIC-ARRAY"
+      technology: "Digital Beamforming Acoustic Waveguide with PDM Interface"
+
+acoustics_and_audio_engine:
   dac:
     vendor: "ESS Technology"
-    model: "SABRE ES9039PRO"
+    part_number: "ES9039PRO"
+    architecture: "SABRE 8-Channel Pro Flagship"
     resolution_bits: 32
-    max_sampling_rate_khz: 768
-    thd_plus_n_db: -120
-    snr_db: 130
+    max_sample_rate_khz: 768
+    thd_plus_n_db: -120.0
+    snr_db: 130.0
+    operating_voltage: 3.30
+  amplifier:
+    vendor: "THX"
+    part_number: "THX-AAA-888"
+    topology: "Dual-Stage Patented Achromatic Audio Amplifier"
+    rated_output_power: "2x 1000mW into 32Ω"
+    operating_voltage: 5.00
+  dsp:
+    vendor: "Dirac"
+    part_number: "DIRAC-LIVE-DSP"
+    architecture: "Lattice ECP5-5G FPGA Custom Bitstream"
+    capabilities: "Real-Time 64-Bit Floating-Point Room Correction & Dynamic EQ"
+    operating_voltage: 3.30
   clocks:
-    primary_oscillator:
+    primary_master_clock:
       vendor: "Crystek"
       part_number: "CCHD-957-25-45.1584"
       frequency_mhz: 45.1584
       phase_jitter_fs: 74
-      assigned_frequencies: [44.1, 88.2, 176.4, 352.8, 705.6]
-    secondary_oscillator:
+      base_sample_rate_family_khz: [44.1, 88.2, 176.4, 352.8, 705.6]
+    secondary_master_clock:
       vendor: "Crystek"
       part_number: "CCHD-957-25-49.1520"
       frequency_mhz: 49.1520
       phase_jitter_fs: 76
-      assigned_frequencies: [48.0, 96.0, 192.0, 384.0, 768.0]
-  amplifier:
-    model: "THX AAA-888"
-    topology: "Dual-Stage Patented Feed-Forward Topology"
-    rated_output_power: "2x 1000mW into 32Ω"
-  dsp:
-    engine: "Lattice ECP5-5G FPGA running Dirac Live Room Correction"
-    filter_precision: "64-bit Floating Point Impulse Correction"
+      base_sample_rate_family_khz: [48.0, 96.0, 192.0, 384.0, 768.0]
   transducers:
-    stereo_pair: "Knowles High-Resolution Tuned Dual Chamber 5W (120Hz-40kHz)"
-    sub_bass: "Tectonic Decoupled 15W Anti-Vibration Driver (35Hz-350Hz)"
-    jack: "Amphenol 3.5mm Shielded Gold-Plated with Isolated Star Ground"
+    stereo_pair:
+      vendor: "Knowles"
+      part_number: "KN-SPK-STEREO-HIRES"
+      impedance_ohms: 4
+      power_rating_watts: 5.0
+      frequency_response_hz: "120 - 40000"
+      chamber_volume_cc: 4.5
+      magnets: "100% Recycled Neodymium"
+    sub_bass:
+      vendor: "Tectonic"
+      part_number: "TEBM-SUB-BASS-15W"
+      driver_type: "Decoupled Low-Frequency Balanced-Mode Radiator"
+      impedance_ohms: 4
+      power_rating_watts: 15.0
+      frequency_response_hz: "35 - 350"
+      suspension: "Dual Anti-Vibration Chassis Decoupled"
+    analog_jack:
+      vendor: "Amphenol"
+      part_number: "AMP-3.5MM-SHIELD"
+      contacts: "Shielded Gold-Plated with Isolated Star-Ground Ring"
 
-wireless_and_telecom:
-  cellular:
-    baseband: "Qualcomm Snapdragon X90 / X75 5G NR"
+wireless_telecom_and_io:
+  cellular_subsystem:
+    vendor: "Qualcomm"
+    model: "Snapdragon X90 / X75 5G NR Baseband"
+    part_numbers: ["SDX90-M2-3052", "SDX75-M2-3052-KEYB"]
     form_factor: "M.2 3052 Key-B"
-    peak_throughput_gbps: 12.0
-    sim_support:
-      nano_sim_slots: 1
-      esim_standard: "GSMA-SGP.32 eUICC"
+    peak_download_gbps: 12.0
+    peak_upload_gbps: 3.0
+    spectrum: "5G NR mmWave (n258, n260, n261) + Sub-6 (n1, n3, n28, n41, n77, n78, n79)"
+    sim_infrastructure:
+      physical_slots: 1 # Spring-Loaded Nano-SIM Cage (SIM-CAGE-3052)
+      esim_specification: "GSMA-SGP.32 eUICC Local Profile Assistant (LPA)"
       stored_profiles_max: 20
       simultaneous_active_profiles: 5
-    supported_carriers:
-      - "AeroMobile (UK In-Flight)"
-      - "Airtel (India)"
-      - "AT&T (USA)"
-      - "BPL Mobile (Legacy India)"
-      - "BSNL (India)"
-      - "du (UAE)"
-      - "EE (UK)"
-      - "Etisalat / e& (UAE)"
-      - "Jio (India)"
-      - "Loop Mobile (India)"
-      - "MTNL (India)"
-      - "O2 (UK)"
-      - "OnAir (Switzerland In-Flight)"
-      - "Orange (France/EU)"
-      - "QoS DIPF Safe (Secure IoT)"
-      - "Reliance Communications (India)"
-      - "Starlink (Satellite Mobile)"
-      - "STC / Zain (Saudi Arabia)"
-      - "Tata Tele (India)"
-      - "T-Mobile (USA)"
-      - "Verizon (USA)"
-      - "Virgin Mobile (UAE)"
-      - "Vodafone (Global: India/UK/EU)"
-  short_range:
-    subsystem: "Qualcomm FastConnect 7900"
-    process_node_nm: 6
-    wlan: "Wi-Fi 7 (802.11be) 5.8 Gbps, 320 MHz, 4K QAM"
-    bluetooth: "5.4 LE Audio with Snapdragon Sound & aptX Lossless"
-    uwb: "Centimeter-Level Proximity Ranging & Channel Sounding"
-  wired_interfaces:
-    ethernet: "Amphenol Cat8 RJ45 40Gbps Shielded (2000MHz)"
-    optical: "Arista QSFP-DD 400G (FR4 / ZR / ZR+ Coherent Optics)"
-    thunderbolt: "Intel TB5-IC-80GBPS (80Gbps Bidirectional / 120Gbps Boost)"
-    usb_pd: "Amphenol Dual USB-C EPR 240W (48V/5A Bidirectional PD 3.1)"
+    antennas:
+      vendor: "Molex"
+      part_number: "WWAN-ANT-5GNR"
+      quantity: 2
+      matching: "50Ω Impedance-Matched Low-Loss Grooved Paths"
+    provisioned_carriers:
+      - { id: 1,  name: "AeroMobile",           mcc: "901", mnc: "14",  apn: "aeromobile",          qos: "High",     type: "IPv4v6" }
+      - { id: 2,  name: "Bharti Airtel",        mcc: "404", mnc: "10",  apn: "airtelgprs.com",      qos: "Maximum",  type: "IPv4v6" }
+      - { id: 3,  name: "AT&T Mobility",        mcc: "310", mnc: "410", apn: "enhancedphone",      qos: "Maximum",  type: "IPv4v6" }
+      - { id: 4,  name: "BPL Mobile",           mcc: "404", mnc: "21",  apn: "bplmobile.net",       qos: "Normal",   type: "IPv4v6" }
+      - { id: 5,  name: "BSNL",                 mcc: "404", mnc: "38",  apn: "bsnlnet",             qos: "High",     type: "IPv4v6" }
+      - { id: 6,  name: "du UAE",               mcc: "424", mnc: "03",  apn: "du",                  qos: "Maximum",  type: "IPv4v6" }
+      - { id: 7,  name: "EE UK",                mcc: "234", mnc: "30",  apn: "everywhere",          qos: "Maximum",  type: "IPv4v6" }
+      - { id: 8,  name: "Etisalat / e&",        mcc: "424", mnc: "02",  apn: "eaelive",             qos: "Maximum",  type: "IPv4v6" }
+      - { id: 9,  name: "Reliance Jio",         mcc: "405", mnc: "854", apn: "jionet",              qos: "Maximum",  type: "IPv4v6" }
+      - { id: 10, name: "Loop Mobile",          mcc: "404", mnc: "08",  apn: "loopmobile.net",      qos: "Normal",   type: "IPv4v6" }
+      - { id: 11, name: "MTNL",                 mcc: "404", mnc: "69",  apn: "mtnl.net",            qos: "High",     type: "IPv4v6" }
+      - { id: 12, name: "O2 UK",                mcc: "234", mnc: "10",  apn: "mobile.o2.co.uk",     qos: "Maximum",  type: "IPv4v6" }
+      - { id: 13, name: "OnAir In-Flight",      mcc: "901", mnc: "15",  apn: "onair",               qos: "High",     type: "IPv4v6" }
+      - { id: 14, name: "Orange France",        mcc: "208", mnc: "01",  apn: "orange",              qos: "Maximum",  type: "IPv4v6" }
+      - { id: 15, name: "QoS DIPF Safe",        mcc: "999", mnc: "99",  apn: "qos.dipf.safe.iot",   qos: "Critical", type: "IPv4v6" }
+      - { id: 16, name: "Reliance Comms",       mcc: "404", mnc: "04",  apn: "rcomnet",             qos: "Normal",   type: "IPv4v6" }
+      - { id: 17, name: "Starlink Mobile",      mcc: "901", mnc: "05",  apn: "starlink.data",       qos: "Maximum",  type: "IPv4v6" }
+      - { id: 18, name: "STC / Zain Arabia",    mcc: "420", mnc: "01",  apn: "jawalnet.com.sa",     qos: "Maximum",  type: "IPv4v6" }
+      - { id: 19, name: "Tata Teleservices",    mcc: "405", mnc: "025", apn: "tatadocomo.internet", qos: "High",     type: "IPv4v6" }
+      - { id: 20, name: "T-Mobile USA",         mcc: "310", mnc: "260", apn: "fast.t-mobile.com",  qos: "Maximum",  type: "IPv4v6" }
+      - { id: 21, name: "Verizon Wireless",     mcc: "311", mnc: "480", apn: "vzwinternet",        qos: "Maximum",  type: "IPv4v6" }
+      - { id: 22, name: "Virgin Mobile UAE",    mcc: "424", mnc: "03",  apn: "virgin",              qos: "Maximum",  type: "IPv4v6" }
+      - { id: 23, name: "Vodafone Idea",        mcc: "404", mnc: "20",  apn: "portalnmms",          qos: "Maximum",  type: "IPv4v6" }
+  short_range_wireless:
+    vendor: "Qualcomm"
+    part_number: "WCN7851-AERO"
+    platform: "FastConnect 7900 (6nm Tri-Radio Die)"
+    wlan: "Wi-Fi 7 (802.11be), 320MHz Channel Bandwidth, 4K QAM, 5.8 Gbps Peak"
+    bluetooth: "Bluetooth 5.4 LE Audio, Snapdragon Sound, aptX Lossless"
+    uwb: "Integrated Centimeter-Level Radar Positioning & Channel Sounding"
+  nfc_subsystem:
+    vendor: "HP"
+    part_number: "W126068422"
+    operating_frequency_mhz: 13.56
+    package: "QFN-32"
+  optical_and_wired_io:
+    qsfp_dd:
+      optical_transceivers:
+        fr4: { vendor: "Arista", part_number: "QSFP-400G-FR4", reach_km: 2, power_watts: 10.0 }
+        zr: { vendor: "Arista", part_number: "QSFP-400G-ZR", reach_km: 120, power_watts: 14.0 }
+        zr_plus: { vendor: "Arista", part_number: "QSFP-400G-ZR-PLUS", reach_km: 1000, power_watts: 16.0 }
+      cage:
+        vendor: "Molex"
+        part_number: "74752-SFP28"
+        interface: "QSFP-DD 8x50G PAM4 (400Gbps)"
+    ethernet:
+      vendor: "Amphenol"
+      part_number: "CAT8-RJ45-SLIM"
+      bandwidth_mhz: 2000
+      throughput_gbps: 40.0
+      shielding: "Full Metal Enclosure with Chassis Ground Fingers"
+    thunderbolt5:
+      vendor: "Intel"
+      part_number: "TB5-IC-80GBPS"
+      bandwidth_gbps: 80 # Symmetric (120Gbps Asymmetric Boost)
+      interface: "PCIe Gen4 Tunneling / USB4 v2"
+    usb4_v2:
+      vendor: "Amphenol"
+      part_number: "USB4-V2-120G"
+      speed_gbps: 120.0
+      quantity: 2
+    usb_power_delivery:
+      vendor: "Amphenol"
+      part_number: "USB-C-EPR-240W"
+      standard: "USB-PD 3.1 Extended Power Range (EPR)"
+      max_voltage: 48.0
+      max_current_amps: 5.0
+      max_power_watts: 240.0
+      quantity: 2
+    dc_jack:
+      vendor: "Delta"
+      part_number: "DC-JACK-12V10A"
+      voltage: 12.0
+      current_amps: 10.0
+      protection: "Integrated Transient Voltage Suppression (TVS)"
+    telephone_line:
+      vendor: "Conexant"
+      part_number: "RJ11-MODEM-SLIM"
+      speed_kbps: 56.0
+      galvanic_isolation_v: 1500
 
-security_and_interactive:
+security_roots_and_interactive:
   roots_of_trust:
-    tpm: "Infineon SLB9670 TPM 2.0 (FIPS 140-3 Level 3 Certified)"
-    pluton: "Microsoft Pluton Dedicated On-Die Cryptoprocessor"
-    opentitan: "LowRISC OpenTitan Discrete Silicon Root of Trust"
-    trustzone: "ARM Secure Enclave Coprocessor (ARM-SE-TZ)"
+    tpm:
+      vendor: "Infineon"
+      part_number: "SLB9670"
+      standard: "FIPS 140-3 Level 3 Certified"
+      interface: "LPC / SPI"
+    pluton:
+      vendor: "Microsoft"
+      part_number: "MS-PLUTON-SECURE"
+      architecture: "On-Die Dedicated Silicon Cryptoprocessor"
+      bus: "Encrypted Hardware SPI"
+    opentitan:
+      vendor: "LowRISC"
+      part_number: "OPENTITAN-SECURE"
+      architecture: "Discrete Open-Source Silicon Root of Trust"
+      package: "QFN-64"
+    arm_trustzone:
+      vendor: "ARM"
+      part_number: "ARM-SE-TZ"
+      architecture: "Dedicated Secure Enclave Coprocessor"
+      package: "QFN-48"
+    dual_flash_socket:
+      vendor: "Winbond"
+      part_number: "W25Q-SOCKET"
+      chips: ["W25Q512JVEIQ (Socket A)", "W25Q512JVEIQ (Socket B)"]
+      capacity_mb: 64
+      redundancy: "Automatic Hardware Watchdog Failover"
   biometrics:
-    fingerprint: "Goodix 508 DPI Sapphire Match-On-Chip Sensor (9H Hardness)"
-    facial: "Sony IMX585 8K + Omnivision IR Laser Guided Depth Array"
-  interactive_switches:
-    universal_ai_key:
-      manufacturer: "Alps Alpine"
+    fingerprint_sensor:
+      vendor: "Goodix"
+      part_number: "GF3208-AERO"
+      resolution_dpi: 508
+      surface: "Matte Synthetic Sapphire Glass (9H Mohs Hardness)"
+      architecture: "Match-On-Chip Piped to ARM TrustZone Enclave"
+    windows_hello_module:
+      vendor: "Microsoft"
+      part_number: "WH-FW-SECURE"
+      binding: "Direct TPM 2.0 PCR Validation"
+  interactive_switches_and_keys:
+    universal_ai_hotkey:
+      vendor: "Alps Alpine"
       part_number: "PB-AI-OMNI-KEY"
       actuation_force_gf: 55
       travel_mm: 1.2
+      backlight: "Single Pure-White Micro-LED"
       interface: "Direct Non-Maskable EC Interrupt (NET_AI_HOTKEY_TRIGGER)"
-      default_action: "Gemini Workspace Native Injection"
-      secondary_actions: ["Claude", "Grok", "Local-Ollama-ONNX"]
+      latency_ms: 4.2
+      model_targets:
+        primary: "Gemini Workspace Native"
+        secondary: "Claude Enterprise"
+        tertiary: "Grok Automated Research"
+        offline_fallback: "Local-Ollama-ONNX on Intel TOPS45 NPU"
     discrete_rf_kill_switches:
-      wlan: "Non-maskable EC interrupt pulling FastConnect W_DISABLE1#"
-      wwan: "Non-maskable EC interrupt cutting SDX90 RF power gate in <50µs"
-      bluetooth: "Non-maskable EC interrupt pulling FastConnect W_DISABLE2#"
-      nfc: "Non-maskable EC interrupt grounding 13.56MHz antenna matching bridge"
+      wlan_switch:
+        vendor: "Intel"
+        part_number: "EC-GPIO-WLAN"
+        action: "Pulls FastConnect 7900 W_DISABLE1# Low in <50µs"
+      wwan_switch:
+        vendor: "Quectel"
+        part_number: "EC-GPIO-WWAN"
+        action: "Cuts Qualcomm SDX90 Baseband Power Gate in <50µs"
+      bluetooth_switch:
+        vendor: "Broadcom"
+        part_number: "EC-GPIO-BT"
+        action: "Pulls FastConnect 7900 W_DISABLE2# Low in <50µs"
+      nfc_switch:
+        vendor: "NXP"
+        part_number: "EC-GPIO-NFC"
+        action: "Grounds 13.56MHz Antenna Matching Bridge in <50µs"
     hardware_jumpers:
-      jumper_1: "Audio Dedicated Analog Star-Ground Moat Isolation"
-      jumper_2: "BIOS Dual-Flash Hardware Recovery Fallback Override"
-      jumper_3: "Firmware Write-Protect Hardware Latch"
-      jumper_4: "THX Headphone High-Impedance 300Ω-600Ω Gain Override"
+      vendor: "Harwin"
+      part_number: "M50-JUMPERS-GOLD"
+      pitch_mm: 1.27
+      plating: "Gold over Nickel"
+      functions:
+        jumper_1: "Audio Dedicated Analog Star-Ground Moat Isolation"
+        jumper_2: "BIOS Dual-Flash Hardware Recovery Fallback Override"
+        jumper_3: "Firmware Write-Protect Hardware Latch"
+        jumper_4: "THX Headphone High-Impedance 300Ω-600Ω Gain Override"
+    power_switch:
+      vendor: "Alps Alpine"
+      part_number: "PB-DP-LOCK"
+      travel_mm: 1.5
+      actuation_force_gf: 65
+      features: "Deep-Press Hardware Debounce Filter and Power Sequencer Latch"
+    capacitive_controls:
+      slider: { vendor: "TonTouch", part_number: "TTP229-CAP", function: "Audio Volume & Scrubbing" }
+      media_button: { vendor: "Microchip", part_number: "CAP1208", function: "Play / Pause HID" }
+      call_toggle: { vendor: "Microchip", part_number: "CAP1188", function: "VoIP / Call Connect" }
+      screenshot_key: { vendor: "Microchip", part_number: "CAP1298", function: "Windows Snipping API" }
+      gamemode_key: { vendor: "Microchip", part_number: "CAP1298", function: "Xbox Game Bar Trigger" }
+  ergonomics_and_haptics:
+    trackpad:
+      vendor: "Alps Alpine"
+      part_number: "TP-HAPTIC-130X90"
+      dimensions_mm: [130.0, 90.0]
+      surface: "Matte Chemically Etched Glass"
+      feedback: "Solenoid Haptic Waveform Generator"
+      controller: { vendor: "Synaptics", part_number: "SYN-HAPTIC-CTRL" }
+    keyboard:
+      vendor: "Cherry"
+      part_number: "KB-AERO-LP-MX"
+      switches: "Ultra-Low Profile Mechanical (1.2mm Travel)"
+      plating: "Aerospace Anti-Wear Physical Vapor Deposition"
+      backlight: "Pure-White (Non-RGB)"
+      numpad: { vendor: "Cherry", part_number: "NUMPAD-AERO-LP", layout: "Integrated 10-Key" }
+    inertial_and_environmental_sensors:
+      imu: { vendor: "Bosch", part_number: "BMI270", axes: 6, rate_hz: 1600 }
+      env_sensor: { vendor: "Sensirion", part_number: "SHT40", temp_acc_c: 0.1, humidity_acc_pct: 1.0 }
+      sensor_hub: { vendor: "STMicroelectronics", part_number: "STM32G0-SENSOR-HUB" }
 
-thermal_and_power:
+thermal_and_power_infrastructure:
   battery:
     vendor: "QuantumScape"
+    part_number: "QS-PACK-480WH"
     chemistry: "Graphene Solid-State Electrolyte"
     energy_density_wh_kg: 480
     capacity_wh: 480
     nominal_voltage: 11.1
+    operating_temp_c: [-20.0, 80.0]
     rated_endurance_hours: 30.0
-    cycle_life_cycles: 3000
-    recharge_rate: "80% in 15 Minutes"
-  thermal_system:
-    vapor_chamber: "CoolerMaster Graphene VC (1500 W/mK, 300W Load)"
-    tim: "Thermal Grizzly Conductonaut Liquid Metal (73 W/mK, <0.01 K/W)"
-    blower_matrix:
-      large_blowers: 3 # Dyson Ionic Large 25CFM <28dBA
-      medium_blowers: 3 # Dyson Ionic Medium 15CFM <25dBA
-      ionic_micro: 1 # Dyson Bladeless Micro 20CFM <25dBA
-    max_continuous_thermal_dissipation_watts: 675
-    acoustic_noise_full_load_dba: 27.4
+    cycle_life_rating: 3000
+    fast_charge_profile: "80% State-of-Charge in 15 Minutes"
+    telemetry: "SMBus v3.2 Active Polling"
+    weight_grams: 600.0
+  cmos_backup:
+    vendor: "Panasonic"
+    part_number: "VL2330"
+    chemistry: "Vanadium Lithium Rechargeable"
+    voltage: 3.0
+    capacity_mah: 50
+  power_conversion:
+    vrm:
+      vendor: "Texas Instruments"
+      part_number: "TPS53689"
+      topology: "Multi-Phase Core Converter (12V -> 1.2V)"
+      transient_droop_mv: 50.0
+      efficiency_pct: 92.5
+      quantity: 3
+    mosfets:
+      vendor: "Infineon"
+      part_number: "BSC123N08NS3"
+      rating: "80V / 120A"
+      rds_on_mohms: 3.2
+      package: "PowerSO8"
+      quantity: 6
+    pmic:
+      vendor: "NXP"
+      part_number: "PF8100"
+      rails: "Multi-Rail 0.8V - 5.0V with Dynamic Voltage Scaling"
+      package: "QFN-56"
+      quantity: 2
+    dc_dc_converter:
+      vendor: "Vicor"
+      part_number: "PI3749-AERO"
+      conversion: "48V EPR to 12V Intermediate Bus"
+      topology: "Zero-Voltage Switching (ZVS) Buck-Boost"
+      quantity: 2
+  thermal_subsystem:
+    vapor_chamber:
+      vendor: "CoolerMaster"
+      part_number: "CM-GRAPHENE-VC"
+      material: "Sintered Copper-Graphene Capillary Structure"
+      in_plane_conductivity_w_mk: 1500.0
+      max_heat_load_watts: 300.0
+      dimensions_mm: [120.0, 80.0, 2.0]
+    tim:
+      vendor: "Thermal Grizzly"
+      part_number: "TG-Conductonaut"
+      composition: "Gallium-Indium-Tin Eutectic Liquid Metal"
+      conductivity_w_mk: 73.0
+      thermal_resistance_k_w: 0.01
+      containment: "Dual Laser-Cut Fluorosilicone Gasket Rings"
+    forced_convection:
+      large_blowers:
+        vendor: "Dyson"
+        part_number: "DY-IONIC-LARGE"
+        dimensions_mm: [80.0, 80.0, 10.0]
+        airflow_cfm: 25.0
+        acoustic_noise_dba: 28.0
+        bearings: "Fluid Dynamic Ceramic Silent Bearings"
+        quantity: 3
+      medium_blowers:
+        vendor: "Dyson"
+        part_number: "DY-IONIC-MEDIUM"
+        dimensions_mm: [60.0, 60.0, 8.0]
+        airflow_cfm: 15.0
+        acoustic_noise_dba: 25.0
+        quantity: 3
+      bladeless_micro_blower:
+        vendor: "Dyson"
+        part_number: "DY-IONIC-MICRO"
+        technology: "Solid-State Ionic Air Accelerator"
+        airflow_cfm: 20.0
+        acoustic_noise_dba: 25.0
+        quantity: 1
+    total_continuous_heat_dissipation_watts: 675.0
+    collective_noise_full_load_dba: 27.4
+    junction_temperature_thresholds_c:
+      cpu_max: 95.0
+      cpu_clamp: 98.0
+      gpu_max: 85.0
+      gpu_clamp: 87.0
+      quantum_die_max: 80.0
+      battery_cutoff: 45.0
+
+regulatory_and_sustainability:
+  environmental_safety:
+    - "RoHS Directive 2011/65/EU Compliant"
+    - "REACH Regulation (EC 1907/2006) Compliant"
+    - "IPC-4101 Halogen-Free PCB Substrate"
+  electrical_and_safety:
+    - "CE Mark (EMC 2014/30/EU & LVD 2014/35/EU)"
+    - "BIS India (IS 13252 Part 1:2010 & IS 16046 Part 2:2018)"
+    - "UL 62368-1 3rd Edition (Audio/Video and IT Safety)"
+    - "UL 9540A (Thermal Runaway Fire Propagation Testing for Batteries)"
+    - "CCC China (GB 4943.1-2022)"
+    - "IEC 62368-1 International Standard"
+  telecommunication_standards:
+    - "GSMA-SGP.32 Technical Specification for Remote eSIM Provisioning"
+    - "TRAI / DoT India MTCTE Certified (SAR <= 1.6 W/kg)"
+    - "DoT UAE TDRA Spectrum Authorization"
+    - "ITU Sectors ITU-R, ITU-T, and ITU-F Operational Conformance"
+    - "FCC Title 47 Part 15 / Part 96 CBRS Compliance"
+  military_aerospace:
+    - "MIL-STD-810G Method 501.5 (High Temperature +85°C Operational)"
+    - "MIL-STD-810G Method 502.5 (Low Temperature -40°C Operational)"
+    - "MIL-STD-810G Method 507.5 (Humidity 85% RH for 240 Hours)"
+    - "MIL-STD-810G Method 514.6 (Random Vibration 5.14 g RMS across X, Y, Z)"
+    - "MIL-STD-810G Method 516.6 (Mechanical Drop Test 1.2m across 26 Orientations)"
+  sustainability_and_circularity:
+    - "TCO Certified Generation 10 (Updated December 2024 Criteria)"
+    - "EPEAT Gold Registered Assemblies (Global Electronics Council 2024 Criteria)"
+    - "UL ECVP 2809-2 (June 2024 Second Edition): Recycled Cobalt >= 82.9%"
+    - "100% Recycled Rare Earth Elements (Neodymium, Dysprosium) in Magnets"
+    - "IEEE Std 1680.1-2018 Environmental Assessment Standard"
+    - "100% FSC-Certified Wood-Fiber Unbleached Sustainable Packaging"
