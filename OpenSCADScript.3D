@@ -28,17 +28,20 @@ module extreme_aerospace_notebook() {
         translate([6, 6, 2])
             cube([348, 238, 20]);
             
-        // Port Cutouts - Left Margin (USB, Thunderbolt, DC Jack, Optical)
+        // Port Cutouts - Left Margin (DC Jack, USB 2.0, USB 3.2, USB 4, Phone, Fax, Optical)
         translate([-1, 220, 4]) cube([8, 10, 10]); // DC1 Barrel Jack
-        translate([-1, 190, 4]) cube([8, 10, 6]);  // USB2 Type-C
-        translate([-1, 180, 4]) cube([8, 12, 8]);  // TB5_1 Thunderbolt
-        translate([-1, 170, 4]) cube([8, 10, 6]);  // USB1 Type-C
-        translate([-1, 115, 4]) cube([8, 10, 8]);  // TEL1 RJ11 Modem
+        translate([-1, 205, 4]) cube([8, 10, 6]);  // USB2_1 USB 2.0 Type-A
+        translate([-1, 190, 4]) cube([8, 10, 6]);  // USB32_1 USB 3.2 Port 1
+        translate([-1, 175, 4]) cube([8, 12, 8]);  // USB4_1 USB 4 Port 1
+        translate([-1, 160, 4]) cube([8, 12, 8]);  // USB4_2 USB 4 Port 2
+        translate([-1, 130, 4]) cube([8, 10, 8]);  // FAX1 RJ11 Fax Port
+        translate([-1, 115, 4]) cube([8, 10, 8]);  // TEL1 RJ11 Telephone Port
         translate([-1, 90, 4])  cube([12, 25, 12]); // OPT1 Blu-ray Drive
         
-        // Port Cutouts - Right Margin (QSFP-DD 400G, Ethernet, SIM/SD)
+        // Port Cutouts - Right Margin (QSFP-DD 400G, Cat 8 Ethernet, USB 3.2 Port 2, SIM/SD)
         translate([353, 195, 4]) cube([8, 25, 10]); // QSFP-DD Cage
-        translate([353, 165, 4]) cube([8, 15, 10]); // ETH1 Cat8 RJ45
+        translate([353, 165, 4]) cube([8, 15, 10]); // ETH1 Cat 8 RJ45 Ethernet
+        translate([353, 145, 4]) cube([8, 10, 6]);  // USB32_2 USB 3.2 Port 2
         translate([353, 45, 4])  cube([8, 15, 6]);  // SD1/SD2 Slots
     }
 
