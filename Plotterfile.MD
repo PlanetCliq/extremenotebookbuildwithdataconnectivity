@@ -51,10 +51,15 @@
         (OPERATION "Machine peripheral port openings with 0.3mm x 45° chamfer:")
         (CUTOUTS
           (PORT_USB_C_EPR "2x Slots: 8.40mm x 2.60mm [±0.02mm] on Left Edge")
+          (PORT_USB_4     "2x Slots: 8.40mm x 2.60mm [±0.02mm] on Left Edge")
+          (PORT_USB_32    "2x Slots: 8.40mm x 2.60mm [±0.02mm] on Left/Right Edges")
+          (PORT_USB_20    "1x Slot: 13.10mm x 5.50mm [±0.02mm] on Left Edge")
           (PORT_THUNDERBOLT_5 "1x Slot: 8.40mm x 2.60mm [±0.02mm] on Left Edge")
           (PORT_DC_JACK "Ø10.20mm Stepped Counterbore x 12.00mm Depth on Left-Rear Corner")
+          (PORT_TELEPHONE "1x RJ11 Slot: 12.00mm x 6.00mm [±0.02mm] with 1500V Isolation on Left Edge[cite: 8]")
+          (PORT_FAX       "1x RJ11 Slot: 12.00mm x 6.00mm [±0.02mm] with 1500V Isolation on Left Edge[cite: 8]")
           (PORT_QSFP_DD "18.20mm x 72.40mm Optical Cage Cutout with Retention Tabs on Right Edge")
-          (PORT_CAT8_RJ45 "14.50mm x 16.20mm with Integrated Spring-Latch Clearance on Right Edge")
+          (PORT_CAT8_RJ45 "14.50mm x 16.20mm with Integrated Spring-Latch Clearance on Right Edge[cite: 8]")
           (SLOT_SD_EXPRESS "32.00mm x 2.50mm Right-Edge Access Aperture")
           (SLOT_BLU_RAY "128.50mm x 12.90mm Slimline SATA Optical Entrance on Front-Right Edge")
           (AUDIO_JACK_BORE "Ø6.00mm Stepped Aperture with Gold Ring Recess on Left-Front Edge")
@@ -87,7 +92,7 @@
         (NAME "TopComponent_Microstrip")
         (COPPER_WEIGHT "2.0 oz (70µm finished)")
         (PHOTO_PLOT_MASK "TopCopper_L1.GBR")
-        (CONTENT "High-speed escapes, FastConnect 7900 microstrip (50Ω single-ended, 85Ω diff), DDR5X breakout")
+        (CONTENT "High-speed escapes, FastConnect 7900 microstrip (50Ω single-ended, 85Ω diff), DDR5X breakout, USB 2.0/3.2/4 traces")
       )
       (LAYER_2
         (NAME "Solid_RF_Ground_Plane")
@@ -135,7 +140,7 @@
         (NAME "Audio_Isolated_Star_Ground")
         (COPPER_WEIGHT "1.5 oz (52.5µm)")
         (PHOTO_PLOT_MASK "InnerGround_L9.GBR")
-        (CONTENT "Galvanically isolated ground moat for ESS Sabre ES9039PRO and Crystek oscillators")
+        (CONTENT "Galvanically isolated ground moat for ESS Sabre ES9039PRO, Crystek oscillators, and telephone/fax isolation barriers[cite: 8]")
       )
       (LAYER_10
         (NAME "BottomComponent_Audio_Microstrip")
@@ -167,7 +172,7 @@
         (BARREL_COPPER_THICKNESS "≥25.0µm (IPC Class 3 minimum)")
       )
       (CONTROLLED_DEPTH_BACKDRILL
-        (TARGET_LINES "PCIe Gen5 x16 lanes, NVMe Gen5 channels, and QSFP-DD 400G stubs")
+        (TARGET_LINES "PCIe Gen5 x16 lanes, NVMe Gen5 channels, Cat 8 Ethernet, and QSFP-DD 400G stubs[cite: 8]")
         (BACKDRILL_DIAMETER "0.450mm (Oversize = 0.200mm over primary drill)")
         (MAX_STUB_LENGTH "≤0.100mm [0.0039 in] to eliminate quarter-wave RF resonances up to 32GHz")
       )
@@ -194,7 +199,7 @@
     )
     (CONFORMAL_COATING
       (SPECIFICATION "IPC-CC-830 certified fluorinated polymer barrier (25µm-50µm dry thickness)")
-      (MASKING_ZONES "Keep-out masks over MicroLED display contacts, 3.5mm jack bore, and test points")
+      (MASKING_ZONES "Keep-out masks over MicroLED display contacts, 3.5mm jack bore, telephone/fax RJ11 ports, and test points[cite: 8]")
     )
   )
 
@@ -266,9 +271,16 @@
       (SDX90_WWAN_MODEM "X: 320.00mm, Y: 140.00mm | M.2 3052 Key-B socket | 5G NR mmWave/Sub-6")
       (NANO_SIM_CAGE    "X: 345.00mm, Y: 140.00mm | Spring-loaded tray with dust gasket groove")
       (QSFP_DD_PORT     "X: 345.00mm, Y: 195.00mm | Molex 74752 cage | 400G FR4/ZR/ZR+")
-      (CAT8_RJ45_PORT   "X: 345.00mm, Y: 165.00mm | Amphenol shielded jack | 40Gbps (2000MHz)")
+      (CAT8_RJ45_PORT   "X: 345.00mm, Y: 165.00mm | Amphenol shielded jack | 40Gbps (2000MHz)[cite: 8]")
+      (TELEPHONE_PORT   "X: 5.00mm,   Y: 115.00mm | Conexant RJ11 modem port | 1500V isolated[cite: 8]")
+      (FAX_PORT         "X: 5.00mm,   Y: 125.00mm | Conexant RJ11 fax port | 1500V isolated[cite: 8]")
+      (USB2_PORT_SINGLE "X: 5.00mm,   Y: 135.00mm | Molex USB 2.0 Type-A single port | 480Mbps[cite: 8]")
+      (USB32_PORT_1     "X: 5.00mm,   Y: 150.00mm | TE Connectivity USB 3.2 Gen 2 Type-C | 20Gbps[cite: 8]")
+      (USB32_PORT_2     "X: 25.00mm,  Y: 210.00mm | TE Connectivity USB 3.2 Gen 2 Type-C | 20Gbps[cite: 8]")
+      (USB4_PORT_1      "X: 15.00mm,  Y: 170.00mm | Intel USB 4 Type-C port 1 | 40Gbps[cite: 8]")
+      (USB4_PORT_2      "X: 15.00mm,  Y: 190.00mm | Intel USB 4 Type-C port 2 | 40Gbps[cite: 8]")
       (THUNDERBOLT_5_IC "X: 25.00mm,  Y: 180.00mm | Intel QFN-128 | 80Gbps/120Gbps boost")
-      (DUAL_USB_PD_EPR  "X: 5.00mm,   Y: 170.00/190.00mm | Type-C EPR 240W (48V/5A PD 3.1)")
+      (DUAL_USB_PD_EPR  "X: 5.00mm,    Y: 170.00/190.00mm | Type-C EPR 240W (48V/5A PD 3.1)")
     )
     ;; --- Security Hardware & Biometrics ---
     (SECURITY_ZONE
@@ -305,7 +317,7 @@
     (NOTE_5 "Titanium Ti-6Al-4V dual-axis hinge fasteners must be torqued with calibrated digital torque drivers to 1.40 N·m ±0.05 N·m and marked with blue witness torque sealant.")
     (NOTE_6 "Hardware RF kill switches must be physically probed to ensure baseband cutoff in <50 microseconds upon switch opening.")
     (NOTE_7 "Universal AI Hotkey NMI interrupt latency must be verified under oscilloscope to confirm ACPI host dispatch ≤4.2ms from tactile actuation.")
-    (NOTE_8 "Statutory and sustainability adherence confirmed: TCO Certified Gen 10 (Dec 2024 Criteria), EPEAT Gold 2024, UL ECVP 2809-2 (recycled cobalt ≥82.9%), MIL-STD-810G, FIPS 140-3 Level 3, and TRAI/DoT MTCTE.")
+    (NOTE_8 "Statutory and sustainability adherence confirmed: TCO Certified Gen 10 (Dec 2024 Criteria), EPEAT Gold 2024, UL ECVP 2809-2 (recycled cobalt ≥82.9%), MIL-STD-810G, FIPS 140-3 Level 3, and TRAI/DoT MTCTE[cite: 8].")
   )
 )
 ```
