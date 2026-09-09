@@ -1,36 +1,55 @@
-#include "apn_sdk.h"
-#include <stdio.h>
+#ifndef CS_OBJECT_SDK_QMI_WRAPPER_H
+#define CS_OBJECT_SDK_QMI_WRAPPER_H
 
-// QMI Core
-int define_pdp_context(int id, const char* apn, const char* ipType) { printf("Define PDP Context %d %s %s\n", id, apn, ipType); return 0; }
-int activate_pdp_context(int id) { printf("Activate PDP Context %d\n", id); return 0; }
-int configure_qos(int id, int priority, int latency, int throughputUL, int throughputDL) { printf("Configure QoS %d\n", id); return 0; }
-int activate_esim_profile(const char* eid) { printf("Activate eSIM Profile %s\n", eid); return 0; }
+#include <stdint.h>
+#include <stdbool.h>
 
-// IMS / USSD / Stability
-int enable_ims_registration(const char* apn) { printf("Enable IMS %s\n", apn); return 0; }
-int enable_ussd(const char* code) { printf("Enable USSD %s\n", code); return 0; }
-int enable_bearer_stability(const char* mode) { printf("Enable Bearer Stability %s\n", mode); return 0; }
-int enable_qos_monitoring(const char* mode) { printf("Enable QoS Monitoring %s\n", mode); return 0; }
-int enable_security_audit(const char* level) { printf("Enable Security Audit %s\n", level); return 0; }
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-// APN Parser
-int parse_apn_xml(const char* filename) { printf("Parse APN XML %s\n", filename); return 0; }
-int parse_apn_mobileconfig(const char* filename) { printf("Parse APN mobileconfig %s\n", filename); return 0; }
+typedef enum {
+    QMI_IP_TYPE_V4 = 4,
+    QMI_IP_TYPE_V6 = 6,
+    QMI_IP_TYPE_V4V6 = 10
+} QmiIpType;
 
-// Policy Engine
-int enforce_root_of_trust(void) { printf("Enforce Root of Trust\n"); return 0; }
-int apply_masking_rules(const char* rulesFile) { printf("Apply Masking Rules %s\n", rulesFile); return 0; }
-int enforce_trusted_lpa(const char* lpaFile) { printf("Enforce Trusted LPA %s\n", lpaFile); return 0; }
+typedef enum {
+    QMI_QOS_PRIORITY_LOW = 1,
+    QMI_QOS_PRIORITY_NORMAL = 2,
+    QMI_QOS_PRIORITY_HIGH = 3,
+    QMI_QOS_PRIORITY_CRITICAL = 4,
+    QMI_QOS_PRIORITY_MAXIMUM = 5
+} QmiQoSPriority;
 
-// Checksum Validator
-int validate_signed_binary(const char* file, const char* expectedHash) { printf("Validate Binary %s\n", file); return 0; }
-int validate_config_file(const char* file, const char* expectedHash) { printf("Validate Config %s\n", file); return 0; }
+typedef struct {
+    uint32_t profile_id;
+    char carrier_id[32];
+    char carrier_name[64];
+    char apn[64];
+    char mcc[8];
+    char mnc[8];
+    QmiIpType ip_type;
+    bool is_roaming_allowed;
+    QmiQoSPriority qos_priority;
+    uint32_t throughput_ul_mbps;
+    uint32_t throughput_dl_mbps;
+    uint32_t latency_budget_ms;
+} QmiCarrierProfile;
 
-// Carrier Adapter
-int provision_carrier_profile(const char* carrierName, const char* apn) { printf("Provision Carrier %s %s\n", carrierName, apn); return 0; }
-int sync_with_carrier_server(const char* carrierName) { printf("Sync Carrier Server %s\n", carrierName); return 0; }
+// C# P/Invoke Compatible C ABI Export Signatures
+int QmiSdkInitialize(const char* device_node);
+int QmiSdkShutdown(void);
+int QmiSdkDefinePdpContext(const QmiCarrierProfile* profile);
+int QmiSdkActivatePdpContext(uint32_t profile_id);
+int QmiSdkDeactivatePdpContext(uint32_t profile_id);
+int QmiSdkConfigureQoS(uint32_t profile_id, QmiQoSPriority priority, uint32_t ul_mbps, uint32_t dl_mbps, uint32_t latency_ms);
+int QmiSdkActivateEsimProfile(const char* eid);
+int QmiSdkSetHardwareKillSwitch(bool isolated);
+int QmiSdkGetCarrierRegistration(char* out_carrier_name, uint32_t max_len);
 
-// Automation Layer
-int provision_all_carriers(void) { printf("Provision All Carriers\n"); return 0; }
-int apply_multi_apn_bundle(const char* configDir) { printf("Apply Multi-APN Bundle %s\n", configDir); return 0; }
+#ifdef __cplusplus
+}
+#endif
+
+#endif // CS_OBJECT_SDK_QMI_WRAPPER_H
