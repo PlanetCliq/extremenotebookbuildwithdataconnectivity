@@ -1,72 +1,178 @@
 (EXPERT_MASTER_OS_IMAGES
   (VERSION 2.9-HIGHEST)
-  (TITLE "Extreme Performance Laptop - Aerospace Grade OS Images & Boot Manifest")
+  (TITLE "Extreme Performance Laptop - Aerospace Grade OS Images & Boot Deployment Manifest")
 
+  ;; =========================================================================
+  ;; 1. Cryptographic Signing & Image Integrity Specification
+  ;; =========================================================================
   (SIGNING_SPECIFICATION
-    (HASH_ALGORITHM "SHA-512")
-    (SIGNATURE_STANDARD "RSA-4096 / ECC-P384 per NIST SP800-193 standards")
-    (SECURE_BOOT_KEYS "Microsoft Windows Production PCA 2011, Canonical Ltd. Master CA, Red Hat Keyring")
+    (HASH_ALGORITHM "SHA-512 (Bit-exact binary hash verification)")
+    (SIGNATURE_STANDARD "RSA-4096 / ECC-P384 per NIST SP800-193 Platform Firmware Resiliency standards")
+    (TRUSTED_ROOT_AUTHORITIES
+      (CERT_1 "Microsoft Windows Production PCA 2011")
+      (CERT_2 "Microsoft Corporation UEFI CA 2026")
+      (CERT_3 "Canonical Ltd. Master Secure Boot CA")
+      (CERT_4 "Red Hat Enterprise Linux Secure Boot Keyring")
+      (CERT_5 "Extreme Aerospace Master Root of Trust Key (OpenTitan HSM Hardware Stored)")
+    )
+    (MEASURED_BOOT_POLICY
+      (PCR_0 "Core BIOS UEFI executable payload measurement")
+      (PCR_2 "Option ROMs, NVIDIA Ada5090M microcode, and FastConnect 7900 firmware")
+      (PCR_4 "Unified Kernel Image (UKI), OS Boot Loader, and Shim Executable")
+      (PCR_7 "UEFI Secure Boot verification certificates and platform execution rules")
+      (PCR_11 "Microsoft Pluton & LowRISC OpenTitan silicon-level cryptographic attestation")
+    )
   )
 
+  ;; =========================================================================
+  ;; 2. Operating System Image Catalog (Aligned to Master BOM v2.9-HIGHEST)
+  ;; =========================================================================
   (CATALOG
+    ;; --- Tier 1: Windows Workstation & Enterprise Cloud Platforms ---
     (IMAGE WIN11_ENTERPRISE_AERO
       (FILE_NAME "win11_enterprise_24h2_aero.iso")
       (OS_NAME "Windows 11 Enterprise 64-Bit Workstation Edition (Build 26100+)")
+      (TARGET_STORAGE "Samsung MZVL24T0HBLU-G5 M.2 2280 NVMe Gen5 x4 Primary Slot 1")
+      (FILESYSTEM "NTFS / ReFS with BitLocker XTS-AES-256 Hardware Encryption")
       (PRELOADED_DRIVERS
-        "NVIDIA Ada5090M DCH WHQL, Intel TOPS45 NPU Driver, Intel TB5 Controller, "
-        "Qualcomm FastConnect 7900 Wi-Fi 7 / BT 5.4 / UWB, Qualcomm SDX90 Cellular QMI Driver, "
-        "ESS Sabre ES9039PRO 32-Bit Audio Driver, Goodix Sapphire Match-On-Chip Fingerprint Driver, "
-        "Alps Alpine Dedicated Universal AI Hotkey Dispatcher Service"
+        "nvada5090.sys (NVIDIA RTX Ada5090M DCH WHQL Certified), "
+        "intel_npu.sys (Intel TOPS45 NPU DirectML Execution Provider), "
+        "tb5_controller.sys (Intel TB5-IC-80GBPS Controller 80Gbps/120Gbps), "
+        "qc_fastconnect.sys (Qualcomm FastConnect 7900 Wi-Fi 7 / BT 5.4 / UWB), "
+        "qcom_sdx90_wwan.sys (Qualcomm Snapdragon X90 5G NR Baseband Modem), "
+        "ess9039pro_thx_dsp.sys (ESS Sabre ES9039PRO 32-Bit/768kHz + THX AAA-888 + Dirac Live), "
+        "goodix_sapphire_fp.sys (Goodix 508 DPI Sapphire Match-On-Chip Biometric Driver), "
+        "universal_ai_key.sys (Alps Alpine Dedicated Universal AI Hotkey Dispatcher)"
       )
-      (SECURITY_STATE "UEFI Secure Boot, Pluton Co-Processor, VBS/HVCI Enabled, BitLocker XTS-AES-256")
-      (AI_HOTKEY_HOOK "Direct ACPI event mapped to Gemini Workspace, Claude, Grok, and local ONNX models")
+      (SECURITY_CONFIG "Secured-core PC certified, VBS/HVCI active, Pluton secure enclave attestation enabled")
+      (AI_HOTKEY_HOOK "Dispatches direct ACPI vector 0x00E9 to Gemini Workspace, Claude, Grok, and local ONNX models")
     )
 
     (IMAGE WIN_SERVER_2025_AERO
       (FILE_NAME "win_server2025_datacenter_aero.iso")
       (OS_NAME "Windows Server 2025 Datacenter Edition")
-      (PRELOADED_DRIVERS "Arista QSFP-DD 400G RDMA RoCEv2 Drivers, Storage Spaces Direct, NVMe Gen5 RAID")
-      (SECURITY_STATE "Shielded VM Host, TPM 2.0 Attestation, Guarded Fabric Validation")
+      (TARGET_STORAGE "Samsung MZVL24T0HBLU-G5 Dual NVMe Gen5 RAID-1 Resilient Mirror")
+      (FILESYSTEM "ReFS with Storage Spaces Direct acceleration")
+      (PRELOADED_DRIVERS
+        "arista_qsfp400g.sys (Arista QSFP-DD 400G Optical RoCEv2 / RDMA Driver), "
+        "amphenol_cat8.sys (Amphenol Cat8 RJ45 40Gbps Low-Latency Network Driver), "
+        "vicor_pi3749.sys (Vicor 48V-to-12V Power Telemetry Monitor), "
+        "quantumscape_bms.sys (QuantumScape 480Wh/kg Solid-State Battery SMBus Monitor)"
+      )
+      (SECURITY_CONFIG "Shielded VM Host enabled, Guarded Fabric attestation, Hardware Enforced Stack Protection")
     )
 
+    ;; --- Tier 2: Linux Enterprise & AI Acceleration Respins ---
     (IMAGE UBUNTU_2404_LTS_AERO
       (FILE_NAME "ubuntu_24.04_lts_aero_kernel6.8.iso")
-      (OS_NAME "Ubuntu 24.04 LTS (Noble Numbat) Custom Aerospace Respin")
+      (OS_NAME "Ubuntu 24.04 LTS (Noble Numbat) Aerospace Edition")
+      (TARGET_STORAGE "Samsung MZVL24T0HBLU-G5 M.2 2280 NVMe Gen5 Primary Slot 2")
+      (FILESYSTEM "EXT4 on LUKS2 Cryptsetup with TPM 2.0 Auto-Unlock Binding")
       (PRELOADED_MODULES
-        "nvidia-open-dkms, ath12k_fastconnect, intel_ivpu_tops45, thunderbolt5, qmi_wwan_sdx90, "
-        "snd-soc-dirac-ess9039, thx-aaa888-amp, goodix_fp_tee, extreme_ai_switch"
+        "nvidia-open-dkms (NVIDIA Ada5090M CUDA 12.6, TensorRT, Vulkan 1.3), "
+        "intel_ivpu_tops45.ko (Intel TOPS45 NPU OpenVINO / ONNX runtime driver), "
+        "ath12k_fastconnect.ko (Qualcomm FastConnect 7900 Wi-Fi 7 MLO & Bluetooth 5.4), "
+        "qmi_wwan_sdx90.ko (Qualcomm Snapdragon X90 5G NR Baseband QMI Driver), "
+        "thunderbolt5.ko (Thunderbolt 5 / USB4 v2 Host Controller), "
+        "snd-soc-dirac-ess9039.ko (ALSA ASoC ESS Sabre ES9039PRO & Dual Crystek Clock Driver), "
+        "goodix_fp_tee.ko (Goodix Sapphire Match-On-Chip Driver via ARM TrustZone TEE), "
+        "extreme_ai_switch.ko (Dedicated Universal AI Hotkey Evdev Input Driver)"
       )
-      (PROVISIONING "Docker, Containerd, PyTorch 2.4+CUDA 12.6, ROS2 Iron, QMI Carrier Provisioning SDK")
+      (PROVISIONING_SERVICES
+        "Pre-installed Docker Engine, Containerd, PyTorch 2.4, ROS2 Iron, QMI CLI, "
+        "User-space AI Hotkey Daemon (/usr/local/bin/ai_hotkey_daemon.py)"
+      )
     )
 
     (IMAGE RHEL_UBI9_AERO
       (FILE_NAME "rhel_ubi9_enterprise_workstation.iso")
       (OS_NAME "Red Hat Enterprise Linux 9.4 (UBI9 Compatible)")
-      (PRELOADED_MODULES "PCIe Gen5 low-latency stripline kernel, QSFP-DD 400G high-throughput network stack")
-      (SECURITY_STATE "SELinux MLS Hardened, FIPS 140-3 Kernel Mode Enforced, OpenTitan PKCS#11 Provider")
+      (TARGET_STORAGE "Samsung MZVL24T0HBLU-G5 M.2 2280 NVMe Gen5")
+      (FILESYSTEM "XFS with Integrity Metadata and DM-Crypt Hardware Binding")
+      (PRELOADED_MODULES
+        "PCIe Gen5 backdrill low-latency kernel, Arista QSFP-DD 400G high-throughput network stack, "
+        "OpenTitan PKCS#11 cryptographic provider engine"
+      )
+      (SECURITY_CONFIG "SELinux Multi-Level Security (MLS) Hardened, FIPS 140-3 Kernel Mode Enforced")
     )
 
+    (IMAGE FEDORA_2026_AERO
+      (FILE_NAME "fedora_rawhide_2026_aero.iso")
+      (OS_NAME "Fedora Rawhide 2026 Modern Workstation")
+      (TARGET_STORAGE "Samsung MZVL24T0HBLU-G5 NVMe Gen5")
+      (FILESYSTEM "Btrfs with subvolume layout and zstd transparent compression")
+      (PRELOADED_MODULES
+        "Wayland pure compositor, PipeWire with Dirac Live room correction impulse filters, "
+        "Qualcomm FastConnect 7900 Ultra-Wideband (UWB) spatial tracking stack"
+      )
+    )
+
+    (IMAGE SUSE_15_SP5_AERO
+      (FILE_NAME "suse_linux_enterprise_15_sp5.iso")
+      (OS_NAME "SUSE Linux Enterprise Desktop 15 SP5")
+      (TARGET_STORAGE "Samsung MZVL24T0HBLU-G5 NVMe Gen5")
+      (FILESYSTEM "Btrfs on Root with Snapper automatic rollback integration on boot failure")
+      (PRELOADED_MODULES "Storage Spaces Direct, QSFP-DD 400G RoCEv2, Qualcomm SDX90 QMI stack")
+    )
+
+    ;; --- Tier 3: UNIX, BSD & Bare-Metal Hypervisors ---
     (IMAGE FREEBSD_14_AERO
       (FILE_NAME "freebsd_14_release_zfs.img")
       (OS_NAME "FreeBSD 14.1-RELEASE-AERO")
-      (PRELOADED_DRIVERS "OpenZFS native encryption, NVMe Gen5 CAM driver, bhyve GPU passthrough")
+      (TARGET_STORAGE "Samsung MZVL24T0HBLU-G5 NVMe Gen5")
+      (FILESYSTEM "OpenZFS with Native ZFS Dataset Encryption (AES-256-GCM)")
+      (PRELOADED_DRIVERS
+        "NVMe Gen5 CAM driver, bhyve hypervisor GPU passthrough for NVIDIA Ada5090M, "
+        "Crystek audio master clock selector and ESS Sabre ES9039PRO sound engine"
+      )
+    )
+
+    (IMAGE SOLARIS_11_AERO
+      (FILE_NAME "solaris_11.4_cbe_aero.iso")
+      (OS_NAME "Oracle Solaris 11.4 CBE")
+      (TARGET_STORAGE "Samsung MZVL24T0HBLU-G5 NVMe Gen5")
+      (FILESYSTEM "ZFS Boot Pool (rpool)")
+      (PRELOADED_DRIVERS
+        "DTrace hardware telemetry instrumentation, SMF service manifests for Dyson ionic blower monitoring, "
+        "QSFP-DD 400G network interface controllers"
+      )
     )
 
     (IMAGE PROXMOX_VE8_AERO
       (FILE_NAME "proxmox_ve_8.2_aero.iso")
       (OS_NAME "Proxmox Virtual Environment 8.2 (Debian 12 Bookworm Base)")
-      (PRELOADED_DRIVERS "ZFS on root, KVM SR-IOV for QSFP-DD 400G, IOMMU grouping for Ada5090M & NPU")
+      (TARGET_STORAGE "Samsung MZVL24T0HBLU-G5 Dual NVMe Gen5 ZFS RAID-1 Pool")
+      (FILESYSTEM "ZFS Root with Proxmox VE Storage Engine")
+      (PRELOADED_DRIVERS
+        "KVM VFIO PCIe Gen5 passthrough for NVIDIA Ada5090M, Intel TOPS45 NPU, "
+        "Qualcomm SDX90 5G Baseband, SR-IOV 400G network virtual functions, "
+        "Alps Alpine dedicated Universal AI Hotkey evdev passthrough"
+      )
     )
 
     (IMAGE VMWARE_ESXI8_AERO
       (FILE_NAME "esxi_8.0u2_custom_aero.iso")
       (OS_NAME "VMware ESXi 8.0 Update 2 Custom ISO")
-      (PRELOADED_DRIVERS "vSphere Native NVMe Driver, NVIDIA Virtual GPU (vGPU) Manager vibs")
+      (TARGET_STORAGE "Samsung MZVL24T0HBLU-G5 NVMe Gen5 VMFS-L Datastore")
+      (FILESYSTEM "VMFS 6.0 Enterprise Virtual Storage Pool")
+      (PRELOADED_DRIVERS
+        "vSphere Native NVMe Driver, NVIDIA Virtual GPU (vGPU) Manager vibs, "
+        "Arista 400G QSFP-DD high-throughput network adapters"
+      )
     )
   )
 
-  (RECOVERY_FALLBACK
-    (METHOD "Hardware A/B Dual SPI Partition Switching via Embedded Controller Watchdog")
-    (RULE "If boot sequence fails 3 consecutive times, EC forces Flash B SPI and boots Golden Safe Environment")
+  ;; =========================================================================
+  ;; 3. Image Packaging & Universal Recovery Protocol
+  ;; =========================================================================
+  (PACKAGING
+    (FORMAT ".ISO (Hybrid El Torito UEFI Bootable) and .IMG (Raw Block Device)")
+    (BOOT_STRUCTURE "UEFI Secure Boot enabled with Shim v15.8 and Signed GRUB2 / Windows Boot Manager")
+    (SIGNING_CREDENTIALS "Signed with SHA-512, RSA-4096, and Microsoft Pluton / OpenTitan Root-of-Trust")
+    (RECOVERY_FALLBACK
+      (METHOD "A/B Dual-Partition Automated Failover via Embedded Controller Watchdog")
+      (TRIGGER "If boot stage fails 3 consecutive times, EC triggers Flash B SPI and boots Golden Safe Image")
+      (STATE_PRESERVATION "Maintains GSMA-SGP.32 eSIM profile configurations, BitLocker keys, and TPM NVRAM across fallback events")
+    )
   )
 )
