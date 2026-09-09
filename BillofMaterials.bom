@@ -19,7 +19,7 @@
   )
   (ITEM GPU_NANOWIRE_AI_QUANTUM
     (MANUFACTURER Custom) (COUNTRY Japan)
-    (SPEC Flux=350W TDP=300W Voltage=1.0V Architecture=Quantum_Nanowire
+    (SPEC Flux=350W TDP=300W Voltage=1.0W Architecture=Quantum_Nanowire
           ModuleSize=60x50mm Height=5.2mm SlimProfile=Yes Weight=150g ThermalDissipation=50W)
     (QTY 1)
   )
@@ -242,21 +242,34 @@
           SlimProfile=Yes Weight=18g ThermalDissipation=0.5W)
     (QTY 1)
   )
-  (ITEM TELEPHONE_LINE_PORT
-    (MANUFACTURER Conexant) (PART_NUMBER RJ11-MODEM-SLIM) (COUNTRY USA)
-    (SPEC Connector=RJ11 Voltage=3.3V Speed=56Kbps LegacyTelephoneSupport=Yes Isolation=1500V
+  ;; --- Required Communication Ports Update ---
+  (ITEM TELEPHONE_PORT
+    (MANUFACTURER Amphenol) (PART_NUMBER TEL-RJ11-54601) (COUNTRY USA)
+    (SPEC Connector=RJ11 Voltage=3.3V Function=TelephoneLineSupport Isolation=1500V
           Size=12x14mm Height=6mm SlimProfile=Yes Weight=12g ThermalDissipation=1.0W)
     (QTY 1)
   )
-  (ITEM THUNDERBOLT5_CONTROLLER
-    (MANUFACTURER Intel) (PART_NUMBER TB5-IC-80GBPS) (COUNTRY USA)
-    (SPEC Voltage=3.3V Speed=80Gbps_Symmetric/120Gbps_Boost PCIeTunneling=Yes USB4_v2=Yes
-          Package=QFN-128 Cap=47nF SlimProfile=Yes Weight=8g ThermalDissipation=3.5W)
+  (ITEM FAX_PORT
+    (MANUFACTURER Amphenol) (PART_NUMBER FAX-RJ11-54601) (COUNTRY USA)
+    (SPEC Connector=RJ11 Voltage=3.3V Function=FaxLineSupport Isolation=1500V
+          Size=12x14mm Height=6mm SlimProfile=Yes Weight=12g ThermalDissipation=1.0W)
     (QTY 1)
   )
-  (ITEM USB4_V2_PORT
-    (MANUFACTURER Amphenol) (PART_NUMBER USB4-V2-120G) (COUNTRY USA)
-    (SPEC Voltage=5V Speed=120Gbps ConnectorSize=12x8mm Height=2.5mm ESDProtection=Yes
+  (ITEM LEGACY_USB2_PORT
+    (MANUFACTURER Molex) (PART_NUMBER USB-2.0-TYPE-A-SINGLE) (COUNTRY USA)
+    (SPEC Voltage=5V Speed=480Mbps Connector=USB_Type_A_Single ESDProtection=Yes
+          SlimProfile=Yes Weight=4g ThermalDissipation=0.5W)
+    (QTY 1)
+  )
+  (ITEM USB_3_2_PORT
+    (MANUFACTURER TE Connectivity) (PART_NUMBER USB-C-3.2-GEN2) (COUNTRY USA)
+    (SPEC Voltage=5V Speed=20Gbps Connector=USB_Type_C ESDProtection=Yes
+          SlimProfile=Yes Weight=4g ThermalDissipation=0.8W)
+    (QTY 2)
+  )
+  (ITEM USB_4_PORT
+    (MANUFACTURER Intel) (PART_NUMBER USB4-TYPE-C-40G) (COUNTRY USA)
+    (SPEC Voltage=5V Speed=40Gbps Thunderbolt4Compatible Connector=USB_Type_C ESDProtection=Yes
           SlimProfile=Yes Weight=5g ThermalDissipation=1.0W)
     (QTY 2)
   )
