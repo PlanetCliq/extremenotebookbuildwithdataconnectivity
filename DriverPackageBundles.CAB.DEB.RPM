@@ -1,55 +1,54 @@
-(EXPERT_MASTER_PACKAGES
-  (VERSION 2.6)
-  (TITLE "Extreme Performance Laptop - Aerospace Grade Driver Bundles (X75 Edition)")
+(EXPERT_MASTER_DRIVER_BUNDLES
+  (VERSION 2.9-HIGHEST)
+  (TITLE "Extreme Performance Laptop - Aerospace Grade Package Bundles (CAB/DEB/RPM)")
 
-  ;; ===========================
-  ;; Windows Driver Bundle (.CAB)
-  ;; ===========================
-  (WINDOWS_CAB
-    (File "drivers_bundle.cab")
-    (Components
-      (GPU "NVIDIA Ada5090M GPU driver - nvada5090.sys")
-      (NPU "Intel TOPS45 NPU driver - intel_npu.sys")
-      (Thunderbolt "Intel Thunderbolt5 driver - tb5.sys")
-      (WiFi_BT "Quectel WiFi7/BT6 driver - wifi7_bt6.sys")
-      (NVMe "Samsung NVMe Gen5 driver - nvme_gen5.sys")
-      (WWAN "Qualcomm Snapdragon X75 WWAN driver - x75_wwan.sys")
+  (BUNDLE_WINDOWS_CAB
+    (FILE_NAME "ExtremeNotebook_Drivers_Win11_Enterprise_v2.9.cab")
+    (COMPRESSION "LZX Maximum Compression Archive")
+    (TARGET_OS "Windows 11 Enterprise / Windows Server 2025 (x64)")
+    (CONTENTS
+      (PACKAGE "nvada5090.sys / nvada5090.inf / nvada5090.cat - Display & CUDA Adapter")
+      (PACKAGE "intel_npu.sys / intel_npu.inf / intel_npu.cat - Neural Processing Accelerator")
+      (PACKAGE "qc_fastconnect.sys / qc_fastconnect.inf / qc_fastconnect.cat - Wi-Fi 7 / BT 5.4 / UWB")
+      (PACKAGE "qcom_sdx90.sys / qcom_sdx90.inf / qcom_sdx90.cat - 5G NR Baseband & SIM Stack")
+      (PACKAGE "tb5_controller.sys / tb5.inf / tb5.cat - Thunderbolt 5 Subsystem")
+      (PACKAGE "ess9039pro_thx_dsp.sys / ess_audio.inf / ess_audio.cat - 32-Bit Studio Audio Driver")
+      (PACKAGE "goodix_fp.sys / goodix_fp.inf / goodix_fp.cat - Sapphire Match-On-Chip Fingerprint")
+      (PACKAGE "universal_ai_key.sys / ai_key.inf / ai_key.cat - Universal AI Hotkey Dispatcher")
     )
-    (Signing "Microsoft WHQL, Pluton secure boot chain, ARM TrustZone validation")
-    (Deployment "Windows Update, DISM integration, WWAN APN/QoS provisioning hooks")
+    (SIGNING "SHA-384 Microsoft Hardware Quality Labs (WHQL) Trusted Root")
+    (DEPLOYMENT_COMMAND "dism.exe /Online /Add-Package /PackagePath:ExtremeNotebook_Drivers_Win11_Enterprise_v2.9.cab")
   )
 
-  ;; ===========================
-  ;; Debian/Ubuntu Package (.DEB)
-  ;; ===========================
-  (DEBIAN_DEB
-    (File "drivers_bundle.deb")
-    (Components
-      (GPU "NVIDIA Ada5090M kernel module - nvada5090.ko")
-      (NPU "Intel TOPS45 NPU kernel module - intel_npu.ko")
-      (Thunderbolt "Thunderbolt5 kernel module - tb5.ko")
-      (WiFi_BT "WiFi7/BT6 kernel module - wifi7_bt6.ko")
-      (NVMe "NVMe Gen5 kernel module - nvme_gen5.ko")
-      (WWAN "Qualcomm Snapdragon X75 WWAN kernel module - x75_wwan.ko")
+  (BUNDLE_DEBIAN_DEB
+    (FILE_NAME "extreme-laptop-drivers-dkms_2.9.8_amd64.deb")
+    (PACKAGE_METADATA
+      (Package "extreme-laptop-drivers-dkms")
+      (Version "2.9.8-highest-aero")
+      (Section "kernel")
+      (Priority "optional")
+      (Architecture "amd64")
+      (Depends "dkms (>= 3.0.0), build-essential, linux-headers-generic")
+      (Maintainer "Aerospace System Engineering Team <support@extremenotebook.aero>")
+      (Description "DKMS kernel modules for NVIDIA Ada5090M, Qualcomm FastConnect 7900, "
+                   "Qualcomm SDX90 WWAN, ESS Sabre ES9039PRO dual-clock audio, Goodix FP, and AI Hotkey.")
     )
-    (Signing "SHA-512, OpenTitan root-of-trust, TPM validation")
-    (Deployment "APT repository, dpkg installation, WWAN profile provisioning via QMI SDK")
+    (SIGNING "GPG Key ID: 0x9B1E4A3F2C5D6E7A (Verified against OpenTitan Silicon RoT)")
+    (DEPLOYMENT_COMMAND "apt-get install -y ./extreme-laptop-drivers-dkms_2.9.8_amd64.deb")
   )
 
-  ;; ===========================
-  ;; Red Hat/SUSE Package (.RPM)
-  ;; ===========================
-  (REDHAT_RPM
-    (File "drivers_bundle.rpm")
-    (Components
-      (GPU "NVIDIA Ada5090M kernel module - nvada5090.ko")
-      (NPU "Intel TOPS45 NPU kernel module - intel_npu.ko")
-      (Thunderbolt "Thunderbolt5 kernel module - tb5.ko")
-      (WiFi_BT "WiFi7/BT6 kernel module - wifi7_bt6.ko")
-      (NVMe "NVMe Gen5 kernel module - nvme_gen5.ko")
-      (WWAN "Qualcomm Snapdragon X75 WWAN kernel module - x75_wwan.ko")
+  (BUNDLE_REDHAT_RPM
+    (FILE_NAME "extreme-laptop-drivers-kmod-2.9.8-1.el9.x86_64.rpm")
+    (RPM_METADATA
+      (Name "extreme-laptop-drivers-kmod")
+      (Version "2.9.8")
+      (Release "1.el9")
+      (License "Proprietary / Dual BSD-GPL for Open Source Modules")
+      (Group "System Environment/Kernel")
+      (Vendor "Extreme Aerospace Computing Consortium")
+      (URL "https://github.com/dravasp/extremenotebookbuildwithdataconnectivity")
     )
-    (Signing "SHA-512, TPM validation, OpenTitan secure keyring")
-    (Deployment "YUM/DNF repository, rpm installation, WWAN APN/QoS provisioning hooks")
+    (SIGNING "RSA/SHA-256 GPG Signature verified via Red Hat Enterprise Linux Secure Keyring")
+    (DEPLOYMENT_COMMAND "dnf install -y ./extreme-laptop-drivers-kmod-2.9.8-1.el9.x86_64.rpm")
   )
 )
