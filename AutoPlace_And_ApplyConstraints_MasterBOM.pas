@@ -122,8 +122,14 @@ Begin
     SetComponentLocation(Board, 'WLAN1',     320.00,  85.00, eTopLayer,  270.0);   // Qualcomm FastConnect 7900 (Wi-Fi 7/UWB)
     SetComponentLocation(Board, 'NFC1',      320.00,  60.00, eTopLayer,  270.0);   // HP 13.56MHz NFC Controller (QFN-32)
     SetComponentLocation(Board, 'OPT_CAGE1', 345.00, 195.00, eTopLayer,  270.0);   // Arista QSFP-DD 400G Optical Cage (8x50G PAM4)
-    SetComponentLocation(Board, 'ETH1',      345.00, 165.00, eTopLayer,  270.0);   // Amphenol Cat8 RJ45 40Gbps Shielded Jack
-    SetComponentLocation(Board, 'TEL1',        5.00, 115.00, eTopLayer,   90.0);   // Conexant 56K RJ11 Modem Port (1500V Isolated)
+    SetComponentLocation(Board, 'ETH1',      345.00, 165.00, eTopLayer,  270.0);   // Amphenol Cat8 RJ45 40Gbps Shielded Jack[cite: 8]
+    SetComponentLocation(Board, 'TEL1',        5.00, 115.00, eTopLayer,   90.0);   // Conexant RJ11 Telephone Line Port (1500V Isolated)[cite: 8]
+    SetComponentLocation(Board, 'FAX1',        5.00, 125.00, eTopLayer,   90.0);   // Conexant RJ11 Fax Line Port (1500V Isolated)[cite: 8]
+    SetComponentLocation(Board, 'USB2_1',      5.00, 135.00, eTopLayer,   90.0);   // Molex USB 2.0 Type-A Single Port (480Mbps)[cite: 8]
+    SetComponentLocation(Board, 'USB32_1',     5.00, 150.00, eTopLayer,   90.0);   // TE Connectivity USB 3.2 Gen 2 Type-C Port 1[cite: 8]
+    SetComponentLocation(Board, 'USB32_2',    25.00, 210.00, eTopLayer,    0.0);   // TE Connectivity USB 3.2 Gen 2 Type-C Port 2[cite: 8]
+    SetComponentLocation(Board, 'USB4_1',     15.00, 170.00, eTopLayer,   90.0);   // Intel USB 4 Type-C 40Gbps Port 1[cite: 8]
+    SetComponentLocation(Board, 'USB4_2',     15.00, 190.00, eTopLayer,   90.0);   // Intel USB 4 Type-C 40Gbps Port 2[cite: 8]
     SetComponentLocation(Board, 'TB5_1',      25.00, 180.00, eTopLayer,    0.0);   // Intel TB5-IC-80GBPS Thunderbolt 5 Controller
     SetComponentLocation(Board, 'USB1',        5.00, 170.00, eTopLayer,   90.0);   // Amphenol USB-C EPR 240W Port 1
     SetComponentLocation(Board, 'USB2',        5.00, 190.00, eTopLayer,   90.0);   // Amphenol USB-C EPR 240W Port 2
