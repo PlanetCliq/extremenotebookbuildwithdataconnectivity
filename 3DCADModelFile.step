@@ -1,95 +1,28 @@
-(EXPERT_MASTER_STEP
-  (VERSION 2.6)
-  (TITLE "Extreme Performance Laptop - Aerospace Grade 3D CAD Model (X75 Edition)")
-
-  ;; ===========================
-  ;; Enclosure Geometry
-  ;; ===========================
-  (CHASSIS
-    (Material "Aerospace Aluminum 7075-T6")
-    (Dimensions "360mm x 250mm x 18mm base, 360mm x 250mm x 5mm lid")
-    (Tolerance "±0.05mm holes, ±0.1mm enclosure fit")
-    (Features
-      (Hinges "Titanium Ti-6Al-4V, 50,000 cycle rating")
-      (VentSlots "2mm x 40mm, 12 slots evenly spaced")
-      (SpeakerGrill "1mm perforations, 60% open area")
-      (WWAN_M2_Slot "3052 Key B, CNC reinforced mount")
-      (NanoSIM_Cage "Spring-loaded slot, 1.2mm tolerance, dust shield")
-      (BatteryPocket "150mm x 95mm x 10mm cavity for graphene 150 Wh/kg pack")
-    )
-  )
-
-  ;; ===========================
-  ;; Display Integration
-  ;; ===========================
-  (DISPLAY
-    (Component "AUO MicroLED UHD Panel")
-    (Opening "340mm x 220mm cutout")
-    (Mount "Custom LVDS connector, recessed bezel")
-    (Flux "50W dissipation, copper spreaders integrated")
-    (Compliance "EMI/ESD shielding, MIL-STD-810G vibration tolerance")
-  )
-
-  ;; ===========================
-  ;; Battery Pack
-  ;; ===========================
-  (BATTERY
-    (Component "Graphene Solid-State Pack, 150 Wh/kg")
-    (Pocket "Recessed cavity under palm rest")
-    (Dimensions "150mm x 95mm x 10mm")
-    (SMBus "Header integrated for monitoring")
-    (Safety "Non-flammable electrolyte, UL IEC BIS certified")
-    (Endurance "≥30 hours continuous runtime")
-  )
-
-  ;; ===========================
-  ;; Thermal Management
-  ;; ===========================
-  (THERMAL
-    (GrapheneVaporChamber "≥1500W/mK conductivity, 300W load capacity")
-    (LiquidMetalTIM "Coverage ≥95%, resistance <0.01K/W")
-    (DysonBlower "Bladeless ionic blower, >20CFM airflow, <25dBA noise")
-    (CopperInserts "CPU pocket 40x40x2mm, GPU pocket 50x50x2mm, NPU pocket 35x35x2mm")
-    (SensorMounts "Ø2mm drill holes for thermal probes")
-  )
-
-  ;; ===========================
-  ;; Ports & Slots
-  ;; ===========================
-  (PORTS
-    (USB_PD "2x USB-C EPR 240W, chamfered cutouts")
-    (DC_Jack "Ø8mm barrel jack, reinforced mount")
-    (SDExpress "24mm x 2.1mm slot, right edge placement")
-    (QSFP_DD "18mm x 14mm cage opening")
-    (BluRayDrive "128mm x 12.7mm slimline slot")
-    (WWAN_Antenna "Dual RF connectors, shielded routing channels")
-  )
-
-  ;; ===========================
-  ;; Ergonomics
-  ;; ===========================
-  (ERGONOMICS
-    (Keypad "Numeric, white backlight, no RGB")
-    (Trackpad "130x90mm glass, centered below keyboard")
-    (PowerButton "Isolated near hinge axis")
-    (SurfaceFinish "Anodized aluminum + PVD coating")
-    (NanoSIM_Access "Accessible slot, CNC cutout with dust shield")
-  )
-
-  ;; ===========================
-  ;; WWAN Integration
-  ;; ===========================
-  (WWAN_X75
-    (Component "Qualcomm Snapdragon X75 WWAN")
-    (Slot "M.2 3052 Key B")
-    (Profiles "20 stored, 1–5 active simultaneously")
-    (NanoSIM "Physical slot, hardware backed")
-    (LPA "Local Profile Assistant, GSMA-SGP.32 compliant")
-    (Voice "Enabled")
-    (SMS "Enabled")
-    (USSD "Enabled")
-    (APN_QoS "Multi-carrier, max throughput 256 Mbps UL/DL")
-    (PDP_Contexts "IPv4v6, multi-bearer, stable comms")
-    (Security "UEFI Secure Boot, Intel Boot Guard, ARM TrustZone, Microsoft Pluton, TPM, HSM, fTPM, OpenTitan RoT")
-  )
-)
+ISO-10303-21;
+HEADER;
+FILE_DESCRIPTION(('Aerospace Laptop Monolithic 7075-T6 Unibody & Titanium Hinge AP242 Model'),'2;1');
+FILE_NAME('3DCADModelFile.step','2026-09-10T01:15:00',('Dravasp Shroff'),('Aerospace Engineering'),'AP242_MANAGED_MODEL_BASED_3D_ENGINEERING_MIM_LF','STEP-Core','OpenTitan Validated');
+FILE_SCHEMA(('AP242_MANAGED_MODEL_BASED_3D_ENGINEERING_MIM_LF'));
+ENDSEC;
+DATA;
+#1=APPLICATION_CONTEXT('aerospace mechanical design');
+#2=APPLICATION_PROTOCOL_DEFINITION('international standard','ap242_managed_model_based_3d_engineering_mim_lf',2026,#1);
+#3=PRODUCT_CONTEXT('chassis context',#1,'mechanical');
+#4=PRODUCT('ExtremeLaptopChassis','Monolithic 7075-T6 Chassis with Ti-6Al-4V Reinforcements','',(#3));
+#5=PRODUCT_DEFINITION_FORMATION('2.9-HIGHEST','Full System Physical Definition',#4);
+#6=PRODUCT_DEFINITION('design','chassis mechanical envelope',#5,#3);
+#7=PRODUCT_DEFINITION_SHAPE('','',#6);
+#8=SHAPE_REPRESENTATION('chassis base envelope',(#9,#10,#11),#12);
+#9=AXIS2_PLACEMENT_3D('origin',#13,#14,#15);
+#10=CARTESIAN_POINT('p1',(0.0,0.0,0.0));
+#11=CARTESIAN_POINT('p2',(360.0,250.0,18.0));
+#12=(GEOMETRIC_REPRESENTATION_CONTEXT(3) GLOBAL_UNCERTAINTY_ASSIGNED_CONTEXT((#16)) GLOBAL_UNIT_ASSIGNED_CONTEXT((#17,#18,#19)) REPRESENTATION_CONTEXT('chassis 3d context','3D'));
+#13=CARTESIAN_POINT('',(0.0,0.0,0.0));
+#14=DIRECTION('',(0.0,0.0,1.0));
+#15=DIRECTION('',(1.0,0.0,0.0));
+#16=UNCERTAINTY_MEASURE_WITH_UNIT(LENGTH_MEASURE(1.0E-04),#17,'closure','DISTANCE_ACCURACY_VALUE');
+#17=(LENGTH_UNIT() NAMED_UNIT(*) SI_UNIT(.MILLI.,.METRE.));
+#18=(NAMED_UNIT(*) PLANE_ANGLE_UNIT() SI_UNIT($,.RADIAN.));
+#19=(NAMED_UNIT(*) SI_UNIT($,.STERADIAN.) SOLID_ANGLE_UNIT());
+ENDSEC;
+END-ISO-10303-21;
