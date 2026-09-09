@@ -1,192 +1,605 @@
 (EXPERT_MASTER_BOM
-  (VERSION 1.0)
-  (TITLE "Extreme Performance Laptop - Aerospace Grade BOM")
+  (VERSION 2.9-HIGHEST)
+  (TITLE "Extreme Performance Laptop – Aerospace Grade BOM (Fully Consolidated Master List)")
 
-  ;; ===========================
-  ;; Compute & Memory
-  ;; ===========================
+  ;; =========================================================================
+  ;; 1. Compute Core & Advanced Processing
+  ;; =========================================================================
   (ITEM CPU_INTEL_I9_14900HX
     (MANUFACTURER Intel) (PART_NUMBER BX8071514900HX) (COUNTRY USA)
-    (SPEC TDP=125W Voltage=1.2V Speed=5.8GHz Turbo)
+    (SPEC TDP=125W_Base_175W_PL2 Voltage=1.2V Speed=5.8GHz_Turbo Cores=24 Threads=32
+          DieSize=45x37mm Height=4.5mm SlimProfile=Yes Weight=35g ThermalDissipation=15W)
     (QTY 1)
   )
   (ITEM GPU_NVIDIA_ADA5090M
     (MANUFACTURER NVIDIA) (PART_NUMBER NVB5090M-24G-G7) (COUNTRY USA)
-    (SPEC TDP=250W Voltage=1.8V Speed=2.5GHz Core)
+    (SPEC TDP=250W_Base_300W_Flux Voltage=1.8V Speed=2.5GHz_Boost VRAM=24GB_GDDR7_HBM3
+          DieSize=55x45mm Height=5.0mm SlimProfile=Yes Weight=120g ThermalDissipation=40W)
     (QTY 1)
   )
   (ITEM GPU_NANOWIRE_AI_QUANTUM
     (MANUFACTURER Custom) (COUNTRY Japan)
-    (SPEC TDP=300W Voltage=1.0V Flux=350W)
+    (SPEC Flux=350W TDP=300W Voltage=1.0V Architecture=Quantum_Nanowire
+          ModuleSize=60x50mm Height=5.2mm SlimProfile=Yes Weight=150g ThermalDissipation=50W)
+    (QTY 1)
+  )
+  (ITEM NPU_INTEL_TOPS45
+    (MANUFACTURER Intel) (PART_NUMBER NPU-TOPS45-BGA800) (COUNTRY USA)
+    (SPEC Throughput=45TOPS Voltage=1.2V Architecture=BGA-800 ONNX_DirectML_Acceleration=Yes
+          SlimProfile=Yes Weight=15g ThermalDissipation=8W)
     (QTY 1)
   )
   (ITEM MEMORY_DDR5X_MICRON
     (MANUFACTURER Micron) (PART_NUMBER MTC40F4086S1HC88XD1R) (COUNTRY USA)
-    (SPEC Voltage=1.1V Speed=6400 MT/s)
-    (QTY 2 DIMMs)
+    (SPEC Voltage=1.1V Speed=6400MT/s DIMMSize=133x31mm Height=3.2mm Package=DIMM-288
+          SlimProfile=Yes Weight=20g ThermalDissipation=2W)
+    (QTY 4 DIMMs)
   )
   (ITEM MEMORY_HBM3_STACK
     (MANUFACTURER Samsung) (PART_NUMBER HBM3-256GB) (COUNTRY Korea)
-    (SPEC Voltage=1.2V Speed=819GB/s Capacity=256GB)
+    (SPEC Voltage=1.2V Speed=819GB/s Capacity=256GB BusWidth=1024bits Package=Stacked-BGA
+          PackageSize=40x40mm Height=3.8mm SlimProfile=Yes Weight=25g ThermalDissipation=5W)
     (QTY 1)
   )
 
-  ;; ===========================
-  ;; Storage & Security
-  ;; ===========================
+  ;; =========================================================================
+  ;; 2. High-Speed Storage & Optical Media
+  ;; =========================================================================
   (ITEM NVMe_GEN5_SSD
     (MANUFACTURER Samsung) (PART_NUMBER MZVL24T0HBLU-G5) (COUNTRY Korea)
-    (SPEC Voltage=3.3V Speed=14GB/s)
+    (SPEC Voltage=3.3V Speed=14GB/s_Read_12.5GB/s_Write Interface=PCIe_Gen5_x4 FormFactor=M.2_2280
+          Size=80x22mm Height=2.3mm SlimProfile=Yes Weight=10g ThermalDissipation=3W)
     (QTY 2)
   )
-  (ITEM TPM_INFINEON
-    (MANUFACTURER Infineon) (PART_NUMBER SLB9670) (COUNTRY Germany)
-    (SPEC Voltage=3.3V Security=FIPS140-3)
-    (QTY 1)
-  )
-  (ITEM PLUTON_SEC_CHIP
-    (MANUFACTURER Microsoft) (PART_NUMBER MS-PLUTON-SECURE) (COUNTRY USA)
-    (SPEC Voltage=1.8V)
-    (QTY 1)
-  )
-  (ITEM YUBIHSM2
-    (MANUFACTURER Yubico) (PART_NUMBER YubiHSM2-FIPS) (COUNTRY Sweden)
-    (SPEC Voltage=5V)
-    (QTY 1)
-  )
-  (ITEM OPEN_TITAN_ROOT_OF_TRUST
-    (MANUFACTURER LowRISC) (PART_NUMBER OPENTITAN-SECURE) (COUNTRY UK)
-    (SPEC Voltage=1.8V)
-    (QTY 1)
-  )
-
-  ;; ===========================
-  ;; Networking & Wireless
-  ;; ===========================
-  (ITEM WIFI7_BT6_COMBO
-    (MANUFACTURER Quectel) (PART_NUMBER FCE870Q) (COUNTRY China)
-    (SPEC Voltage=3.3V Speed=5.8Gbps WiFi)
-    (QTY 1)
-  )
-  (ITEM NFC_MODULE_HP
-    (MANUFACTURER HP) (PART_NUMBER W126068422) (COUNTRY USA)
-    (SPEC Voltage=3.3V)
-    (QTY 1)
-  )
-  (ITEM QSFP_DD_PORT
-    (MANUFACTURER Molex) (PART_NUMBER 74752-SFP28) (COUNTRY USA)
-    (SPEC Voltage=3.3V)
-    (QTY 1)
-  )
-  (ITEM THUNDERBOLT5_CONTROLLER
-    (MANUFACTURER Intel) (PART_NUMBER TB5-IC-80GBPS) (COUNTRY USA)
-    (SPEC Voltage=3.3V)
-    (QTY 1)
-  )
-
-  ;; ===========================
-  ;; Audio Stack
-  ;; ===========================
-  (ITEM DAC_ESS_SABRE
-    (MANUFACTURER ESS) (PART_NUMBER ES9039PRO) (COUNTRY USA)
-    (SPEC Voltage=3.3V THD+N=-120dB SNR=130dB)
-    (QTY 1)
-  )
-  (ITEM AMP_THX_AAA888
-    (MANUFACTURER THX) (PART_NUMBER THX-AAA-888) (COUNTRY USA)
-    (SPEC Voltage=5V)
-    (QTY 1)
-  )
-  (ITEM DSP_DIRAC_LIVE
-    (MANUFACTURER Dirac) (PART_NUMBER DIRAC-LIVE-DSP) (COUNTRY Sweden)
-    (SPEC Voltage=3.3V)
-    (QTY 1)
-  )
-  (ITEM AUDIO_JACK
-    (MANUFACTURER Amphenol) (PART_NUMBER AMP-3.5MM-SHIELD) (COUNTRY USA)
-    (SPEC Voltage=5V Shielded contacts)
-    (QTY 1)
-  )
-
-  ;; ===========================
-  ;; Display & Ports
-  ;; ===========================
-  (ITEM DISPLAY_MICROLED
-    (MANUFACTURER AUO) (PART_NUMBER AUO-MLED-16UHD) (COUNTRY Taiwan)
-    (SPEC Voltage=12V Resolution=3840x2160)
-    (QTY 1)
-  )
-  (ITEM USB_PD_PORT
-    (MANUFACTURER Amphenol) (PART_NUMBER USB-C-EPR-240W) (COUNTRY USA)
-    (SPEC Voltage=20V Current=12A)
-    (QTY 2)
-  )
-  (ITEM DC_JACK
-    (MANUFACTURER Delta) (PART_NUMBER DC-JACK-12V10A) (COUNTRY Taiwan)
-    (SPEC Voltage=12V Current=10A)
+  (ITEM INDUSTRIAL_SD_CARD
+    (MANUFACTURER Micron) (PART_NUMBER IND-2TB-SD-TLC) (COUNTRY USA)
+    (SPEC Capacity=2TB Speed=985MB/s NAND=3D_TLC Protocol=SD_Express_8.0 Size=32x24mm
+          Height=2.1mm SlimProfile=Yes Weight=2g ThermalDissipation=0.5W)
     (QTY 1)
   )
   (ITEM SD_EXPRESS_SLOT
     (MANUFACTURER Amphenol) (PART_NUMBER SD-EXPRESS-8.0) (COUNTRY USA)
-    (SPEC Voltage=3.3V Speed=985MB/s)
+    (SPEC Voltage=3.3V Speed=985MB/s Interface=PCIe_Gen4_x1 Cap=22nF Size=32x24mm
+          Height=2.5mm SlimProfile=Yes Weight=6g ThermalDissipation=0.5W)
     (QTY 1)
   )
-  (ITEM BLU_RAY_DRIVE
+  (ITEM BLU_RAY_BWD_DRIVE
     (MANUFACTURER Panasonic) (PART_NUMBER PAN-BD-SATA-SLIM) (COUNTRY Japan)
-    (SPEC Voltage=5V Speed=6x Blu-ray)
+    (SPEC Voltage=5V Speed=6x_BD_Write Resistance=0.02Ω Package=SLIMLINE-SATA
+          Size=128x12.7mm SlimProfile=Yes Weight=110g ThermalDissipation=3W)
     (QTY 1)
   )
 
-  ;; ===========================
-  ;; Cooling & Thermal
-  ;; ===========================
+  ;; =========================================================================
+  ;; 3. Display Subsystem & Protective Optics
+  ;; =========================================================================
+  (ITEM DISPLAY_MICROLED
+    (MANUFACTURER AUO) (PART_NUMBER AUO-MLED-16UHD) (COUNTRY Taiwan)
+    (SPEC Voltage=12V Resolution=3840x2160 RefreshRate=165Hz Brightness=1500nits
+          PanelSize=355x220mm Thickness=3.5mm SlimProfile=Yes Weight=280g ThermalDissipation=10W)
+    (QTY 1)
+  )
+  (ITEM DISPLAY_PANEL_PROTECTOR
+    (MANUFACTURER Corning) (PART_NUMBER GORILLA-GLASS-7) (COUNTRY USA)
+    (SPEC ScratchResistant AntiReflective DirectOpticalBonding Size=355x220mm
+          Thickness=0.7mm SlimProfile=Yes Weight=80g ThermalDissipation=0W)
+    (QTY 1)
+  )
+
+  ;; =========================================================================
+  ;; 4. Camera & Optical Imaging Array
+  ;; =========================================================================
+  (ITEM CAMERA_8K_LASER_GUIDED
+    (MANUFACTURER Sony) (PART_NUMBER IMX585-LASER-8K) (COUNTRY Japan)
+    (SPEC Resolution=7680x4320 FrameRate=60fps SensorSize=9.6x7.2mm Height=2.5mm
+          Lens=GlassAspheric Autofocus=LaserGuided HDR=Yes LowLightSensitivity=0.001Lux
+          LaserAlignment=Class1_EyeSafe PrecisionFocus=±0.01mm SlimProfile=Yes
+          Weight=18g ThermalDissipation=2.5W)
+    (QTY 1)
+  )
+  (ITEM CAMERA_CONTROLLER
+    (MANUFACTURER Intel) (PART_NUMBER CAM-CTRL-LASER-8K) (COUNTRY USA)
+    (SPEC Voltage=3.3V ISP=Integrated HDRProcessing LaserFocusDriver=Yes Interface=MIPI_CSI2_4Lane
+          Size=8x8mm Height=1.2mm SlimProfile=Yes Weight=12g ThermalDissipation=1.5W)
+    (QTY 1)
+  )
+  (ITEM CAMERA_INFRARED_SENSOR
+    (MANUFACTURER Omnivision) (PART_NUMBER OV-IR-LASER-SYNC) (COUNTRY USA)
+    (SPEC IRDepth=Yes FacialRecognition=Yes LaserSync=Yes WindowsHello=Certified
+          Size=5x5mm Height=1.0mm SlimProfile=Yes Weight=3g ThermalDissipation=0.3W)
+    (QTY 1)
+  )
+  (ITEM CAMERA_MICROPHONE_ARRAY
+    (MANUFACTURER Knowles) (PART_NUMBER KM-LASER-MIC-ARRAY) (COUNTRY USA)
+    (SPEC DigitalBeamforming=Yes NoiseCancellation=Yes Interface=PDM Size=20x5mm
+          Height=1.5mm SlimProfile=Yes Weight=5g ThermalDissipation=0.5W)
+    (QTY 1)
+  )
+
+  ;; =========================================================================
+  ;; 5. Studio Audio Engine, Precision Clocks & Acoustic Transducers
+  ;; =========================================================================
+  (ITEM DAC_ESS_SABRE_ES9039PRO
+    (MANUFACTURER ESS) (PART_NUMBER ES9039PRO) (COUNTRY USA)
+    (SPEC Resolution=32bit SampleRate=768kHz THD+N=-120dB SNR=130dB Package=QFN-64
+          Voltage=3.3V Cap=47nF SlimProfile=Yes Weight=4g ThermalDissipation=0.8W)
+    (QTY 1)
+  )
+  (ITEM AMP_THX_AAA888
+    (MANUFACTURER THX) (PART_NUMBER THX-AAA-888) (COUNTRY USA)
+    (SPEC Voltage=5V Cap=100nF Package=CUSTOM LowDistortion ZeroCrossoverDistortion
+          SlimProfile=Yes Weight=6g ThermalDissipation=1.2W)
+    (QTY 1)
+  )
+  (ITEM DSP_DIRAC_LIVE
+    (MANUFACTURER Dirac) (PART_NUMBER DIRAC-LIVE-DSP) (COUNTRY Sweden)
+    (SPEC Architecture=Lattice_ECP5_FPGA Voltage=3.3V Cap=47nF ActiveRoomCorrection=Yes
+          DynamicEQ=Yes ImpulseResponseFilter=Yes SlimProfile=Yes Weight=5g ThermalDissipation=1.0W)
+    (QTY 1)
+  )
+  (ITEM OSCILLATOR_AUDIO_PRIMARY
+    (MANUFACTURER Crystek) (PART_NUMBER CCHD-957-25-45.1584) (COUNTRY USA)
+    (SPEC Function=PrimaryMasterClock Frequency=45.1584MHz UltraLowPhaseNoise
+          PhaseJitter<82fs Stability=±25ppm TargetFrequencies=(44.1/88.2/176.4/352.8/705.6kHz)
+          Voltage=3.3V Package=SMD-14x9mm SlimProfile=Yes Weight=1g ThermalDissipation=0.05W)
+    (QTY 1)
+  )
+  (ITEM OSCILLATOR_AUDIO_SECONDARY
+    (MANUFACTURER Crystek) (PART_NUMBER CCHD-957-25-49.1520) (COUNTRY USA)
+    (SPEC Function=SecondaryMasterClock Frequency=49.1520MHz UltraLowPhaseNoise
+          PhaseJitter<82fs Stability=±25ppm TargetFrequencies=(48/96/192/384/768kHz)
+          Voltage=3.3V Package=SMD-14x9mm SlimProfile=Yes Weight=1g ThermalDissipation=0.05W)
+    (QTY 1)
+  )
+  (ITEM AUDIO_SPEAKER_STEREO_PAIR
+    (MANUFACTURER Knowles) (PART_NUMBER KN-SPK-STEREO-HIRES) (COUNTRY USA)
+    (SPEC Impedance=4Ω PowerRating=5W FrequencyResponse=120Hz-40kHz SPL=88dB@1W/1m
+          ChamberEnclosure=TunedAcoustic CavityVolume=4.5cc NeodymiumMagnets=100%_Recycled
+          SlimProfile=Yes Weight=18g ThermalDissipation=0.5W)
+    (QTY 2)
+  )
+  (ITEM AUDIO_SUB_BASS_TRANSDUCER
+    (MANUFACTURER Tectonic) (PART_NUMBER TEBM-SUB-BASS-15W) (COUNTRY UK)
+    (SPEC Function=SubBass LowFrequencyDriver PowerRating=15W PeakPower=25W
+          FrequencyResponse=35Hz-350Hz Impedance=4Ω DualSuspension ChassisDecoupled=Yes
+          AntiVibrationMounting=Yes SlimProfile=Yes Weight=42g ThermalDissipation=2.0W)
+    (QTY 1)
+  )
+  (ITEM AUDIO_JACK_3.5MM
+    (MANUFACTURER Amphenol) (PART_NUMBER AMP-3.5MM-SHIELD) (COUNTRY USA)
+    (SPEC Voltage=5V Resistance=0.01Ω ShieldedGoldContacts IsolatedGroundRing
+          Package=Through-Hole SlimProfile=Yes Weight=4g ThermalDissipation=0W)
+    (QTY 1)
+  )
+
+  ;; =========================================================================
+  ;; 6. Cellular, Short-Range Wireless & High-Bandwidth Networking
+  ;; =========================================================================
+  (ITEM WWAN_MODULE_QUALCOMM_X90
+    (MANUFACTURER Qualcomm) (PART_NUMBER SDX90-M2-3052) (COUNTRY USA)
+    (SPEC FormFactor=M.2_3052_KeyB Voltage=3.3V Power=8W_Idle/15W_Peak
+          Speed=5G_NR_mmWave+Sub6_12GbpsDL/3GbpsUL SIM_Support=NanoSIM_Tray+eSIM_eUICC(GSMA-SGP.32)
+          Profiles=Up_to_20_Stored/5_Active_Simultaneous Bands=Global_5G_NR(n1,n3,n28,n41,n77,n78,n79,n258,n260,n261)
+          Legacy=LTE_A_Pro/GSM/WCDMA Size=30x52mm Height=3.8mm SlimProfile=Yes Weight=25g ThermalDissipation=5W)
+    (QTY 1)
+  )
+  (ITEM WWAN_X75_MODULE
+    (MANUFACTURER Qualcomm) (PART_NUMBER SDX75-M2-3052-KEYB) (COUNTRY USA)
+    (SPEC FormFactor=M.2_3052_KeyB Voltage=3.3V Profiles=20_Stored/1-5_Active
+          IPv4v6_PDP_Contexts IMS/VoLTE/VoNR USSD APN/QoS SlimProfile=Yes Weight=25g ThermalDissipation=5W)
+    (QTY 1)
+  )
+  (ITEM NANO_SIM_SLOT
+    (MANUFACTURER Amphenol) (PART_NUMBER SIM-CAGE-3052) (COUNTRY USA)
+    (SPEC SpringLoadedContacts CNCCutout DustShieldTolerance=1.2mm Weight=3g ThermalDissipation=0W)
+    (QTY 1)
+  )
+  (ITEM WWAN_ANTENNA
+    (MANUFACTURER Molex) (PART_NUMBER WWAN-ANT-5GNR) (COUNTRY USA)
+    (SPEC DualRFConnectors 5G_NR_Sub6+mmWave ImpedanceMatched ShieldedGrooves Weight=6g ThermalDissipation=0W)
+    (QTY 2)
+  )
+  (ITEM WIFI7_BT_QUALCOMM_FASTCONNECT
+    (MANUFACTURER Qualcomm) (PART_NUMBER WCN7851-AERO) (COUNTRY USA)
+    (SPEC Architecture="FastConnect 7800 / 7900" Wi-Fi=Wi-Fi_7_802.11be Speed=5.8Gbps
+          ChannelBandwidth=320MHz Modulation=4K_QAM Bluetooth=5.4_LE_Audio SnapdragonSound=aptX_Lossless
+          UWB=CentimeterRanging Latency=<2ms Interface=PCIe_Gen4_x1+UART/PCM Package=M.2_2230
+          Cap=47nF SlimProfile=Yes Weight=7g ThermalDissipation=1.8W)
+    (QTY 1)
+  )
+  (ITEM NFC_MODULE_HP
+    (MANUFACTURER HP) (PART_NUMBER W126068422) (COUNTRY USA)
+    (SPEC Voltage=3.3V Frequency=13.56MHz Package=QFN-32 Cap=10nF SlimProfile=Yes Weight=2g ThermalDissipation=0.2W)
+    (QTY 1)
+  )
+  (ITEM ETHERNET_PORT_CAT8
+    (MANUFACTURER Amphenol) (PART_NUMBER CAT8-RJ45-SLIM) (COUNTRY USA)
+    (SPEC Speed=40Gbps Bandwidth=2000MHz Connector=RJ45 Shielded=Yes Size=14x16mm
+          Height=8mm SlimProfile=Yes Weight=12g ThermalDissipation=1.5W)
+    (QTY 1)
+  )
+  (ITEM QSFP_DD_400G_FR4
+    (MANUFACTURER Arista) (PART_NUMBER QSFP-400G-FR4) (COUNTRY USA)
+    (SPEC Speed=400Gbps Connector=LC_Duplex Reach=2km Protocol=8x50G_PAM4 Voltage=3.3V Power=10W
+          Size=18x72mm Height=8.5mm SlimProfile=Yes Weight=28g ThermalDissipation=10W)
+    (QTY 1)
+  )
+  (ITEM QSFP_DD_400G_ZR
+    (MANUFACTURER Arista) (PART_NUMBER QSFP-400G-ZR) (COUNTRY USA)
+    (SPEC Speed=400Gbps Reach=120km Modulation=Coherent_Optics Voltage=3.3V Power=14W
+          Size=18x72mm Height=8.5mm SlimProfile=Yes Weight=30g ThermalDissipation=14W)
+    (QTY 1)
+  )
+  (ITEM QSFP_DD_400G_ZR_PLUS
+    (MANUFACTURER Arista) (PART_NUMBER QSFP-400G-ZR-PLUS) (COUNTRY USA)
+    (SPEC Speed=400Gbps Reach=>1000km AmplifiedDWDM Voltage=3.3V Power=16W
+          Size=18x72mm Height=8.5mm SlimProfile=Yes Weight=32g ThermalDissipation=16W)
+    (QTY 1)
+  )
+  (ITEM QSFP_DD_PORT_MOLEX
+    (MANUFACTURER Molex) (PART_NUMBER 74752-SFP28) (COUNTRY USA)
+    (SPEC Cage=QSFP-DD Voltage=3.3V Cap=100nF EMIFingers=Yes Size=18x72mm Height=8.5mm
+          SlimProfile=Yes Weight=18g ThermalDissipation=0.5W)
+    (QTY 1)
+  )
+  (ITEM TELEPHONE_LINE_PORT
+    (MANUFACTURER Conexant) (PART_NUMBER RJ11-MODEM-SLIM) (COUNTRY USA)
+    (SPEC Connector=RJ11 Voltage=3.3V Speed=56Kbps LegacyTelephoneSupport=Yes Isolation=1500V
+          Size=12x14mm Height=6mm SlimProfile=Yes Weight=12g ThermalDissipation=1.0W)
+    (QTY 1)
+  )
+  (ITEM THUNDERBOLT5_CONTROLLER
+    (MANUFACTURER Intel) (PART_NUMBER TB5-IC-80GBPS) (COUNTRY USA)
+    (SPEC Voltage=3.3V Speed=80Gbps_Symmetric/120Gbps_Boost PCIeTunneling=Yes USB4_v2=Yes
+          Package=QFN-128 Cap=47nF SlimProfile=Yes Weight=8g ThermalDissipation=3.5W)
+    (QTY 1)
+  )
+  (ITEM USB4_V2_PORT
+    (MANUFACTURER Amphenol) (PART_NUMBER USB4-V2-120G) (COUNTRY USA)
+    (SPEC Voltage=5V Speed=120Gbps ConnectorSize=12x8mm Height=2.5mm ESDProtection=Yes
+          SlimProfile=Yes Weight=5g ThermalDissipation=1.0W)
+    (QTY 2)
+  )
+  (ITEM PORT_USB_PD
+    (MANUFACTURER Amphenol) (PART_NUMBER USB-C-EPR-240W) (COUNTRY USA)
+    (SPEC Voltage=20V-48V Current=5A-12A MaxPower=240W Standard=USB-PD_3.1_EPR Package=TYPE-C
+          Cap=47nF SlimProfile=Yes Weight=5g ThermalDissipation=1.5W)
+    (QTY 2)
+  )
+  (ITEM DC_JACK
+    (MANUFACTURER Delta) (PART_NUMBER DC-JACK-12V10A) (COUNTRY Taiwan)
+    (SPEC Voltage=12V Current=10A Barrel4Pin TVSClamp=Yes Cap=100nF Size=10x10mm Height=3.0mm
+          SlimProfile=Yes Weight=8g ThermalDissipation=0.5W)
+    (QTY 1)
+  )
+
+  ;; =========================================================================
+  ;; 7. Dynamic Thermal Management & Forced Convective Cooling
+  ;; =========================================================================
   (ITEM GRAPHENE_VAPOR_CHAMBER
     (MANUFACTURER CoolerMaster) (PART_NUMBER CM-GRAPHENE-VC) (COUNTRY Taiwan)
-    (SPEC ThermalConductivity=1500W/mK Load=300W)
+    (SPEC ThermalConductivity=1500W/mK HeatLoadCapacity=300W SinteredCopperGrapheneWick=Yes
+          Size=120x80mm Thickness=2.0mm SlimProfile=Yes Weight=40g ThermalDissipation=20W)
     (QTY 1)
   )
   (ITEM LIQUID_METAL_TIM
     (MANUFACTURER ThermalGrizzly) (PART_NUMBER TG-Conductonaut) (COUNTRY Germany)
-    (SPEC Resistance<0.01K/W Coverage≥95%)
+    (SPEC Resistance<0.01K/W ThermalConductivity=73W/mK Coverage>=95% EutecticGalliumIndiumTin
+          Volume=1g SlimProfile=Yes Weight=1g ThermalDissipation=0W)
     (QTY 1 tube)
   )
-  (ITEM BLADELESS_BLOWER
+  (ITEM DYSON_BLOWER_LARGE
+    (MANUFACTURER Dyson) (PART_NUMBER DY-IONIC-LARGE) (COUNTRY UK)
+    (SPEC Airflow>25CFM Noise<28dBA Size=80x80mm Height=10mm CeramicFluidBearing=Yes
+          MotorTuning=PWM SlimProfile=Yes Weight=85g ThermalDissipation=3.5W)
+    (QTY 3)
+  )
+  (ITEM DYSON_BLOWER_MEDIUM
+    (MANUFACTURER Dyson) (PART_NUMBER DY-IONIC-MEDIUM) (COUNTRY UK)
+    (SPEC Airflow>15CFM Noise<25dBA Size=60x60mm Height=8mm CeramicFluidBearing=Yes
+          MotorTuning=PWM SlimProfile=Yes Weight=60g ThermalDissipation=2.5W)
+    (QTY 3)
+  )
+  (ITEM BLADELESS_IONIC_BLOWER
     (MANUFACTURER Dyson) (PART_NUMBER DY-IONIC-MICRO) (COUNTRY UK)
-    (SPEC Airflow>20CFM Noise<25dBA)
+    (SPEC Airflow>20CFM Noise<25dBA Voltage=5V Cap=47nF SolidStateIonicStream=Yes
+          SlimProfile=Yes Weight=50g ThermalDissipation=2.0W)
     (QTY 1)
   )
+  (ITEM THERMAL_SENSOR
+    (MANUFACTURER MaximIntegrated) (PART_NUMBER MAX31875) (COUNTRY USA)
+    (SPEC DigitalTemperatureSensor Precision=±0.5C SMBusInterface=Yes Size=3x3mm
+          Height=0.8mm SlimProfile=Yes Weight=1g ThermalDissipation=0.1W)
+    (QTY Multiple)
+  )
 
-  ;; ===========================
-  ;; Battery & Power
-  ;; ===========================
+  ;; =========================================================================
+  ;; 8. Battery & Solid-State Power Conversion
+  ;; =========================================================================
   (ITEM SOLID_STATE_BATTERY
     (MANUFACTURER QuantumScape) (PART_NUMBER QS-PACK-480WH) (COUNTRY USA)
-    (SPEC EnergyDensity=480Wh/kg CycleLife=3000+)
+    (SPEC EnergyDensity=480Wh/kg CycleLife=3000+ ChargeSpeed=80%/15min Temp=-20C_to_+80C
+          NominalVoltage=11.1V Size=150x100mm Thickness=5mm Endurance=30+Hours SMBusTelemetry=Yes
+          SlimProfile=Yes Weight=600g ThermalDissipation=10W)
     (QTY 1)
   )
   (ITEM CMOS_BATTERY
     (MANUFACTURER Panasonic) (PART_NUMBER VL2330) (COUNTRY Japan)
-    (SPEC Voltage=3V Capacity=50mAh)
+    (SPEC Voltage=3V Capacity=50mAh Rechargeable VanadiumLithium Role=RTC_Retention
+          Package=COIN SlimProfile=Yes Weight=3g ThermalDissipation=0W)
     (QTY 1)
   )
   (ITEM VRM_TI_TPS
     (MANUFACTURER Texas Instruments) (PART_NUMBER TPS53689) (COUNTRY USA)
-    (SPEC Conversion=12V->1.2V Transient<50mV)
+    (SPEC Conversion=12V->1.2V TransientDroop<50mV Efficiency>92% Package=QFN48
+          Size=7x7mm Height=1.2mm SlimProfile=Yes Weight=5g ThermalDissipation=1.0W)
     (QTY 3 rails)
   )
-  (ITEM MOSFET_INFINEON
+  (ITEM MOSFET_INFINEON_OPTIMOS
     (MANUFACTURER Infineon) (PART_NUMBER BSC123N08NS3) (COUNTRY Germany)
-    (SPEC Voltage=80V Current=120A RdsOn=3.2mΩ)
+    (SPEC Voltage=80V Current=120A RdsOn=3.2mΩ Package=PowerSO8 Size=5x6mm Height=1.0mm
+          LowESR=Yes SlimProfile=Yes Weight=3g ThermalDissipation=1.0W)
     (QTY 6)
   )
   (ITEM PMIC_NXP
     (MANUFACTURER NXP) (PART_NUMBER PF8100) (COUNTRY Netherlands)
-    (SPEC Multi-rail 0.8–5V)
+    (SPEC MultiRail=0.8–5V Package=QFN56 Cap=47nF DynamicVoltageScaling=Yes
+          Size=8x8mm Height=1.2mm SlimProfile=Yes Weight=6g ThermalDissipation=1.0W)
+    (QTY 2)
+  )
+  (ITEM DC_DC_CONVERTER
+    (MANUFACTURER Vicor) (PART_NUMBER PI3749-AERO) (COUNTRY USA)
+    (SPEC Conversion=48V->12V ZeroVoltageSwitching AerospaceGrade Redundant
+          Size=25x25mm Height=3.5mm SlimProfile=Yes Weight=20g ThermalDissipation=5.0W)
     (QTY 2)
   )
   (ITEM PASSIVES
-    (MANUFACTURERS Murata, TDK, Vishay, Coilcraft)
-    (SPEC Caps=100nF–220µF Res=0.01–10kΩ Inductors=0.1–10µH)
-    (QTY Bulk distributed)
+    (MANUFACTURERS Murata TDK Vishay Coilcraft) (COUNTRIES Japan Japan USA USA)
+    (SPEC Caps=100nF–220µF Res=0.01–10kΩ Inductors=0.1–10µH Package=0402/0603
+          Placement="Within 2mm of BGA pins" SlimProfile=Yes Weight=BulkDistributed ThermalDissipation=BulkDistributed)
+    (QTY BulkDistributed)
+  )
+
+  ;; =========================================================================
+  ;; 9. Security, Hardware Enclaves & Roots of Trust
+  ;; =========================================================================
+  (ITEM TPM_INFINEON
+    (MANUFACTURER Infineon) (PART_NUMBER SLB9670) (COUNTRY Germany)
+    (SPEC Voltage=3.3V Standard=FIPS140-3_Level3 Interface=LPC_SPI Package=QFN32
+          Size=5x5mm Height=1.0mm SlimProfile=Yes Weight=1g ThermalDissipation=0.2W)
+    (QTY 1)
+  )
+  (ITEM PLUTON_SEC_CHIP
+    (MANUFACTURER Microsoft) (PART_NUMBER MS-PLUTON-SECURE) (COUNTRY USA)
+    (SPEC Voltage=1.8V Cap=10nF FirmwareAttestation=Active Interface=Encrypted_SPI
+          Package=QFN-48 SlimProfile=Yes Weight=2g ThermalDissipation=0.3W)
+    (QTY 1)
+  )
+  (ITEM OPEN_TITAN_ROOT_OF_TRUST
+    (MANUFACTURER LowRISC) (PART_NUMBER OPENTITAN-SECURE) (COUNTRY UK)
+    (SPEC Voltage=1.8V Cap=22nF DiscreteSiliconRoT=Yes AntiTamperLatch=Yes
+          Package=QFN-64 SlimProfile=Yes Weight=3g ThermalDissipation=0.4W)
+    (QTY 1)
+  )
+  (ITEM YUBIHSM2
+    (MANUFACTURER Yubico) (PART_NUMBER YubiHSM2-FIPS) (COUNTRY Sweden)
+    (SPEC Voltage=5V Cap=22nF Standard=FIPS140-2_Level3 CryptographicStorage=PKCS11
+          Package=USB-KEY SlimProfile=Yes Weight=5g ThermalDissipation=0.5W)
+    (QTY 1)
+  )
+  (ITEM SECURE_ENCLAVE_COPROCESSOR
+    (MANUFACTURER ARM) (PART_NUMBER ARM-SE-TZ) (COUNTRY UK)
+    (SPEC Architecture=TrustZone HardwareIsolatedKeyVault Package=QFN48
+          Size=6x6mm Height=1.2mm SlimProfile=Yes Weight=8g ThermalDissipation=1.0W)
+    (QTY 1)
+  )
+  (ITEM EEPROM_FLASH_DEBUG_SOCKET
+    (MANUFACTURER Winbond) (PART_NUMBER W25Q-SOCKET) (COUNTRY Taiwan)
+    (SPEC Capacity=64MB RedundantDualArray DualSPIFallback Reprogrammable=Yes
+          Size=10x10mm Height=2.0mm SlimProfile=Yes Weight=3g ThermalDissipation=0.5W)
+    (QTY 1)
+  )
+  (ITEM WINDOWS_HELLO_IR_SENSOR
+    (MANUFACTURER Omnivision) (PART_NUMBER OV-HELLO-IR) (COUNTRY USA)
+    (SPEC FacialRecognition=Yes DepthMapping=Yes Certified=WindowsHello
+          Size=5x5mm Height=1.0mm SlimProfile=Yes Weight=3g ThermalDissipation=0.3W)
+    (QTY 1)
+  )
+  (ITEM WINDOWS_HELLO_FIRMWARE_MODULE
+    (MANUFACTURER Microsoft) (PART_NUMBER WH-FW-SECURE) (COUNTRY USA)
+    (SPEC SecureBootIntegration=Yes TPMBinding=Yes Size=10x10mm Height=1.5mm
+          SlimProfile=Yes Weight=6g ThermalDissipation=0.5W)
+    (QTY 1)
+  )
+  (ITEM FINGERPRINT_SENSOR
+    (MANUFACTURER Goodix) (PART_NUMBER GF3208-AERO) (COUNTRY China)
+    (SPEC Resolution=508DPI MatchOnChip=Yes SecureEnclaveBound=Yes Surface=MatteSapphireGlass
+          Hardness=9H Interface=SPI EncryptedPipe AntiSpoofing=Yes Size=8x8mm Height=1.0mm
+          SlimProfile=Yes Weight=2g ThermalDissipation=0.1W)
+    (QTY 1)
+  )
+
+  ;; =========================================================================
+  ;; 10. Interactive Controls, Function Switches & Universal AI Hotkey
+  ;; =========================================================================
+  (ITEM POWER_BUTTON_DEEP_PRESS
+    (MANUFACTURER Alps Alpine) (PART_NUMBER PB-DP-LOCK) (COUNTRY Japan)
+    (SPEC Function=PowerOnOff DeepPress=Yes Travel=1.5mm ActuationForce=65gF
+          FirmwareLock=Yes DebounceFilter=Hardware Size=8x8mm Height=2.0mm SlimProfile=Yes
+          Weight=5g ThermalDissipation=0.2W)
+    (QTY 1)
+  )
+  (ITEM PROGRAMMABLE_AI_HOTKEY
+    (MANUFACTURER Alps Alpine) (PART_NUMBER PB-AI-OMNI-KEY) (COUNTRY Japan)
+    (SPEC Function=DedicatedUniversalAIActivator TargetModels=(Gemini,Claude,Grok,ChatGPT,LocalONNX)
+          Travel=1.2mm ActuationForce=55gF Backlight=SingleWhiteMicroLED Interface=Direct_EC_NMI
+          RemappableHID=Yes Size=8x8mm Height=1.5mm SlimProfile=Yes Weight=3g ThermalDissipation=0.1W)
+    (QTY 1)
+  )
+  (ITEM CAP_TOUCH_SLIDER
+    (MANUFACTURER TonTouch) (PART_NUMBER TTP229-CAP) (COUNTRY Taiwan)
+    (SPEC Protocol=WindowsHID Certification=(THX,DTS:X) Surface=GoldContacts
+          Size=40x10mm Height=1.5mm SlimProfile=Yes Weight=12g ThermalDissipation=1.0W)
+    (QTY 1)
+  )
+  (ITEM CAP_TOUCH_BUTTON
+    (MANUFACTURER Microchip) (PART_NUMBER CAP1208) (COUNTRY USA)
+    (SPEC Function=MultimediaHID Action=PlayPause LockedMapping=Yes Size=8x8mm
+          Height=1.2mm SlimProfile=Yes Weight=5g ThermalDissipation=0.5W)
+    (QTY 1)
+  )
+  (ITEM CAP_TOUCH_DUAL_TOGGLE
+    (MANUFACTURER Microchip) (PART_NUMBER CAP1188) (COUNTRY USA)
+    (SPEC Function=CallControl Protocol=(Bluetooth,VoIP) LockedFirmware=Yes
+          Size=10x10mm Height=1.5mm SlimProfile=Yes Weight=6g ThermalDissipation=0.5W)
+    (QTY 1)
+  )
+  (ITEM WIFI_TOGGLE_BUTTON
+    (MANUFACTURER Intel) (PART_NUMBER EC-GPIO-WLAN) (COUNTRY USA)
+    (SPEC Function=HardwareKillSwitch Target=WLAN NonMaskableInterrupt=Yes
+          Size=8x8mm Height=1.2mm SlimProfile=Yes Weight=4g ThermalDissipation=0.3W)
+    (QTY 1)
+  )
+  (ITEM CELLULAR_TOGGLE_BUTTON
+    (MANUFACTURER Quectel) (PART_NUMBER EC-GPIO-WWAN) (COUNTRY China)
+    (SPEC Function=HardwareKillSwitch Target=WWAN NonMaskableInterrupt=Yes
+          Size=8x8mm Height=1.2mm SlimProfile=Yes Weight=4g ThermalDissipation=0.3W)
+    (QTY 1)
+  )
+  (ITEM BLUETOOTH_TOGGLE_BUTTON
+    (MANUFACTURER Broadcom) (PART_NUMBER EC-GPIO-BT) (COUNTRY USA)
+    (SPEC Function=HardwareKillSwitch Target=Bluetooth NonMaskableInterrupt=Yes
+          Size=8x8mm Height=1.2mm SlimProfile=Yes Weight=4g ThermalDissipation=0.3W)
+    (QTY 1)
+  )
+  (ITEM NFC_TOGGLE_BUTTON
+    (MANUFACTURER NXP) (PART_NUMBER EC-GPIO-NFC) (COUNTRY Netherlands)
+    (SPEC Function=HardwareKillSwitch Target=NFC NonMaskableInterrupt=Yes
+          Size=8x8mm Height=1.2mm SlimProfile=Yes Weight=4g ThermalDissipation=0.3W)
+    (QTY 1)
+  )
+  (ITEM SCREENSHOT_BUTTON
+    (MANUFACTURER Microchip) (PART_NUMBER CAP1298) (COUNTRY USA)
+    (SPEC Function=WindowsSnippingTool Interface=Dedicated_GPIO Size=8x8mm
+          Height=1.2mm SlimProfile=Yes Weight=4g ThermalDissipation=0.3W)
+    (QTY 1)
+  )
+  (ITEM GAME_MODE_BUTTON
+    (MANUFACTURER Microchip) (PART_NUMBER CAP1298) (COUNTRY USA)
+    (SPEC Function=XboxGameBarTrigger Interface=Dedicated_GPIO Size=8x8mm
+          Height=1.2mm SlimProfile=Yes Weight=4g ThermalDissipation=0.3W)
+    (QTY 1)
+  )
+  (ITEM HW_CONFIG_JUMPERS
+    (MANUFACTURER Harwin) (PART_NUMBER M50-JUMPERS-GOLD) (COUNTRY UK)
+    (SPEC Pitch=1.27mm MicroJumper Plating=GoldOverNickel CurrentRating=1.5A
+          Functions=(AudioGroundIsolation,BIOSRecoveryOverride,FirmwareWriteProtect,HighImpedanceHeadphoneGain)
+          Package=ThroughHole/SMDArray SlimProfile=Yes Weight=1g ThermalDissipation=0W)
+    (QTY 4)
+  )
+
+  ;; =========================================================================
+  ;; 11. Haptic Input, Ergonomics & Inertial Sensors
+  ;; =========================================================================
+  (ITEM TRACKPAD_HAPTIC
+    (MANUFACTURER Alps Alpine) (PART_NUMBER TP-HAPTIC-130X90) (COUNTRY Japan)
+    (SPEC Surface=MatteGlass Feedback=SolenoidHaptic Matrix=CapacitiveMultiTouch
+          Size=130x90mm Thickness=2.2mm SlimProfile=Yes Weight=75g ThermalDissipation=1.2W)
+    (QTY 1)
+  )
+  (ITEM TRACKPAD_CONTROLLER
+    (MANUFACTURER Synaptics) (PART_NUMBER SYN-HAPTIC-CTRL) (COUNTRY USA)
+    (SPEC Bus=I2C/SPI Certified=PrecisionTouchpad Size=6x6mm Height=0.9mm
+          SlimProfile=Yes Weight=2g ThermalDissipation=0.3W)
+    (QTY 1)
+  )
+  (ITEM KEYBOARD_BASE_STYLE
+    (MANUFACTURER Cherry) (PART_NUMBER KB-AERO-LP-MX) (COUNTRY Germany)
+    (SPEC Switches=UltraLowProfileMechanical Backlight=PureWhite_NoRGB Travel=1.2mm
+          Layout=Indic+Latin WearPlating=AerospaceGrade SlimProfile=Yes Weight=180g ThermalDissipation=0.8W)
+    (QTY 1)
+  )
+  (ITEM NUM_KEYPAD
+    (MANUFACTURER Cherry) (PART_NUMBER NUMPAD-AERO-LP) (COUNTRY Germany)
+    (SPEC Layout=Integrated10Key MechanicalBacklit=White Travel=1.2mm
+          SlimProfile=Yes Weight=45g ThermalDissipation=0.2W)
+    (QTY 1)
+  )
+  (ITEM IMU_SENSOR
+    (MANUFACTURER Bosch) (PART_NUMBER BMI270) (COUNTRY Germany)
+    (SPEC Sensor=6Axis_Accelerometer_Gyroscope OutputDataRate=1600Hz DSPCorrection=Yes
+          Package=LGA-14 Size=2.5x3.0mm Height=0.83mm SlimProfile=Yes Weight=0.5g ThermalDissipation=0.05W)
+    (QTY 1)
+  )
+  (ITEM ENVIRONMENTAL_SENSOR
+    (MANUFACTURER Sensirion) (PART_NUMBER SHT40) (COUNTRY Switzerland)
+    (SPEC TemperatureAccuracy=±0.1C HumidityAccuracy=±1.0%RH Interface=Digital_I2C
+          Package=DFN-4 Size=1.5x1.5mm Height=0.5mm SlimProfile=Yes Weight=0.2g ThermalDissipation=0.01W)
+    (QTY 1)
+  )
+  (ITEM SENSOR_FUSION_CONTROLLER
+    (MANUFACTURER STMicroelectronics) (PART_NUMBER STM32G0-SENSOR-HUB) (COUNTRY Switzerland)
+    (SPEC Role=SensorHub Core=ARM_Cortex_M0+ LowPowerProcessing=Yes Package=QFN-32
+          Size=5x5mm Height=0.85mm SlimProfile=Yes Weight=1.5g ThermalDissipation=0.15W)
+    (QTY 1)
+  )
+
+  ;; =========================================================================
+  ;; 12. Structural Metallurgy, Substrates & Certified Raw Materials
+  ;; =========================================================================
+  (MATERIAL CHASSIS_UNIBODY_BASE
+    (MATERIAL_NAME "Aerospace Aluminum 7075-T6")
+    (MANUFACTURER Alcoa) (COUNTRY USA)
+    (SPEC TensileYield=503MPa Density=2.81g/cm3 MonolithicMilled 5AxisCNC=Yes
+          SurfaceFinish=MIL-A-8625_TypeIII_DLC Dimensions=360x250x18mm Weight=650g)
+    (QTY 1)
+  )
+  (MATERIAL CHASSIS_UNIBODY_LID
+    (MATERIAL_NAME "Aerospace Aluminum 7075-T6")
+    (MANUFACTURER Alcoa) (COUNTRY USA)
+    (SPEC TensileYield=503MPa BezelOpening=355x220mm PrecisionLaserCut
+          Dimensions=360x250x5mm Weight=280g)
+    (QTY 1)
+  )
+  (MATERIAL HINGE_ASSEMBLY
+    (MATERIAL_NAME "Titanium Alloy Ti-6Al-4V Grade 5")
+    (MANUFACTURER TIMET) (COUNTRY USA)
+    (SPEC TensileYield=880MPa DualAxisMechanisms FatigueTested=50000_Cycles
+          CorrosionResistant=Yes Weight=45g)
+    (QTY 2)
+  )
+  (MATERIAL CONNECTOR_PORT_CAGES
+    (MATERIAL_NAME "Titanium Alloy Ti-6Al-4V")
+    (MANUFACTURER TIMET) (COUNTRY USA)
+    (SPEC AntiDeformation=Yes StructuralAnchor=Direct GroundBonded=ESD_Isolated Weight=25g)
+    (QTY 1 set)
+  )
+  (MATERIAL THERMAL_COLD_PLATE_INSERTS
+    (MATERIAL_NAME "Oxygen-Free Copper Alloy C11000")
+    (MANUFACTURER Aurubis) (COUNTRY Germany)
+    (SPEC ThermalConductivity=390W/mK SurfaceLapped=0.05um_Ra LiquidMetalBarrierIntegrated Weight=95g)
+    (QTY 1 set)
+  )
+  (MATERIAL PCB_SUBSTRATE_CORE
+    (MATERIAL_NAME "Rogers RO4003C Hydrocarbon Ceramic Laminate")
+    (MANUFACTURER Rogers Corp) (COUNTRY USA)
+    (SPEC 10_LayerStackup CoreThickness=0.2mm DielectricConstant=3.38 DissipationFactor=0.0027
+          SurfaceFinish=ENIG ConformalCoating=IPC-CC-830_Fluoropolymer Weight=120g)
+    (QTY 1)
+  )
+
+  ;; =========================================================================
+  ;; 13. Statutory Compliance, Environmental Standards & Regulatory Sets
+  ;; =========================================================================
+  (ITEM COMPLIANCE_CERT_SET
+    (STANDARDS
+      (ENVIRONMENTAL_SAFETY "RoHS (Directive 2011/65/EU), REACH (EC 1907/2006), Halogen-Free PCB IPC-4101")
+      (ELECTRICAL_SAFETY "CE (2014/30/EU & 2014/35/EU), BIS (IS 13252 Part 1:2010), UL 62368-1 3rd Ed, CCC (GB 4943.1-2022), IEC 62368-1")
+      (CRYPTOGRAPHIC_SECURITY "FIPS 140-3 Level 3, NIST SP800-193 Platform Firmware Resiliency (PFR)")
+      (MILITARY_AEROSPACE "MIL-STD-810G (Method 501.5/502.5 Temp, Method 507.5 Humidity, Method 514.6 Vibration, Method 516.6 Shock)")
+      (TELECOMMUNICATION "GSMA-SGP.32 eSIM, TRAI, DOT India MTCTE, DoT UAE TDRA, ITU-R, ITU-T, ITU-F, FCC Title 47")
+      (CIRCULARITY_SUSTAINABILITY "TCO Certified Gen 10 (Dec 2024 Criteria), EPEAT Gold 2024, UL ECVP 2809-2 Recycled Cobalt >=82.9%, 100% Recycled Rare Earth Magnets, IEEE Std 1680.1-2018, FSC Certified Packaging")
+    )
+    (QTY 1 FullCertificationDossier)
   )
 )
