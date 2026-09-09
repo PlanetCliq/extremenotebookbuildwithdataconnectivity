@@ -1,0 +1,57 @@
+Rule('Clearance_Signal_Default')
+    Clearance(0.075mm, 0.075mm, 0.075mm)
+    Scope1('All')
+    Scope2('All')
+
+Rule('Clearance_HighVoltage_48V')
+    Clearance(0.500mm, 0.500mm, 0.500mm)
+    Scope1('InNet("NET_PWR_USB_EPR_48V") or InNet("NET_PWR_BATT_11V1")')
+    Scope2('All')
+
+Rule('DiffPair_PCIe_Gen5_100Ohm')
+    MinWidth(0.090mm)
+    PreferredWidth(0.100mm)
+    MaxWidth(0.110mm)
+    MinGap(0.120mm)
+    PreferredGap(0.125mm)
+    MaxGap(0.130mm)
+    TargetImpedance(100.0)
+    Scope1('InDifferentialPairClass("PCIE_GEN5_DIFF")')
+
+Rule('DiffPair_PCIe_TB5_WWAN_85Ohm')
+    MinWidth(0.100mm)
+    PreferredWidth(0.115mm)
+    MaxWidth(0.125mm)
+    MinGap(0.100mm)
+    PreferredGap(0.110mm)
+    MaxGap(0.120mm)
+    TargetImpedance(85.0)
+    Scope1('InDifferentialPairClass("PCIE_85OHM_DIFF")')
+
+Rule('DiffPair_USB4_PD_90Ohm')
+    MinWidth(0.100mm)
+    PreferredWidth(0.105mm)
+    MaxWidth(0.115mm)
+    MinGap(0.110mm)
+    PreferredGap(0.115mm)
+    MaxGap(0.125mm)
+    TargetImpedance(90.0)
+    Scope1('InDifferentialPairClass("USB_PD_DIFF")')
+
+Rule('MatchedNetLengths_DDR5_Data')
+    Tolerance(0.127mm) -- ±5 mils length match
+    Scope1('InNetClass("DDR5_DATA_BUS")')
+
+Rule('MatchedNetLengths_HBM3_Bus')
+    Tolerance(0.075mm) -- ±3 mils length match
+    Scope1('InNetClass("HBM3_1024BIT_BUS")')
+
+Rule('Microvia_Style_Laser')
+    DrillSize(0.100mm)
+    HoleSize(0.100mm, 0.100mm)
+    Diameter(0.220mm, 0.220mm)
+    Scope1('IsVia and (StartLayer("TopLayer") or EndLayer("BottomLayer"))')
+
+Rule('Backdrill_MaxStub_Gen5')
+    MaxStubLength(0.100mm)
+    Scope1('InNetClass("PCIE_GEN5_DIFF") or InNetClass("QSFP_400G_DIFF")')
