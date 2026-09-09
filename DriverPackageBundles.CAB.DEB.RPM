@@ -11,6 +11,11 @@
       (PACKAGE "intel_npu.sys / intel_npu.inf / intel_npu.cat - Neural Processing Accelerator")
       (PACKAGE "qc_fastconnect.sys / qc_fastconnect.inf / qc_fastconnect.cat - Wi-Fi 7 / BT 5.4 / UWB")
       (PACKAGE "qcom_sdx90.sys / qcom_sdx90.inf / qcom_sdx90.cat - 5G NR Baseband & SIM Stack")
+      (PACKAGE "cat8_ethernet.sys / cat8_ethernet.inf / cat8_ethernet.cat - Amphenol Cat 8 40Gbps Ethernet")
+      (PACKAGE "conexant_tel_fax.sys / conexant_tel_fax.inf / conexant_tel_fax.cat - RJ11 Telephone & Fax Ports")
+      (PACKAGE "usb2_xhci.sys / usb2_xhci.inf / usb2_xhci.cat - x1 USB 2.0 Host Controller")
+      (PACKAGE "usb32_gen2x2.sys / usb32_gen2x2.inf / usb32_gen2x2.cat - x2 USB 3.2 Gen 2x2 Controllers")
+      (PACKAGE "usb4_v2_host.sys / usb4_v2_host.inf / usb4_v2_host.cat - x2 USB 4 Host Routers")
       (PACKAGE "tb5_controller.sys / tb5.inf / tb5.cat - Thunderbolt 5 Subsystem")
       (PACKAGE "ess9039pro_thx_dsp.sys / ess_audio.inf / ess_audio.cat - 32-Bit Studio Audio Driver")
       (PACKAGE "goodix_fp.sys / goodix_fp.inf / goodix_fp.cat - Sapphire Match-On-Chip Fingerprint")
@@ -31,7 +36,8 @@
       (Depends "dkms (>= 3.0.0), build-essential, linux-headers-generic")
       (Maintainer "Aerospace System Engineering Team <support@extremenotebook.aero>")
       (Description "DKMS kernel modules for NVIDIA Ada5090M, Qualcomm FastConnect 7900, "
-                   "Qualcomm SDX90 WWAN, ESS Sabre ES9039PRO dual-clock audio, Goodix FP, and AI Hotkey.")
+                   "Qualcomm SDX90 WWAN, Amphenol Cat 8 Ethernet, Conexant Telephone/Fax, "
+                   "USB 2.0/3.2/4 controllers, ESS Sabre ES9039PRO dual-clock audio, Goodix FP, and AI Hotkey.")
     )
     (SIGNING "GPG Key ID: 0x9B1E4A3F2C5D6E7A (Verified against OpenTitan Silicon RoT)")
     (DEPLOYMENT_COMMAND "apt-get install -y ./extreme-laptop-drivers-dkms_2.9.8_amd64.deb")
