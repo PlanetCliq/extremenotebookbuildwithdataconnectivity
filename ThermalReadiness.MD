@@ -1,4 +1,4 @@
-```
+
 | **Component** | **Material** | **Thickness** | **Spread/Shape** | **Size (mm)** | **Qty** | **Manufacturer** | **Color** |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | CPU Intel i9‑14900HX | Liquid Metal TIM | 0.1–0.2 mm | Full die rectangular | 45×35 | 1 tube | ThermalGrizzly | Silver metallic |
@@ -10,7 +10,7 @@
 | VRM TI TPS53689 | Gap filler pad | 0.5–1.0 mm | Rectangular blocks | 10×10 | 3 rails | Bergquist / Laird | White |
 | MOSFET Infineon BSC123N08NS3 | Phase‑change pad | 0.3–0.5 mm | Small square | 5×5 | 6 | Panasonic / Honeywell | Grey |
 | PMIC NXP PF8100 | Graphite sheet | 0.5 mm | Square | 8×8 | 2 | Panasonic PGS | Black |
-```
+
 
 ```
 Application Readiness
