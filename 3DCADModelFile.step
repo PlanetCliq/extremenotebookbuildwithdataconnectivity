@@ -1,6 +1,6 @@
 ISO-10303-21;
 HEADER;
-FILE_DESCRIPTION(('Aerospace Laptop Monolithic 7075-T6 Unibody & Titanium Hinge AP242 Model'),'2;1');
+FILE_DESCRIPTION(('Aerospace Laptop Monolithic 7075-T6 Unibody & Titanium Hinge AP242 Model with Full Communications and Peripheral Ports'),'2;1');
 FILE_NAME('3DCADModelFile.step','2026-09-10T01:15:00',('Dravasp Shroff'),('Aerospace Engineering'),'AP242_MANAGED_MODEL_BASED_3D_ENGINEERING_MIM_LF','STEP-Core','OpenTitan Validated');
 FILE_SCHEMA(('AP242_MANAGED_MODEL_BASED_3D_ENGINEERING_MIM_LF'));
 ENDSEC;
@@ -8,7 +8,7 @@ DATA;
 #1=APPLICATION_CONTEXT('aerospace mechanical design');
 #2=APPLICATION_PROTOCOL_DEFINITION('international standard','ap242_managed_model_based_3d_engineering_mim_lf',2026,#1);
 #3=PRODUCT_CONTEXT('chassis context',#1,'mechanical');
-#4=PRODUCT('ExtremeLaptopChassis','Monolithic 7075-T6 Chassis with Ti-6Al-4V Reinforcements','',(#3));
+#4=PRODUCT('ExtremeLaptopChassis','Monolithic 7075-T6 Chassis with Ti-6Al-4V Reinforcements and Integrated Telephone, Fax, Cat 8 Ethernet, USB 2, USB 3.2, and USB 4 Ports','',(#3));
 #5=PRODUCT_DEFINITION_FORMATION('2.9-HIGHEST','Full System Physical Definition',#4);
 #6=PRODUCT_DEFINITION('design','chassis mechanical envelope',#5,#3);
 #7=PRODUCT_DEFINITION_SHAPE('','',#6);
