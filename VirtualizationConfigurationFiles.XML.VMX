@@ -1,73 +1,168 @@
-(EXPERT_MASTER_VIRTUALIZATION
-  (VERSION 1.1)
-  (TITLE "Extreme Performance Laptop - Aerospace Grade Virtualization Configurations (Re‑worked)")
+<?xml version="1.0" encoding="UTF-8"?>
+<virtualization_master_dossier version="2.9-HIGHEST">
 
-  ;; ===========================
-  ;; Proxmox / KVM (.XML)
-  ;; ===========================
-  (PROXMOX_VM_XML
-    (File "proxmox_vm.xml")
-    (VM "Ubuntu 24.04 GPU/NPU accelerated node")
-    (Resources
-      (CPU "8 cores, Intel i9 passthrough")
-      (Memory "32GB DDR5X, ECC enabled")
-      (Storage "NVMe Gen5 SSD, 1TB, TRIM enabled")
-      (GPU "NVIDIA Ada5090M passthrough with CUDA/TensorRT")
-      (NPU "Intel TOPS45 passthrough with ONNX runtime")
-    )
-    (Networking
-      (Interface "QSFP-DD 400G, VLAN segmentation, SR-IOV enabled")
-      (Bridge "vmbr0, PCIe tunneling enabled, jumbo frames supported")
-    )
-    (Security
-      (RootOfTrust "OpenTitan validation, secure boot chain")
-      (Keys "YubiHSM2 hardware key storage, PKCS#11 integration")
-    )
-  )
+  <!-- ===================================================================== -->
+  <!-- 1. Proxmox VE 8 / KVM High-Throughput Node (Ubuntu 24.04 Accelerated) -->
+  <!-- ===================================================================== -->
+  <domain type='kvm'>
+    <name>aero-master-node-ubuntu2404</name>
+    <uuid>e5b12a88-7f3c-4d89-9a22-1b8f36c54a90</uuid>
+    <memory unit='GiB'>64</memory>
+    <currentMemory unit='GiB'>64</currentMemory>
+    <memoryBacking>
+      <hugepages>
+        <page size='1' unit='GiB'/>
+      </hugepages>
+      <locked/>
+    </memoryBacking>
+    <vcpu placement='static'>20</vcpu>
+    <cputune>
+      <vcpupin vcpu='0' cpuset='0'/>
+      <vcpupin vcpu='1' cpuset='1'/>
+      <vcpupin vcpu='2' cpuset='2'/>
+      <vcpupin vcpu='3' cpuset='3'/>
+    </cputune>
+    <os>
+      <type arch='x86_64' machine='q35'>hvm</type>
+      <loader readonly='yes' type='pflash'>/usr/share/OVMF/OVMF_CODE_4M.secboot.fd</loader>
+      <nvram>/var/lib/vz/images/aero-master-node-nvram.fd</nvram>
+      <boot dev='hd'/>
+    </os>
+    <features>
+      <acpi/>
+      <apic/>
+      <hyperv mode='passthrough'/>
+      <smm state='on'/>
+      <ioapic driver='kvm'/>
+    </features>
+    <devices>
+      <emulator>/usr/bin/kvm</emulator>
+      <!-- Discrete GPU Ada5090M PCIe Gen5 Passthrough -->
+      <hostdev mode='subsystem' type='pci' managed='yes'>
+        <source>
+          <address domain='0x0000' bus='0x01' slot='0x00' function='0x0'/>
+        </source>
+        <rom file='/usr/share/kvm/ada5090m_vbios.rom'/>
+      </hostdev>
+      <!-- Intel TOPS45 Dedicated NPU Passthrough -->
+      <hostdev mode='subsystem' type='pci' managed='yes'>
+        <source>
+          <address domain='0x0000' bus='0x00' slot='0x0b' function='0x0'/>
+        </source>
+      </hostdev>
+      <!-- Qualcomm SDX90 Cellular Baseband Passthrough -->
+      <hostdev mode='subsystem' type='pci' managed='yes'>
+        <source>
+          <address domain='0x0000' bus='0x04' slot='0x00' function='0x0'/>
+        </source>
+      </hostdev>
+      <!-- Qualcomm FastConnect 7900 Wi-Fi 7 / UWB Passthrough -->
+      <hostdev mode='subsystem' type='pci' managed='yes'>
+        <source>
+          <address domain='0x0000' bus='0x05' slot='0x00' function='0x0'/>
+        </source>
+      </hostdev>
+      <!-- Optical QSFP-DD 400G Port Uplink -->
+      <interface type='bridge'>
+        <source bridge='vmbr0'/>
+        <model type='virtio'/>
+        <driver name='vhost' queues='8'/>
+      </interface>
+      <!-- Discrete Emulated TPM 2.0 with OpenTitan Attestation Binding -->
+      <tpm model='tpm-tis'>
+        <backend type='emulator' version='2.0'/>
+      </tpm>
+      <!-- Dedicated Universal AI Hotkey Evdev Host Passthrough -->
+      <input type='evdev'>
+        <source dev='/dev/input/by-path/platform-universal-ai-key-event'/>
+      </input>
+    </devices>
+  </domain>
 
-  ;; ===========================
-  ;; VMware ESXi (.VMX)
-  ;; ===========================
-  (VMWARE_VM_VMX
-    (File "win11_enterprise.vmx")
-    (VM "Windows 11 Enterprise GPU workstation")
-    (Resources
-      (CPU "12 cores, Intel i9 passthrough, Hyper-Threading enabled")
-      (Memory "64GB DDR5X, NUMA aware allocation")
-      (Storage "NVMe Gen5 SSD, 2TB, RAID-1 mirror")
-      (GPU "NVIDIA Ada5090M passthrough, DirectX12 acceleration")
-      (Thunderbolt "PCIe tunneling enabled, hot-plug supported")
-    )
-    (Networking
-      (Interface "QSFP-DD 400G, VLAN tagging")
-      (vSwitch "vSwitch0, VLAN segmentation, NSX-T integration")
-    )
-    (Security
-      (SecureBoot "UEFI Secure Boot enabled, BitLocker integration")
-      (TPM "Infineon SLB9670 virtual TPM, attestation enabled")
-    )
-  )
+  <!-- ===================================================================== -->
+  <!-- 2. VMware ESXi 8.0 VMX Configuration File (win11_enterprise.vmx)       -->
+  <!-- ===================================================================== -->
+  <vmware_vmx_profile filename="win11_enterprise.vmx">
+<![CDATA[
+.encoding = "UTF-8"
+config.version = "8"
+virtualHW.version = "20"
+vmci0.present = "TRUE"
+displayName = "Windows 11 Enterprise Aerospace Workstation (v2.9-HIGHEST)"
+guestOS = "windows11-64"
 
-  ;; ===========================
-  ;; Hyper-V (.XML)
-  ;; ===========================
-  (HYPERV_VM_XML
-    (File "hyperv_cluster.xml")
-    (VM "Windows Server 2025 cluster node")
-    (Resources
-      (CPU "16 cores, Intel i9 passthrough, nested virtualization enabled")
-      (Memory "128GB DDR5X, dynamic memory allocation")
-      (Storage "NVMe Gen5 SSD, 4TB RAID-10, Storage Spaces Direct")
-      (GPU "NVIDIA Ada5090M passthrough, CUDA/DirectML acceleration")
-      (NPU "Intel TOPS45 passthrough, ONNX runtime integration")
-    )
-    (Networking
-      (Interface "QSFP-DD 400G, RDMA enabled")
-      (Bridge "Hyper-V virtual switch, VLAN trunking")
-    )
-    (Security
-      (Pluton "Microsoft Pluton secure enclave, firmware attestation")
-      (Policies "FIPS140-3, NIST SP800-193 compliance, Shielded VM support")
-    )
-  )
-)
+# Compute Core Allocation
+numvcpus = "24"
+cpuid.coresPerSocket = "8"
+memsize = "65536"
+mem.hotadd = "FALSE"
+sched.mem.pin = "TRUE"
+
+# Security & Virtual TPM 2.0
+firmware = "efi"
+uefi.secureBoot.enabled = "TRUE"
+vtpm.present = "TRUE"
+vtpm.version = "2.0"
+vvtd.enable = "TRUE"
+vsm.enabled = "TRUE"
+
+# Storage Configuration (Dual Samsung NVMe Gen5 Virtual Passthrough)
+nvme0.present = "TRUE"
+nvme0:0.fileName = "win11_enterprise_primary.vmdk"
+nvme0:0.present = "TRUE"
+nvme0:0.deviceType = "rawDisk"
+
+# Discrete PCIe Device Passthrough (Ada5090M & FastConnect 7900)
+pciPassthru0.present = "TRUE"
+pciPassthru0.deviceId = "0x2b00"
+pciPassthru0.vendorId = "0x10de"
+pciPassthru0.systemId = "aerospace-laptop-node"
+
+pciPassthru1.present = "TRUE"
+pciPassthru1.deviceId = "0x7851" # Qualcomm FastConnect 7900
+pciPassthru1.vendorId = "0x17cb"
+
+# Optical Networking via QSFP-DD 400G Port
+ethernet0.present = "TRUE"
+ethernet0.virtualDev = "vmxnet3"
+ethernet0.networkName = "QSFP-DD-400G-VLAN-100"
+ethernet0.addressType = "generated"
+
+# Sound & Studio Audio Interconnect
+sound.present = "TRUE"
+sound.virtualDev = "hdaudio"
+sound.fileName = "default"
+sound.autodetect = "TRUE"
+
+# Biometric Fingerprint Sensor USB Redirection
+usb_xhci.present = "TRUE"
+usb_xhci:0.present = "TRUE"
+usb_xhci:0.deviceType = "hid"
+usb_xhci:0.port = "1"
+usb_xhci:0.parent = "-1"
+]]>
+  </vmware_vmx_profile>
+
+  <!-- ===================================================================== -->
+  <!-- 3. Microsoft Hyper-V Cluster Specification (hyperv_cluster.xml)       -->
+  <!-- ===================================================================== -->
+  <hyperv_profile filename="hyperv_cluster.xml">
+    <cluster_node name="WIN-SRV2025-AERO-NODE1">
+      <processor_count>24</processor_count>
+      <memory_mb dynamic="false">131072</memory_mb>
+      <nested_virtualization enabled="true"/>
+      <discrete_device_assignment>
+        <pci_express_device path="PCIROOT(0)#PCI(0100)#PCI(0000)"/> <!-- NVIDIA Ada5090M -->
+        <pci_express_device path="PCIROOT(0)#PCI(0200)#PCI(0000)"/> <!-- Arista QSFP-DD 400G -->
+        <pci_express_device path="PCIROOT(0)#PCI(0300)#PCI(0000)"/> <!-- Qualcomm SDX90 WWAN -->
+      </discrete_device_assignment>
+      <shielded_vm_policies>
+        <attestation_protocol>NIST-SP800-193-HGS</attestation_protocol>
+        <key_protector_provider>OpenTitan-YubiHSM2-FIPS</key_protector_provider>
+        <vbs_enforced>true</vbs_enforced>
+        <hvci_enforced>true</hvci_enforced>
+      </shielded_vm_policies>
+    </cluster_node>
+  </hyperv_profile>
+
+</virtualization_master_dossier>
