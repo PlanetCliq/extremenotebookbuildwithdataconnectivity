@@ -1,46 +1,55 @@
-#ifndef APN_SDK_H
-#define APN_SDK_H
+#ifndef CS_OBJECT_SDK_QMI_WRAPPER_H
+#define CS_OBJECT_SDK_QMI_WRAPPER_H
+
+#include <stdint.h>
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// QMI Core
-int define_pdp_context(int id, const char* apn, const char* ipType);
-int activate_pdp_context(int id);
-int configure_qos(int id, int priority, int latency, int throughputUL, int throughputDL);
-int activate_esim_profile(const char* eid);
+typedef enum {
+    QMI_IP_TYPE_V4 = 4,
+    QMI_IP_TYPE_V6 = 6,
+    QMI_IP_TYPE_V4V6 = 10
+} QmiIpType;
 
-// IMS / USSD / Stability
-int enable_ims_registration(const char* apn);
-int enable_ussd(const char* code);
-int enable_bearer_stability(const char* mode);
-int enable_qos_monitoring(const char* mode);
-int enable_security_audit(const char* level);
+typedef enum {
+    QMI_QOS_PRIORITY_LOW = 1,
+    QMI_QOS_PRIORITY_NORMAL = 2,
+    QMI_QOS_PRIORITY_HIGH = 3,
+    QMI_QOS_PRIORITY_CRITICAL = 4,
+    QMI_QOS_PRIORITY_MAXIMUM = 5
+} QmiQoSPriority;
 
-// APN Parser
-int parse_apn_xml(const char* filename);
-int parse_apn_mobileconfig(const char* filename);
+typedef struct {
+    uint32_t profile_id;
+    char carrier_id[32];
+    char carrier_name[64];
+    char apn[64];
+    char mcc[8];
+    char mnc[8];
+    QmiIpType ip_type;
+    bool is_roaming_allowed;
+    QmiQoSPriority qos_priority;
+    uint32_t throughput_ul_mbps;
+    uint32_t throughput_dl_mbps;
+    uint32_t latency_budget_ms;
+} QmiCarrierProfile;
 
-// Policy Engine
-int enforce_root_of_trust(void);
-int apply_masking_rules(const char* rulesFile);
-int enforce_trusted_lpa(const char* lpaFile);
-
-// Checksum Validator
-int validate_signed_binary(const char* file, const char* expectedHash);
-int validate_config_file(const char* file, const char* expectedHash);
-
-// Carrier Adapter
-int provision_carrier_profile(const char* carrierName, const char* apn);
-int sync_with_carrier_server(const char* carrierName);
-
-// Automation Layer
-int provision_all_carriers(void);
-int apply_multi_apn_bundle(const char* configDir);
+// C# P/Invoke Compatible C ABI Export Signatures
+int QmiSdkInitialize(const char* device_node);
+int QmiSdkShutdown(void);
+int QmiSdkDefinePdpContext(const QmiCarrierProfile* profile);
+int QmiSdkActivatePdpContext(uint32_t profile_id);
+int QmiSdkDeactivatePdpContext(uint32_t profile_id);
+int QmiSdkConfigureQoS(uint32_t profile_id, QmiQoSPriority priority, uint32_t ul_mbps, uint32_t dl_mbps, uint32_t latency_ms);
+int QmiSdkActivateEsimProfile(const char* eid);
+int QmiSdkSetHardwareKillSwitch(bool isolated);
+int QmiSdkGetCarrierRegistration(char* out_carrier_name, uint32_t max_len);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // APN_SDK_H
+#endif // CS_OBJECT_SDK_QMI_WRAPPER_H
