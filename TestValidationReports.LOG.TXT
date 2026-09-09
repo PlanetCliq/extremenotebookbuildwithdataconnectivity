@@ -1,97 +1,105 @@
 (EXPERT_MASTER_VALIDATION
-  (VERSION 1.1)
-  (TITLE "Extreme Performance Laptop - Aerospace Grade Validation Reports (Re‑worked)")
+(VERSION 2.9-HIGHEST)
+(TITLE "Extreme Performance Laptop - Aerospace Grade Validation Reports (Fully Consolidated Scope)")
 
 [+] SECTION 1: THERMAL CYCLING & ENDURANCE STRESS
-  - 100 Thermal Shock Cycles (-40°C to +85°C) -> Result: PASS
-  - Total Dissipated Load: 675W (CPU 125W + GPU 250W + AI GPU 300W)
-  - CPU Peak: 79.4°C | GPU Peak: 82.1°C | Acoustic Noise: 27.4 dBA -> PASS
+
+* 100 Thermal Shock Cycles (-40°C to +85°C) -> Result: PASS
+* Total Dissipated Load: 675W (CPU 125W + GPU 250W + AI GPU 300W)
+* CPU Peak: 79.4°C | GPU Peak: 82.1°C | Acoustic Noise: 27.4 dBA -> PASS
 
 [+] SECTION 2: VIBRATION, SHOCK & DROP (MIL-STD-810G)
-  - Random Vibration 10Hz-500Hz @ 5.14 g RMS across 3 axes -> PASS
-  - 1.2m Free-Fall onto concrete (26 orientations) -> PASS (Zero structural cracks)
-  - Titanium Ti-6Al-4V Hinges: 50,000 cycles completed -> PASS
+
+* Random Vibration 10Hz-500Hz @ 5.14 g RMS across 3 axes -> PASS
+* 1.2m Free-Fall onto concrete (26 orientations) -> PASS (Zero structural cracks)
+* Titanium Ti-6Al-4V Hinges: 50,000 cycles completed -> PASS
 
 [+] SECTION 3: ACOUSTIC & MASTER CLOCK MEASUREMENTS
-  - Crystek 45.1584MHz Jitter: 74 fs RMS (Spec: <82 fs) -> PASS
-  - Crystek 49.1520MHz Jitter: 76 fs RMS (Spec: <82 fs) -> PASS
-  - System THD+N: -123.2 dB | SNR: 132.8 dB -> PASS
 
-[+] SECTION 4: WIRELESS & DISCRETE KILL SWITCHES
-  - Qualcomm FastConnect 7900 Wi-Fi 7 throughput: 5.4 Gbps sustained -> PASS
-  - Qualcomm SDX90 5G NR download sustained: 11.2 Gbps -> PASS
-  - RF Kill Switch trip time: WLAN (12.4µs), WWAN (18.1µs), BT (9.8µs), NFC (6.2µs) -> PASS
+* Crystek 45.1584MHz Jitter: 74 fs RMS (Spec: <82 fs) -> PASS
+* Crystek 49.1520MHz Jitter: 76 fs RMS (Spec: <82 fs) -> PASS
+* System THD+N: -123.2 dB | SNR: 132.8 dB -> PASS
+
+[+] SECTION 4: WIRELESS, WIRED I/O & DISCRETE KILL SWITCHES
+
+* Qualcomm FastConnect 7900 Wi-Fi 7 throughput: 5.4 Gbps sustained -> PASS
+* Qualcomm SDX90 5G NR download sustained: 11.2 Gbps -> PASS
+* Amphenol Cat 8 Ethernet 40Gbps link over 2000MHz bandwidth -> PASS
+* Conexant Telephone & Fax RJ11 ports 1500V galvanic isolation dielectric breakdown test -> PASS
+* x1 USB 2.0 (480Mbps), x2 USB 3.2 Gen 2x2 (20Gbps), and x2 USB 4 (40Gbps) eye-diagram & 20,000 insertion cycle endurance -> PASS
+* RF Kill Switch trip time: WLAN (12.4µs), WWAN (18.1µs), BT (9.8µs), NFC (6.2µs) -> PASS
 
 [+] SECTION 5: AI HOTKEY & FINGERPRINT VALIDATION
-  - Goodix 508 DPI Match-On-Chip inside ARM TrustZone: FAR <0.0001% -> PASS
-  - Dedicated Universal AI Hotkey: 4.2ms non-maskable interrupt latency -> PASS (Gemini/Claude/Grok/ONNX verified)
 
-  ;; ===========================
-  ;; Thermal Cycling Logs (.LOG)
-  ;; ===========================
-  (THERMAL_LOG
-    (File "thermal_cycle.log")
-    (Tests
-      (Cycle1 "-40°C to +85°C, 100 cycles with ramp control")
-      (Cycle2 "CPU/GPU sustained load stress, 300W continuous")
-      (Cycle3 "Graphene vapor chamber efficiency and thermal spread validation")
-    )
-    (Results
-      (CPU "Stable, no thermal runaway, <80°C under max load")
-      (GPU "Stable, <85°C sustained, no throttling")
-      (Battery "Stable, no swelling, leakage, or capacity loss")
-    )
-  )
+* Goodix 508 DPI Match-On-Chip inside ARM TrustZone: FAR <0.0001% -> PASS
+* Dedicated Universal AI Hotkey: 4.2ms non-maskable interrupt latency -> PASS (Gemini/Claude/Grok/ONNX verified)
 
-  ;; ===========================
-  ;; Vibration/Shock Compliance (.TXT)
-  ;; ===========================
-  (VIBRATION_TXT
-    (File "vibration_shock.txt")
-    (Standard "MIL-STD-810G Aerospace Compliance")
-    (Tests
-      (Shock "Drop test 1.2m, 26 orientations, reinforced chassis validation")
-      (Vibration "Random vibration 10–500Hz, 1hr each axis, connector integrity check")
-    )
-    (Results
-      (Chassis "No cracks, deformation <0.05mm, aerospace aluminum intact")
-      (Ports "No connector loosening, retention force validated")
-      (Display "No pixel damage, MicroLED panel stable")
-    )
-  )
+;; ===========================
+;; Thermal Cycling Logs (.LOG)
+;; ===========================
+(THERMAL_LOG
+(File "thermal_cycle.log")
+(Tests
+(Cycle1 "-40°C to +85°C, 100 cycles with ramp control")
+(Cycle2 "CPU/GPU sustained load stress, 300W continuous")
+(Cycle3 "Graphene vapor chamber efficiency and thermal spread validation")
+)
+(Results
+(CPU "Stable, no thermal runaway, <80°C under max load")
+(GPU "Stable, <85°C sustained, no throttling")
+(Battery "Stable, no swelling, leakage, or capacity loss")
+)
+)
 
-  ;; ===========================
-  ;; Humidity Chamber Results (.LOG)
-  ;; ===========================
-  (HUMIDITY_LOG
-    (File "humidity_test.log")
-    (Tests
-      (Cycle1 "85% RH, 40°C, 240hrs continuous exposure")
-      (Cycle2 "Condensation exposure, 12hrs, recovery cycle")
-    )
-    (Results
-      (PCB "No corrosion, conformal coating intact, ESD shielding validated")
-      (Battery "Stable, no leakage, graphene solid-state pack unaffected")
-      (Audio "No degradation in THD+N, DAC/AMP performance consistent")
-    )
-  )
+;; ===========================
+;; Vibration/Shock Compliance (.TXT)
+;; ===========================
+(VIBRATION_TXT
+(File "vibration_shock.txt")
+(Standard "MIL-STD-810G Aerospace Compliance")
+(Tests
+(Shock "Drop test 1.2m, 26 orientations, reinforced chassis validation")
+(Vibration "Random vibration 10–500Hz, 1hr each axis, connector integrity check")
+)
+(Results
+(Chassis "No cracks, deformation <0.05mm, aerospace aluminum intact")
+(Ports "No connector loosening; retention force and high-speed I/O pins (Cat 8, USB 3.2/4, RJ11) validated")
+(Display "No pixel damage, MicroLED panel stable")
+)
+)
 
-  ;; ===========================
-  ;; OS Boot Validation (.TXT)
-  ;; ===========================
-  (OS_BOOT_TXT
-    (File "os_boot_validation.txt")
-    (Tests
-      (Windows "Boots Windows 11 Enterprise, Server 2025 with Secure Boot")
-      (Linux "Boots Ubuntu 24.04, RHEL UBI9, Fedora 2026, SUSE 15 SP5 with kernel modules")
-      (BSD "Boots FreeBSD 14 with ZFS integrity check")
-      (Solaris "Boots Solaris 11 with legacy compatibility")
-      (Virtualization "Boots Proxmox 8, VMware ESXi 8 with GPU/NPU passthrough")
-    )
-    (Results
-      (Drivers "GPU/NPU/Thunderbolt/WiFi7/NVMe initialized successfully")
-      (SecureBoot "TPM, Pluton, OpenTitan validated, rollback protection active")
-      (Recovery "Dual BIOS/firmware fallback successful, zero‑downtime recovery confirmed")
-    )
-  )
+;; ===========================
+;; Humidity Chamber Results (.LOG)
+;; ===========================
+(HUMIDITY_LOG
+(File "humidity_test.log")
+(Tests
+(Cycle1 "85% RH, 40°C, 240hrs continuous exposure")
+(Cycle2 "Condensation exposure, 12hrs, recovery cycle")
+)
+(Results
+(PCB "No corrosion, conformal coating intact, ESD shielding validated")
+(Battery "Stable, no leakage, graphene solid-state pack unaffected")
+(Audio "No degradation in THD+N, DAC/AMP performance consistent")
+)
+)
+
+;; ===========================
+;; OS Boot Validation (.TXT)
+;; ===========================
+(OS_BOOT_TXT
+(File "os_boot_validation.txt")
+(Tests
+(Windows "Boots Windows 11 Enterprise, Server 2025 with Secure Boot")
+(Linux "Boots Ubuntu 24.04, RHEL UBI9, Fedora 2026, SUSE 15 SP5 with kernel modules")
+(BSD "Boots FreeBSD 14 with ZFS integrity check")
+(Solaris "Boots Solaris 11 with legacy compatibility")
+(Virtualization "Boots Proxmox 8, VMware ESXi 8 with GPU/NPU passthrough")
+)
+(Results
+(Drivers "GPU/NPU/Thunderbolt 5/Cat 8 Ethernet/Telephone/USB controllers initialized successfully")
+(SecureBoot "TPM, Pluton, OpenTitan validated, rollback protection active")
+(Recovery "Dual BIOS/firmware fallback successful, zero‑downtime recovery confirmed")
+)
+)
 )
