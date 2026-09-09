@@ -124,6 +124,54 @@ JMP1
 HARWIN-M50_4P_1.27MM
 Harwin Gold Micro-Jumper Array J1-J4
 ]
+[
+TELEPHONE_LINE_PORT
+TEL1
+RJ11_12x14
+Conexant RJ11 Telephone Line Port 1500V Isolated[cite: 8]
+]
+[
+FAX_PORT
+FAX1
+RJ11_12x14
+Conexant RJ11 Fax Line Port 1500V Isolated[cite: 8]
+]
+[
+ETHERNET_PORT_CAT8
+ETH1
+RJ45_14x16
+Amphenol Cat 8 RJ45 40Gbps Shielded Jack[cite: 8]
+]
+[
+LEGACY_USB2_PORT
+USB2_1
+USB-A_8x12
+Molex USB 2.0 Type-A Single Port 480Mbps[cite: 8]
+]
+[
+USB_3_2_PORT_1
+USB32_1
+USB-C_8x8
+TE Connectivity USB 3.2 Gen 2 Type-C Port 1[cite: 8]
+]
+[
+USB_3_2_PORT_2
+USB32_2
+USB-C_8x8
+TE Connectivity USB 3.2 Gen 2 Type-C Port 2[cite: 8]
+]
+[
+USB_4_PORT_1
+USB4_1
+USB-C_12x8
+Intel USB 4 Type-C 40Gbps Port 1[cite: 8]
+]
+[
+USB_4_PORT_2
+USB4_2
+USB-C_12x8
+Intel USB 4 Type-C 40Gbps Port 2[cite: 8]
+]
 
 (
 NET_PWR_CORE_1V2
@@ -274,4 +322,54 @@ NET_HW_JUMPER_CFG
 JMP1-PIN_1
 JMP1-PIN_2
 DAC1-AGND_MOAT
+)
+(
+NET_TEL_RING_TIP
+TEL1-TIP
+TEL1-RING
+)
+(
+NET_FAX_RING_TIP
+FAX1-TIP
+FAX1-RING
+)
+(
+NET_ETH_CAT8_DATA
+ETH1-TX_P
+ETH1-TX_N
+ETH1-RX_P
+ETH1-RX_N
+)
+(
+NET_USB2_DATA
+USB2_1-D_P
+USB2_1-D_N
+)
+(
+NET_USB32_DATA_1
+USB32_1-TX_P
+USB32_1-TX_N
+USB32_1-RX_P
+USB32_1-RX_N
+)
+(
+NET_USB32_DATA_2
+USB32_2-TX_P
+USB32_2-TX_N
+USB32_2-RX_P
+USB32_2-RX_N
+)
+(
+NET_USB4_DATA_1
+USB4_1-TX_P
+USB4_1-TX_N
+USB4_1-RX_P
+USB4_1-RX_N
+)
+(
+NET_USB4_DATA_2
+USB4_2-TX_P
+USB4_2-TX_N
+USB4_2-RX_P
+USB4_2-RX_N
 )
