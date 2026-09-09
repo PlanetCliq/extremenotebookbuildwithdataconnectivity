@@ -1,23 +1,25 @@
-CC = gcc
-CFLAGS = -Wall -O2 -fPIC
-LDFLAGS = -L./sdk/lib -lqmi
-INCLUDES = -I./sdk/include
+CC ?= gcc
+CFLAGS ?= -Wall -Wextra -O2 -fPIC
+LDFLAGS ?= -shared
 
-TARGET = libapn_sdk.so
-SRCS = apn_sdk.c qmi_core.c apn_parser.c policy_engine.c
+TARGET_LIB = libqmi_carrier_sdk.so
+TARGET_BIN = test_apn
+
+SRCS = C\#ObjectSDKQMIwrapper.c qmi_core.c apn_parser.c policy_engine.c
 OBJS = $(SRCS:.c=.o)
 
-all: $(TARGET)
+all: $(TARGET_LIB) $(TARGET_BIN)
 
-$(TARGET): $(OBJS)
-    $(CC) -shared -o $@ $(OBJS) $(LDFLAGS)
+$(TARGET_LIB): $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ $^
 
-%.o: %.c apn_sdk.h
-    $(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+$(TARGET_BIN): test_apn.o $(TARGET_LIB)
+	$(CC) -o $@ test_apn.o -L. -lqmi_carrier_sdk -Wl,-rpath,.
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-    rm -f $(OBJS) $(TARGET)
+	rm -f $(OBJS) test_apn.o $(TARGET_LIB) $(TARGET_BIN)
 
-install: $(TARGET)
-    cp $(TARGET) /usr/local/lib/
-    cp apn_sdk.h /usr/local/include/
+.PHONY: all clean
