@@ -1,69 +1,206 @@
-(EXPERT_MASTER_BIOS
-  (VERSION 2.6)
-  (TITLE "Extreme Performance Laptop - Aerospace Grade BIOS/UEFI (X75 Edition)")
+(EXPERT_MASTER_BIOS_UEFI_SPECIFICATION
+  (IMAGE_NAME "BIOSUEFIImageFile.bin.rom")
+  (VERSION "2.9.8-HIGHEST-AERO")
+  (BINARY_SIZE_BYTES 67108864) ;; 64MB Monolithic Dual-SPI Flash Image
+  (TARGET_FLASH "Winbond W25Q512JVEIQ (Dual Socket Redundant Arrays A/B)")
 
-  ;; ===========================
-  ;; Initialization
-  ;; ===========================
-  (BOOT_SEQUENCE
-    (Step1 "Power-on self-test (POST)")
-    (Step2 "Initialize CPU Qualcomm Snapdragon X75 WWAN controller microcode")
-    (Step3 "Initialize GPU NVIDIA Ada5090M and Nanowire AI Quantum accelerator")
-    (Step4 "Initialize DDR5X DIMMs and HBM3 stack")
-    (Step5 "Initialize NVMe Gen5 SSD controllers")
-    (Step6 "Initialize TPM, Pluton, OpenTitan security modules")
-    (Step7 "Initialize WiFi7/BT6, QSFP-DD, Thunderbolt5 controllers")
-    (Step8 "Initialize WWAN M.2 3052 slot and Nano-SIM cage (multi-active profile sync)")
-    (Step9 "Initialize DAC, AMP, DSP audio stack")
-    (Step10 "Initialize display panel LVDS interface")
+  ;; =========================================================================
+  ;; 1. Flash Descriptor & Memory Region Allocations
+  ;; =========================================================================
+  (FLASH_MAP
+    (REGION_DESCRIPTOR
+      (OFFSET "0x00000000") (SIZE "0x00001000") (ACCESS "Hardware Read-Only")
+      (CONTENT "Master Flash Descriptor, Component Density, Master VSCC/VSCC2 Table")
+    )
+    (REGION_INTEL_ME
+      (OFFSET "0x00001000") (SIZE "0x007FF000") (ACCESS "Secure Locked")
+      (CONTENT "Intel Corporate Management Engine v18.1 Firmware, AMT & DAL Enclave")
+    )
+    (REGION_GBE
+      (OFFSET "0x00800000") (SIZE "0x00008000") (ACCESS "Read/Write Factory")
+      (CONTENT "Amphenol Cat8 40Gbps RJ45 MAC Layer Configuration & Calibration Coefficients")
+    )
+    (REGION_PLATFORM_DATA
+      (OFFSET "0x00808000") (SIZE "0x000F8000") (ACCESS "Authenticated Write")
+      (CONTENT "Factory Calibration Data, Dual Crystek Clock Skew Compensation, RF Antennas VSWR Tables")
+    )
+    (REGION_SECURE_ENCLAVE
+      (OFFSET "0x00900000") (SIZE "0x00300000") (ACCESS "Enclave Cryptographic Isolation")
+      (CONTENT "ARM-SE-TZ Secure World OS Image, Goodix 508 DPI Match-On-Chip Template Store")
+    )
+    (REGION_BIOS_FV
+      (OFFSET "0x00C00000") (SIZE "0x03400000") (ACCESS "UEFI Authenticode Verified")
+      (CONTENT "SEC, PEI, DXE, BDS, and Boot Device Selection Firmware Volumes")
+    )
   )
 
-  ;; ===========================
-  ;; Security
-  ;; ===========================
-  (SECURE_BOOT
-    (TPM "Infineon SLB9670, FIPS140-3 compliance")
-    (Pluton "Microsoft Pluton secure enclave")
-    (OpenTitan "Root of Trust validation")
-    (YubiHSM2 "External hardware key validation")
-    (TrustZone "ARM TrustZone isolation for WWAN stack")
-    (Policy "UEFI Secure Boot enabled, signed binaries only")
-    (Checksum "SHA-256 and SHA-512 validation for firmware and drivers")
-    (Certificates "RSA-4096, ECC-P384, Microsoft UEFI CA 2026")
+  ;; =========================================================================
+  ;; 2. Early Pre-EFI Initialization (PEI) & Platform Tuning
+  ;; =========================================================================
+  (PEI_EXECUTION_PHASE
+    (MODULE "SecCore.efi" (PURPOSE "Early reset vector, Cache-As-RAM (CAR) setup"))
+    (MODULE "CpuPei.efi"
+      (TARGET "Intel Core i9-14900HX (BX8071514900HX)")
+      (ROUTINE "Microcode patch application, PL1 (125W), PL2 (175W Tau=56s), Core Voltage 1.2V")
+    )
+    (MODULE "MemoryInitPei.efi"
+      (TARGET "Micron DDR5X-6400 MT/s Quad-Channel (4x DIMM-288) & Samsung 256GB HBM3 Stack")
+      (ROUTINE "DDR5 timing training (tCK=0.625ns, tRCD=14ns, tRP=14ns, tRAS=32ns, ±5 mils length match), HBM3 1024-bit PHY link calibration")
+    )
+    (MODULE "PowerDeliveryPei.efi"
+      (TARGET "Texas Instruments TPS53689 VRM & Infineon BSC123N08NS3 MOSFETs")
+      (ROUTINE "VRM phase alignment, transient droop clamp <50mV, SMBus link to QuantumScape 480Wh/kg BMS")
+    )
+    (MODULE "HardwareJumpersPei.efi"
+      (TARGET "Harwin M50 Gold Micro-Jumpers (HW_CONFIG_JUMPERS)")
+      (ROUTINE "Jumper 1: Audio ground moat enable; Jumper 2: BIOS dual-SPI fallback override; Jumper 3: Write-protect; Jumper 4: Headphone high-impedance mode")
+    )
   )
 
-  ;; ===========================
-  ;; OS Compatibility Hooks
-  ;; ===========================
-  (OS_SUPPORT
-    (Windows "Windows 11 Enterprise, Windows Server 2025")
-    (Linux "Ubuntu 24.04, Red Hat UBI9, Rocky/AlmaLinux 2026, Fedora 2026, SUSE 15 SP5")
-    (BSD "FreeBSD 14")
-    (Solaris "Solaris 11")
-    (Virtualization "Proxmox 8, VMware ESXi 8, Hyper-V clusters")
-    (Drivers "Preloaded GPU/NPU/Thunderbolt/Audio/WWAN drivers")
-    (WWAN "QMI SDK hooks for APN/QoS provisioning, IMS/VoLTE/VoNR support")
+  ;; =========================================================================
+  ;; 3. Driver Execution Environment (DXE) Core Modules
+  ;; =========================================================================
+  (DXE_DRIVERS_CATALOG
+    (DRIVER "PciRootBridgeDxe.efi"
+      (FUNCTION "Root complex enumerator for PCIe Gen5 x16 (Ada5090M) and primary fabrics")
+    )
+    (DRIVER "NvmeGen5Dxe.efi"
+      (FUNCTION "Dual Samsung MZVL24T0HBLU-G5 M.2 2280 PCIe Gen5 x4 controller initialization (14GB/s)")
+    )
+    (DRIVER "Thunderbolt5Dxe.efi"
+      (FUNCTION "Intel TB5-IC-80GBPS Controller handshake, PAM3 signaling, 80Gbps/120Gbps video boost")
+    )
+    (DRIVER "FastConnect7900Dxe.efi"
+      (FUNCTION "Qualcomm FastConnect 7900 Wi-Fi 7 (802.11be, 320MHz, 4K QAM), BT 5.4 LE Audio, UWB stack initialization")
+    )
+    (DRIVER "SnapdragonX90Dxe.efi"
+      (FUNCTION "Qualcomm SDX90 5G NR baseband M.2 3052 Key-B enum, GSMA-SGP.32 eUICC initialization, Nano-SIM link")
+    )
+    (DRIVER "Qsfp400gInitDxe.efi"
+      (FUNCTION "Arista QSFP-DD 400G optical cage link training (FR4/ZR/ZR+ 8x50G PAM4)")
+    )
+    (DRIVER "DiracDspLoaderDxe.efi"
+      (FUNCTION "Lattice ECP5-5G FPGA bitstream loader (dirac_dsp.elf), ESS Sabre ES9039PRO 32-bit/768kHz alignment, Crystek dual-clock select (45.1584M/49.1520M)")
+    )
+    (DRIVER "GoodixMatchOnChipDxe.efi"
+      (FUNCTION "Goodix GF3208 508 DPI sapphire sensor driver, direct encrypted pipe to ARM TrustZone enclave")
+    )
+    (DRIVER "MicrochipEcKillSwitchDxe.efi"
+      (FUNCTION "Microchip MEC172x EC NMI interrupt gates for discrete kill switches (WLAN, WWAN, BT, NFC)")
+    )
+    (DRIVER "UniversalAiKeyDxe.efi"
+      (FUNCTION "Alps Alpine Dedicated Universal AI Hotkey (PB-AI-OMNI-KEY) ACPI vector & event dispatcher")
+    )
+    (DRIVER "MicroLedDisplayDxe.efi"
+      (FUNCTION "AUO 16.0\" MicroLED 4K UHD (3840x2160 @ 165Hz) native panel timing over eDP 1.4b")
+    )
   )
 
-  ;; ===========================
-  ;; Firmware Modules
-  ;; ===========================
-  (MODULES
-    (EC_Firmware "Embedded controller HEX/ELF images")
-    (FanControl "Dyson ionic blower PWM control")
-    (ThermalManagement "Graphene vapor chamber + liquid metal TIM monitoring")
-    (BatteryManagement "Graphene solid-state pack SMBus monitoring, 30+ hr endurance")
-    (WWAN_Firmware "Snapdragon X75 firmware provisioning, multi-active profile sync")
-    (Diagnostics "Thermal cycling, vibration/shock, humidity chamber logs")
+  ;; =========================================================================
+  ;; 4. Platform Security, Cryptographic Roots of Trust & PCR Mapping
+  ;; =========================================================================
+  (ROOT_OF_TRUST_ENFORCEMENT
+    (TPM_PROFILE
+      (COMPONENT "Infineon SLB9670 TPM 2.0")
+      (STANDARD "FIPS 140-3 Level 3 Certified, ISO/IEC 11889:2015")
+      (PCR_MAPPING_MATRIX
+        (PCR_0  "Core UEFI Firmware Volume Executable Hash (SHA-512)")
+        (PCR_1  "Motherboard Subsystem Configuration, Chassis Metallurgy, and Platform OEM Data")
+        (PCR_2  "Option ROMs, NVIDIA Ada5090M microcode, and FastConnect 7900 binary measurements")
+        (PCR_3  "Lattice FPGA Dirac Live DSP Bitstream & Cryptographic Option Extensions")
+        (PCR_4  "UEFI Boot Manager Master Boot Record, GPT Table, and EFI OS Loader Integrity")
+        (PCR_7  "UEFI Secure Boot State, PK, KEK, db, and dbx Revocation List Verification")
+        (PCR_11 "Microsoft Pluton & LowRISC OpenTitan Silicon Root-of-Trust Attestation Hash")
+      )
+    )
+    (MICROSOFT_PLUTON
+      (STATUS "Active - Direct Silicon Cryptoprocessor Integration")
+      (BUS_INTERFACE "Encrypted Serial Peripheral Interface (SPI)")
+      (ATTESTATION "Measured Boot & Azure Sphere / Windows Enterprise Attestation Enforced")
+    )
+    (OPENTITAN_ROT
+      (STATUS "Active - Discrete Silicon Root-of-Trust (QFN-64)")
+      (ROLE "Hardware true random number generator (TRNG), anti-tamper latch, silicon identity")
+    )
+    (SECURE_ENCLAVE_ARM_TZ
+      (STATUS "Active - Hardware Vault Coprocessor (ARM-SE-TZ)")
+      (ROLE "Isolated execution environment for Goodix fingerprint matching & Qualcomm SIM credentials")
+    )
+    (CHASSIS_INTRUSION
+      (DETECTION "Alps Alpine deep-press interlock microswitch continuously monitored by EC")
+      (BREACH_ACTION "Zeroes system RAM in <50ns, invalidates BitLocker keys, logs security event to TPM NVRAM")
+    )
   )
 
-  ;; ===========================
-  ;; Image Packaging
-  ;; ===========================
-  (PACKAGING
-    (Format ".BIN and .ROM")
-    (Signing "RSA-4096, SHA-512, Microsoft Pluton keychain, OpenTitan RoT")
-    (Update "UEFI capsule updates, rollback protection, WWAN firmware sync")
-    (Recovery "Dual BIOS image, automatic failover, WWAN profile persistence")
+  ;; =========================================================================
+  ;; 5. Dedicated Universal AI Hotkey Dispatch Table
+  ;; =========================================================================
+  (UNIVERSAL_AI_HOTKEY_GOVERNOR
+    (HARDWARE_TRIGGER "Alps Alpine PB-AI-OMNI-KEY (55gF force, 1.2mm travel, single white micro-LED)")
+    (INTERRUPT_PATH "Direct Non-Maskable Interrupt (NMI) -> Embedded Controller -> Host ACPI Vector 0x00E9")
+    (LATENCY_TARGET "<5ms from physical tactile click to OS model runtime wake")
+    (PROFILES
+      (PROFILE_0
+        (TARGET "Gemini")
+        (ACTION "Dispatches native Gemini workspace multimodal context injection via ACPI event method")
+      )
+      (PROFILE_1
+        (TARGET "Claude")
+        (ACTION "Dispatches Claude workflow context injection via enterprise IPC channel")
+      )
+      (PROFILE_2
+        (TARGET "Grok")
+        (ACTION "Dispatches Grok automated research and telemetry capture routines")
+      )
+      (PROFILE_3
+        (TARGET "Local-Ollama-ONNX")
+        (ACTION "Direct hardware pipeline routing straight to Intel TOPS45 dedicated NPU without network wake")
+      )
+    )
+  )
+
+  ;; =========================================================================
+  ;; 6. Thermal, Acoustic & Dynamic Fan Throttling Profiles
+  ;; =========================================================================
+  (THERMAL_GOVERNOR
+    (VAPOR_CHAMBER
+      (TARGET "CoolerMaster Graphene Vapor Chamber (1500W/mK, 300W load capacity)")
+      (MONITORING "Continuous dry-out prevention algorithms polling MAX31875 digital thermal sensors")
+    )
+    (TIM_SURFACE
+      (TARGET "Thermal Grizzly Conductonaut Liquid Metal (73W/mK, <0.01K/W resistance)")
+      (LIMITS "CPU Tj Max = 95°C (Clamp at 98°C), GPU Tj Max = 85°C (Clamp at 87°C)")
+    )
+    (BLOWER_MATRIX
+      (BLOWERS "3x Large Dyson (25CFM) + 3x Medium Dyson (15CFM) + 1x Ionic Micro Bladeless (20CFM)")
+      (ACOUSTIC_LIMIT "Collective sound pressure level capped at <28 dBA under continuous 675W load")
+      (PWM_CURVES
+        (POINT_1 "Temp <= 45°C -> Fan Speed: 20% (Silent Ambient)")
+        (POINT_2 "Temp == 65°C -> Fan Speed: 45% (Acoustic Floor <24 dBA)")
+        (POINT_3 "Temp == 80°C -> Fan Speed: 75% (Acoustic Floor <26 dBA)")
+        (POINT_4 "Temp >= 85°C -> Fan Speed: 100% Full Dissipation Mode (<28 dBA)")
+      )
+    )
+  )
+
+  ;; =========================================================================
+  ;; 7. Cryptographic Packaging, Update & Recovery Specifications
+  ;; =========================================================================
+  (IMAGE_PACKAGING
+    (FORMAT "Intel Monolithic SPI Flash Descriptor Image (.bin / .rom)")
+    (SIGNING_STANDARDS
+      (SIGNATURE_1 "RSA-4096 Authenticode Signature via Microsoft UEFI CA 2026")
+      (SIGNATURE_2 "ECC-P384 Hardware Signature validated by OpenTitan Root-of-Trust")
+      (HASH_STANDARD "SHA-512 bit-exact verification prior to stage execution")
+    )
+    (ANTI_ROLLBACK "Hardware eFuses programmed per version increment to prevent microcode regression")
+    (DUAL_SPI_RECOVERY
+      (PRIMARY_CHIP "Socket A: Winbond W25Q512JVEIQ (64MB Primary UEFI Image)")
+      (FALLBACK_CHIP "Socket B: Winbond W25Q512JVEIQ (64MB Golden Recovery Image)")
+      (FAILOVER_LOGIC
+        "Automatic hardware watchdog triggers Socket B if 3 consecutive boot attempts fail POST, "
+        "or if Harwin Micro-Jumper J2 is bridged. Restores system without modifying carrier APN / eSIM credentials."
+      )
+    )
   )
 )
