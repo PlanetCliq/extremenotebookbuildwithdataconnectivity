@@ -1,70 +1,236 @@
-(EXPERT_MASTER_CNC_DXF
-  (VERSION 2.6)
-  (TITLE "Extreme Performance Laptop - Aerospace Grade CNC Machining (X75 Edition)")
-
-  ;; ===========================
-  ;; Chassis Base
-  ;; ===========================
-  (SECTION BASE_PLATE
-    (Material "Aerospace Aluminum 7075-T6")
-    (Operations
-      (Op1 "Mill base outline 360mm x 250mm x 18mm")
-      (Op2 "Cut venting slots: 2mm x 40mm, 12 slots evenly spaced")
-      (Op3 "Drill mounting holes: M2.5, tolerance ±0.05mm")
-      (Op4 "Pocket recess for graphene solid-state battery pack: 150mm x 95mm x 10mm cavity, endurance validated for 30+ hours")
-      (Op5 "Machine WWAN M.2 3052 Key B slot with reinforced mount, PCIe Gen5 backdrill")
-      (Op6 "CNC cutout for Nano-SIM cage, spring-loaded contacts, 1.2mm tolerance, dust shield integration")
-    )
-  )
-
-  ;; ===========================
-  ;; Chassis Lid
-  ;; ===========================
-  (SECTION LID_PLATE
-    (Material "Aerospace Aluminum 7075-T6")
-    (Operations
-      (Op1 "Mill lid outline 360mm x 250mm x 5mm")
-      (Op2 "Laser cut display opening: 340mm x 220mm")
-      (Op3 "Drill hinge mounts: Titanium Ti-6Al-4V, 50,000 cycle rating")
-      (Op4 "Cut speaker grill: 1mm perforations, 60% open area")
-      (Op5 "Add antenna routing channels for WWAN RF shielding, impedance matched grooves")
-    )
-  )
-
-  ;; ===========================
-  ;; Port Openings
-  ;; ===========================
-  (SECTION PORTS
-    (Operations
-      (Op1 "USB-C PD ports: 8mm x 3mm rectangular cutouts, chamfered edges")
-      (Op2 "DC barrel jack: Ø8mm circular cutout")
-      (Op3 "SD Express slot: 24mm x 2.1mm opening, right edge placement")
-      (Op4 "QSFP-DD cage: 18mm x 14mm rectangular cutout")
-      (Op5 "Blu-ray SATA drive: 128mm x 12.7mm slimline slot")
-      (Op6 "WWAN antenna connectors: dual RF cutouts, shielded path, 5G NR Sub-6 + mmWave support")
-    )
-  )
-
-  ;; ===========================
-  ;; Thermal Inserts
-  ;; ===========================
-  (SECTION THERMAL_INSERTS
-    (Material "Copper alloy + Graphene vapor chamber")
-    (Operations
-      (Op1 "Pocket recess under CPU zone: 40mm x 40mm x 2mm")
-      (Op2 "Pocket recess under GPU zone: 50mm x 50mm x 2mm")
-      (Op3 "Pocket recess under NPU zone: 35mm x 35mm x 2mm")
-      (Op4 "Drill thermal sensor mounting holes Ø2mm")
-      (Op5 "Mount Dyson ionic blower cavity, airflow >20CFM, <25dBA noise")
-    )
-  )
-
-  ;; ===========================
-  ;; Tolerances & Validation
-  ;; ===========================
-  (TOLERANCES
-    (Dimensional "±0.05mm holes, ±0.1mm enclosure fit")
-    (SurfaceFinish "Anodized aluminum, PVD coating")
-    (Validation "CMM inspection, vibration/shock MIL-STD-810G compliance, WWAN RF impedance validation, endurance validation for graphene battery load")
-  )
-)
+0
+SECTION
+  2
+HEADER
+  9
+$ACADVER
+  1
+AC1027
+  9
+$INSUNITS
+ 70
+    4
+  0
+ENDSEC
+  0
+SECTION
+  2
+TABLES
+  0
+TABLE
+  2
+LAYER
+ 70
+    5
+  0
+LAYER
+  2
+BASE_UNIBODY_7075
+ 70
+    0
+ 62
+    7
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+THERMAL_INSERTS_COPPER
+ 70
+    0
+ 62
+    1
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+PORTS_TITANIUM_CAGES
+ 70
+    0
+ 62
+    3
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+VENTING_SLOTS
+ 70
+    0
+ 62
+    4
+  6
+CONTINUOUS
+  0
+LAYER
+  2
+BATTERY_RECESS
+ 70
+    0
+ 62
+    5
+  6
+CONTINUOUS
+  0
+ENDTAB
+  0
+ENDSEC
+  0
+SECTION
+  2
+ENTITIES
+  0
+POLYLINE
+  8
+BASE_UNIBODY_7075
+ 66
+    1
+ 70
+    1
+  0
+VERTEX
+  8
+BASE_UNIBODY_7075
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  0
+VERTEX
+  8
+BASE_UNIBODY_7075
+ 10
+360.0
+ 20
+0.0
+ 30
+0.0
+  0
+VERTEX
+  8
+BASE_UNIBODY_7075
+ 10
+360.0
+ 20
+250.0
+ 30
+0.0
+  0
+VERTEX
+  8
+BASE_UNIBODY_7075
+ 10
+0.0
+ 20
+250.0
+ 30
+0.0
+  0
+SEQEND
+  0
+POLYLINE
+  8
+BATTERY_RECESS
+ 66
+    1
+ 70
+    1
+  0
+VERTEX
+  8
+BATTERY_RECESS
+ 10
+105.0
+ 20
+20.0
+ 30
+-5.2
+  0
+VERTEX
+  8
+BATTERY_RECESS
+ 10
+255.0
+ 20
+20.0
+ 30
+-5.2
+  0
+VERTEX
+  8
+BATTERY_RECESS
+ 10
+255.0
+ 20
+120.0
+ 30
+-5.2
+  0
+VERTEX
+  8
+BATTERY_RECESS
+ 10
+105.0
+ 20
+120.0
+ 30
+-5.2
+  0
+SEQEND
+  0
+POLYLINE
+  8
+THERMAL_INSERTS_COPPER
+ 66
+    1
+ 70
+    1
+  0
+VERTEX
+  8
+THERMAL_INSERTS_COPPER
+ 10
+115.0
+ 20
+130.0
+ 30
+-2.5
+  0
+VERTEX
+  8
+THERMAL_INSERTS_COPPER
+ 10
+235.0
+ 20
+130.0
+ 30
+-2.5
+  0
+VERTEX
+  8
+THERMAL_INSERTS_COPPER
+ 10
+235.0
+ 20
+210.0
+ 30
+-2.5
+  0
+VERTEX
+  8
+THERMAL_INSERTS_COPPER
+ 10
+115.0
+ 20
+210.0
+ 30
+-2.5
+  0
+SEQEND
+  0
+ENDSEC
+  0
+EOF
