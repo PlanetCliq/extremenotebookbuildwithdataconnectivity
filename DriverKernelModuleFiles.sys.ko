@@ -1,88 +1,106 @@
-(EXPERT_MASTER_DRIVERS
-  (VERSION 2.6)
-  (TITLE "Extreme Performance Laptop - Aerospace Grade Drivers (X75 Edition)")
+(EXPERT_MASTER_DRIVERS_AND_MODULES
+  (VERSION 2.9-HIGHEST)
+  (TITLE "Extreme Performance Laptop - Aerospace Grade Signed Drivers & Kernel Modules")
 
-  ;; ===========================
-  ;; Windows Drivers (.SYS)
-  ;; ===========================
-  (WINDOWS_DRIVERS
-    (GPU_DRIVER
-      (File "nvada5090.sys")
-      (Component "NVIDIA Ada5090M GPU")
-      (Features "DirectX 12 Ultimate, CUDA, RTX AI acceleration")
-      (Signed "Microsoft WHQL, Pluton secure boot chain")
+  (WINDOWS_SYS_DRIVERS
+    (DRIVER_GPU
+      (FILE "nvada5090.sys")
+      (COMPONENT "NVIDIA Ada5090M Discrete GPU")
+      (FEATURES "DirectX 12 Ultimate, Vulkan 1.3, CUDA 12.6, TensorRT, Optical Flow Acceleration")
+      (SIGNING "Microsoft Windows Hardware Quality Labs (WHQL), EV Authenticode SHA-384")
     )
-    (NPU_DRIVER
-      (File "intel_npu.sys")
-      (Component "Intel TOPS45 Neural Processing Unit")
-      (Features "ONNX runtime acceleration, Windows ML integration")
-      (Signed "Microsoft WHQL, TPM validation")
+    (DRIVER_NPU
+      (FILE "intel_npu.sys")
+      (COMPONENT "Intel TOPS45 Neural Processing Unit")
+      (FEATURES "DirectML backend, ONNX runtime low-latency execution driver, Windows Studio Effects")
+      (SIGNING "Microsoft WHQL Certified")
     )
-    (THUNDERBOLT_DRIVER
-      (File "tb5.sys")
-      (Component "Intel Thunderbolt 5 Controller")
-      (Features "80Gbps data, USB4 compatibility")
-      (Signed "Microsoft WHQL")
+    (DRIVER_FASTCONNECT
+      (FILE "qc_fastconnect.sys")
+      (COMPONENT "Qualcomm FastConnect 7900 Tri-Radio Subsystem")
+      (FEATURES "Wi-Fi 7 802.11be, 320MHz channel width, 4K QAM, Bluetooth 5.4, aptX Lossless, UWB Ranging")
+      (SIGNING "Microsoft WHQL Certified, Qualcomm Authenticode Signoff")
     )
-    (WIFI_BT_DRIVER
-      (File "wifi7_bt6.sys")
-      (Component "Quectel FCE870Q WiFi7/BT6.0 combo")
-      (Features "WiFi 7 5.8Gbps, Bluetooth 6.0 BLE Audio")
-      (Signed "Microsoft WHQL")
+    (DRIVER_WWAN
+      (FILE "qcom_sdx90_wwan.sys")
+      (COMPONENT "Qualcomm Snapdragon X90 / X75 5G NR Baseband")
+      (FEATURES "MBIM 3.0 protocol, QMI multiplexing, GSMA-SGP.32 dual-SIM/eSIM switching, VoNR audio sink")
+      (SIGNING "Microsoft WHQL Certified")
     )
-    (NVME_DRIVER
-      (File "nvme_gen5.sys")
-      (Component "Samsung NVMe Gen5 SSD")
-      (Features "14GB/s throughput, PCIe Gen5 compliance")
-      (Signed "Microsoft WHQL")
+    (DRIVER_THUNDERBOLT5
+      (FILE "tb5_controller.sys")
+      (COMPONENT "Intel TB5-IC-80GBPS Controller")
+      (FEATURES "PCI Express tunneling, 120Gbps asymmetric video boost, USB4 v2 interoperability")
+      (SIGNING "Microsoft WHQL Certified")
     )
-    (WWAN_DRIVER
-      (File "x75_wwan.sys")
-      (Component "Qualcomm Snapdragon X75 WWAN M.2 3052 Key B")
-      (Features "20 stored profiles, 1–5 active simultaneously, IMS/VoLTE/VoNR, USSD, APN/QoS, PDP contexts")
-      (Signed "Microsoft WHQL, ARM TrustZone, Pluton secure boot chain")
+    (DRIVER_AUDIO_STUDIO
+      (FILE "ess9039pro_thx_dsp.sys")
+      (COMPONENT "ESS Sabre ES9039PRO + THX AAA-888 + Dirac Live FPGA")
+      (FEATURES "ASIO 2.3 ultra-low latency, 32-bit 768kHz output, dynamic dual-clock selector (45.1584M/49.1520M)")
+      (SIGNING "Microsoft WHQL Certified")
+    )
+    (DRIVER_FINGERPRINT
+      (FILE "goodix_sapphire_fp.sys")
+      (COMPONENT "Goodix 508DPI Match-On-Chip Sensor")
+      (FEATURES "Windows Biometric Framework (WBF) compliant, direct ARM TrustZone pipe")
+      (SIGNING "Microsoft WHQL Certified")
+    )
+    (DRIVER_AI_HOTKEY
+      (FILE "universal_ai_key.sys")
+      (COMPONENT "Alps Alpine Dedicated Universal AI Switch")
+      (FEATURES "Non-maskable ACPI interrupt dispatcher routing to Gemini, Claude, Grok, or local ONNX engine")
+      (SIGNING "Microsoft WHQL Certified")
     )
   )
 
-  ;; ===========================
-  ;; Linux Kernel Modules (.KO)
-  ;; ===========================
-  (LINUX_MODULES
-    (GPU_MODULE
-      (File "nvada5090.ko")
-      (Component "NVIDIA Ada5090M GPU")
-      (Features "CUDA, TensorRT, Vulkan, OpenCL")
-      (Signed "SHA-512, OpenTitan root-of-trust")
+  (LINUX_KERNEL_MODULES
+    (MODULE_GPU
+      (FILE "nvidia-ada5090.ko")
+      (COMPONENT "NVIDIA Ada5090M GPU Kernel Driver")
+      (FEATURES "Open-source kernel module, DMA-BUF zero copy, DRM/KMS, CUDA acceleration")
+      (SIGNING "SHA-512 System Keyring, Machine Owner Key (MOK) Enforced")
     )
-    (NPU_MODULE
-      (File "intel_npu.ko")
-      (Component "Intel TOPS45 NPU")
-      (Features "ONNX runtime, PyTorch acceleration")
-      (Signed "SHA-512, TPM validation")
+    (MODULE_NPU
+      (FILE "intel_ivpu_tops45.ko")
+      (COMPONENT "Intel TOPS45 NPU Driver")
+      (FEATURES "Standard Linux /dev/accel driver, Level Zero acceleration hooks")
+      (SIGNING "SHA-512 MOK Enforced")
     )
-    (THUNDERBOLT_MODULE
-      (File "tb5.ko")
-      (Component "Thunderbolt 5 Controller")
-      (Features "USB4, PCIe tunneling, hotplug support")
-      (Signed "SHA-512, kernel keyring")
+    (MODULE_FASTCONNECT
+      (FILE "ath12k_fastconnect.ko")
+      (COMPONENT "Qualcomm FastConnect 7900 Wi-Fi 7 Driver")
+      (FEATURES "mac80211 framework, Multi-Link Operation (MLO), 4K QAM modulation")
+      (SIGNING "SHA-512 MOK Enforced")
     )
-    (WIFI_BT_MODULE
-      (File "wifi7_bt6.ko")
-      (Component "Quectel FCE870Q WiFi7/BT6.0")
-      (Features "WiFi 7 stack, Bluetooth 6.0 BLE Audio")
-      (Signed "SHA-512, kernel keyring")
+    (MODULE_WWAN_QMI
+      (FILE "qmi_wwan_sdx90.ko")
+      (COMPONENT "Qualcomm Snapdragon X90 5G NR Interface")
+      (FEATURES "cdc-wdm passthrough, multiple PDN context multiplexing, raw-ip mode")
+      (SIGNING "SHA-512 MOK Enforced")
     )
-    (NVME_MODULE
-      (File "nvme_gen5.ko")
-      (Component "Samsung NVMe Gen5 SSD")
-      (Features "PCIe Gen5 NVMe driver, 14GB/s throughput")
-      (Signed "SHA-512, kernel keyring")
+    (MODULE_THUNDERBOLT5
+      (FILE "thunderbolt5.ko")
+      (COMPONENT "Thunderbolt 5 / USB4 v2 Host Controller")
+      (FEATURES "PCIe tunneling, DMA security levels, hotplug lane aggregation")
+      (SIGNING "SHA-512 MOK Enforced")
     )
-    (WWAN_MODULE
-      (File "x75_wwan.ko")
-      (Component "Qualcomm Snapdragon X75 WWAN M.2 3052 Key B")
-      (Features "Multi-active PDP contexts, IMS/VoLTE/VoNR, USSD, APN/QoS provisioning, secure SIM/eSIM LPA integration")
-      (Signed "SHA-512, kernel keyring, OpenTitan root-of-trust")
+    (MODULE_AUDIO_DIRAC
+      (FILE "snd-soc-dirac-ess9039.ko")
+      (COMPONENT "High-Fidelity Audio Codec & DSP Controller")
+      (FEATURES "ALSA System-on-Chip (ASoC) driver, Crystek primary/secondary dual-clock switching")
+      (SIGNING "SHA-512 MOK Enforced")
+    )
+    (MODULE_FINGERPRINT
+      (FILE "goodix_fp_tee.ko")
+      (COMPONENT "Goodix Match-On-Chip Sensor")
+      (FEATURES "TEE / OP-TEE communication channel, Linux PAM biometric integration")
+      (SIGNING "SHA-512 MOK Enforced")
+    )
+    (MODULE_AI_HOTKEY
+      (FILE "extreme_ai_switch.ko")
+      (COMPONENT "Dedicated Universal AI Hardware Key Driver")
+      (FEATURES "Injects KEY_AI (evdev code 248) directly into Linux input subsystem")
+      (SIGNING "SHA-512 MOK Enforced")
     )
   )
 )
