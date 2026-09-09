@@ -59,10 +59,16 @@ modprobe qmi_wwan_sdx90
 modprobe snd-soc-dirac-ess9039
 modprobe goodix_fp_tee
 modprobe extreme_ai_switch
+modprobe cat8_ethernet
+modprobe cdc_acm_telephone_fax
+modprobe usbcore
+modprobe xhci_hcd
+modprobe usb4_host
 
-echo "[+] Step 2: Probing high-speed PCIe Gen5 and optical fabrics..."
+echo "[+] Step 2: Probing high-speed PCIe Gen5, Cat 8 Ethernet & USB fabrics..."
 lspci -vvv -d 10de: | grep -E "NVIDIA|LnkCap|LnkSta" || true
-lspci -vvv -d 8086: | grep -E "Intel|Thunderbolt" || true
+lspci -vvv -d 8086: | grep -E "Intel|Thunderbolt|USB4" || true
+lspci -vvv | grep -E "Ethernet|Cat8|Modem" || true
 
 echo "[+] Step 3: Configuring Qualcomm SDX90 Cellular Baseband..."
 if [[ -e /dev/cdc-wdm0 ]]; then
@@ -124,7 +130,12 @@ $DriverManifest = @(
     ".\drivers\qcom_sdx90_wwan.inf",   # Qualcomm Snapdragon X90 / X75 5G NR Baseband
     ".\drivers\ess9039pro_audio.inf",  # ESS Sabre ES9039PRO + THX AAA-888 + Dirac Live
     ".\drivers\goodix_sapphire_fp.inf",# Goodix 508 DPI Sapphire Match-On-Chip Fingerprint
-    ".\drivers\universal_ai_key.inf"   # Alps Alpine Dedicated Universal AI Hotkey
+    ".\drivers\universal_ai_key.inf",  # Alps Alpine Dedicated Universal AI Hotkey
+    ".\drivers\cat8_ethernet.inf",     # Amphenol Cat 8 40Gbps Ethernet Port
+    ".\drivers\conexant_tel_fax.inf",  # Conexant Telephone & Fax Modem Ports (RJ11)
+    ".\drivers\usb2_xhci.inf",         # x1 USB 2.0 Host Controller
+    ".\drivers\usb32_gen2x2.inf",      # x2 USB 3.2 Gen 2x2 Controllers
+    ".\drivers\usb4_v2_host.inf"       # x2 USB 4 Host Routers & Controllers
 )
 
 foreach ($inf in $DriverManifest) {
