@@ -1,90 +1,11 @@
-(EXPERT_MASTER_PCB
-  (VERSION 1.1)
-  (TITLE "Extreme Performance Laptop - Aerospace Grade PCB Layout (Re‑worked)")
-
-  ;; ===========================
-  ;; Layer Stack
-  ;; ===========================
-  (STACKUP
-    (Layer1 "Top Signal, 2oz copper, impedance-controlled")
-    (Layer2 "Dedicated Ground Plane")
-    (Layer3 "High-Speed PCIe/DDR5 Differential Pairs, matched length")
-    (Layer4 "Power Plane 1.2V/3.3V/5V, VRM domains")
-    (Layer5 "Inner Signal routing")
-    (Layer6 "Ground Plane, EMI shielding")
-    (Layer7 "Power Plane GPU/NPU domains, isolated rails")
-    (Layer8 "High-Speed NVMe/Thunderbolt lanes, tuned impedance")
-    (Layer9 "Ground Plane, return paths")
-    (Layer10 "Bottom Signal, 2oz copper, auxiliary nets")
-    (Dielectric "Rogers RO4003, 0.2mm core, aerospace grade")
-    (Finish "ENIG - Electroless Nickel Immersion Gold, IPC compliant")
-    (Microvias "0.1mm laser drilled, blind/buried enabled")
-    (Backdrill "Enabled for PCIe Gen5 lanes, jitter reduction")
-  )
-
-  ;; ===========================
-  ;; Routing Rules
-  ;; ===========================
-  (ROUTING
-    (DDR5 "50Ω single-ended, ±10ps skew, length match ±5 mils, diff clock pairs")
-    (HBM3 "45Ω single-ended, 85Ω differential, length match ±3 mils, flux validated")
-    (PCIe_Gen5 "100Ω differential, jitter <0.15UI, pre-emphasis/de-emphasis enabled")
-    (USB_PD "90Ω differential, clearance ≥0.25mm, creepage ≥2mm")
-    (QSFP_DD "400G lanes, skew ≤5ps, impedance 100Ω differential, eye diagram validated")
-    (Audio "Shielded traces, THD+N ≤ -120dB, SNR ≥130dB, low-noise routing")
-  )
-
-  ;; ===========================
-  ;; Footprints
-  ;; ===========================
-  (FOOTPRINTS
-    (CPU "Intel BGA-1700, IPC-7351 compliant")
-    (GPU "NVIDIA BGA-2400, IPC-7351 compliant")
-    (NPU "Intel BGA-800, AI acceleration")
-    (DDR5_DIMM "Micron DIMM-288 socket, keyed")
-    (HBM3 "Samsung stacked BGA, thermal spread validated")
-    (NVMe "Samsung M.2-2280 connector, Gen5 compliant")
-    (TPM "Infineon QFN-64, secure enclave")
-    (Pluton "Microsoft QFN-48, firmware attestation")
-    (OpenTitan "LowRISC QFN-64, root of trust")
-    (WiFi_BT "Quectel M.2-2230, WiFi7/BT6 combo")
-    (QSFP_DD "Molex QSFP-DD cage, 400G networking")
-    (Thunderbolt5 "Intel QFN-128, 80Gbps bandwidth")
-    (DAC "ESS QFN-64, Sabre DAC")
-    (AMP "THX custom footprint, AAA amplifier")
-    (DSP "Dirac FPGA footprint, audio DSP")
-    (AudioJack "Amphenol 3.5mm shielded TH footprint")
-    (Display "AUO MicroLED custom connector, UHD panel")
-    (USB_PD "Amphenol USB-C EPR footprint, 240W PD")
-    (DC_Jack "Delta barrel jack footprint, 12V/10A")
-    (SDExpress "Amphenol SD Express slot, 985MB/s")
-    (BluRay "Panasonic Slimline SATA footprint, Blu-ray drive")
-  )
-
-  ;; ===========================
-  ;; Placement Constraints
-  ;; ===========================
-  (PLACEMENT
-    (CPU_GPU "Centered for thermal symmetry, airflow optimized")
-    (DDR5_DIMMs "Parallel above CPU/GPU, matched trace lengths")
-    (NVMe "Aligned bottom edge, serviceable access")
-    (Clearance "≥0.25mm minimum")
-    (Creepage "≥2mm minimum")
-    (FerriteBeads "On all power rails, domain isolation")
-    (ESD_Diodes "USB, HDMI, SD Express ports, surge protection")
-    (CopperPour "Shielding for PCIe lanes, EMI mitigation")
-    (GuardTraces "Around high-speed nets, crosstalk reduction")
-  )
-
-  ;; ===========================
-  ;; Manufacturability
-  ;; ===========================
-  (FABRICATION_RULES
-    (Compliance "RoHS, CE, BIS, UL, CCC, FIPS140-3, NIST-SP800-193, IEC62368-1")
-    (AOI "Orbotech AOI validation, automated inspection")
-    (FlyingProbe "ATG impedance and continuity test")
-    (ThermalCycling "Validation chamber -40°C to +85°C, 100 cycles")
-    (VibrationShock "MIL-STD-810G compliance, aerospace-grade durability")
-    (Humidity "85% RH chamber validation, conformal coating intact")
+(EXPERT_MASTER_PCB_LAYOUT
+  (VERSION 2.9-HIGHEST)
+  (BOARD_DIMENSIONS "350mm x 240mm x 1.6mm nominal, 10-layer Rogers RO4003C")
+  (PLACEMENT_ZONES
+    (ZONE THERMAL_CORE (COMPONENTS CPU_INTEL_I9_14900HX, GPU_NVIDIA_ADA5090M, GPU_NANOWIRE_AI_QUANTUM, NPU_INTEL_TOPS45))
+    (ZONE MEMORY (COMPONENTS MEMORY_DDR5X_MICRON[4], MEMORY_HBM3_STACK))
+    (ZONE AUDIO_ISOLATED (COMPONENTS DAC_ESS_SABRE_ES9039PRO, AMP_THX_AAA888, DSP_DIRAC_LIVE, OSCILLATOR_AUDIO_PRIMARY, OSCILLATOR_AUDIO_SECONDARY, AUDIO_SPEAKER_STEREO_PAIR[2], AUDIO_SUB_BASS_TRANSDUCER, HW_CONFIG_JUMPERS))
+    (ZONE COMMS (COMPONENTS WWAN_MODULE_QUALCOMM_X90, WWAN_X75_MODULE, WIFI7_BT_QUALCOMM_FASTCONNECT, QSFP_DD_PORT_MOLEX, ETHERNET_PORT_CAT8, THUNDERBOLT5_CONTROLLER))
+    (ZONE SECURITY_AND_KEYS (COMPONENTS TPM_INFINEON, PLUTON_SEC_CHIP, OPEN_TITAN_ROOT_OF_TRUST, SECURE_ENCLAVE_COPROCESSOR, FINGERPRINT_SENSOR, PROGRAMMABLE_AI_HOTKEY))
   )
 )
