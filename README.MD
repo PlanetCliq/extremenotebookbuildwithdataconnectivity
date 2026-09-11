@@ -74,6 +74,13 @@ Aerospace-grade extreme performance laptop build with complete lifecycle artifac
 
 ---
 
+## Simulation Reference Files
+- `COMSOL_Multiphysics_Reference.MD` → Multiphysics thermal, electrical, and mechanical model definition for the notebook cooling, power delivery, and chassis architecture.
+- `ANSYS_Simulation_Reference.MD` → Full-system thermal, power integrity, and structural analysis workflow using ANSYS Mechanical, Fluent, and SIwave/Maxwell-based toolchain.
+- `Silvaco_Simulation_Reference.MD` → Device-level electrothermal and package reliability analysis for semiconductor, VRM, and battery-related domains.
+
+---
+
 ## Hardware
 - **CPU**: Intel Core i9-14900HX (24 Cores / 32 Threads, 5.8GHz Turbo, 125W Base / 175W PL2)[cite: 3, 8]
 - **GPU Discrete**: NVIDIA RTX Ada5090M (24GB VRAM GDDR7/HBM3 Hybrid, 250W TGP, 300W Dynamic Boost Flux)[cite: 3, 8]
