@@ -1,0 +1,100 @@
+schema_version: "1.0"
+unit_system: "SI"
+project: "extreme_notebook_multiphysics"
+
+geometry:
+  enclosure_step: "3DCADModelFile.step"
+  exchange_geometry: "3DCADExchangeFile.IGES"
+  pcb_layout: "pcblayout.pcb"
+  netlist: "Altium_Master_Design.NET"
+  coordinate_system: "global_xyz"
+
+ambient:
+  baseline_temperature_c: 25
+  hot_temperature_c: 40
+  cold_temperature_c: -40
+  thermal_cycle_high_c: 85
+  thermal_cycle_count: 100
+  ramp_rate_c_per_min: 10
+
+power_sources:
+  cpu:
+    component_id: "CPU"
+    sustained_w: 175
+    transient_peak_w: 200
+  gpu:
+    component_id: "GPU"
+    sustained_w: 250
+    transient_peak_w: 300
+  npu:
+    component_id: "NPU"
+    sustained_w: 45
+    transient_peak_w: 60
+  memory:
+    component_id: "MEMORY"
+    sustained_w: 65
+  vrm_and_board:
+    component_id: "VRM_BOARD"
+    sustained_w: 45
+  battery:
+    component_id: "BATTERY"
+    nominal_voltage_v: 11.1
+    capacity_wh: 480
+    maximum_charge_rate_c: 3
+
+materials:
+  chassis_7075_t6:
+    material_id: "AL_7075_T6"
+    density_kg_m3: 2810
+    thermal_conductivity_w_mk: 130
+    youngs_modulus_gpa: 71.7
+    poisson_ratio: 0.33
+  hinge_ti_6al_4v:
+    material_id: "TI_6AL_4V"
+    density_kg_m3: 4430
+    thermal_conductivity_w_mk: 6.7
+    youngs_modulus_gpa: 114
+    poisson_ratio: 0.342
+  copper_insert:
+    material_id: "COPPER_ALLOY"
+    thermal_conductivity_w_mk: 380
+  liquid_metal_tim:
+    material_id: "GA_IN_TIM"
+    thermal_conductivity_w_mk: 73
+    contact_resistance_m2k_w: 0.00001
+  air:
+    material_id: "AIR"
+    reference_temperature_c: 25
+
+cooling:
+  blower_count: 7
+  acoustic_target_dba: 28
+  inlet_temperature_c: 25
+  boundary_condition: "measured_mass_flow_pressure_curve"
+  vapor_chamber_capacity_w: 300
+
+electrical:
+  cpu_rail_voltage_v: 1.0
+  gpu_rail_voltage_v: 1.0
+  npu_rail_voltage_v: 1.0
+  pdn_sweep_start_hz: 10000
+  pdn_sweep_stop_hz: 10000000000
+  load_step_start_fraction: 0.2
+  load_step_end_fraction: 1.0
+  load_step_duration_s: 0.01
+
+mechanical:
+  drop_height_m: 1.2
+  drop_orientations: 26
+  hinge_target_cycles: 50000
+  vibration_standard: "MIL-STD-810G"
+  thermal_structural_low_c: 25
+  thermal_structural_high_c: 85
+
+acceptance:
+  cpu_max_junction_c: 95
+  gpu_max_junction_c: 85
+  battery_max_c: 45
+  coupling_temperature_tolerance_c: 1
+  coupling_voltage_tolerance_percent: 1
+  mesh_result_tolerance_percent: 5
