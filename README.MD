@@ -78,6 +78,8 @@ Aerospace-grade extreme performance laptop build with complete lifecycle artifac
 - `COMSOL_Multiphysics_Reference.MD` → Multiphysics thermal, electrical, and mechanical model definition for the notebook cooling, power delivery, and chassis architecture.
 - `ANSYS_Simulation_Reference.MD` → Full-system thermal, power integrity, and structural analysis workflow using ANSYS Mechanical, Fluent, and SIwave/Maxwell-based toolchain.
 - `Silvaco_Simulation_Reference.MD` → Device-level electrothermal and package reliability analysis for semiconductor, VRM, and battery-related domains.
+- `Extended_Multiphysics_Simulation_Plan.MD` → Coupled study matrix, solver handoff workflow, mesh/convergence requirements, and acceptance criteria.
+- `simulation_parameters.yml` → Shared SI-unit geometry, power, material, cooling, electrical, mechanical, and acceptance parameters for solver setup.
 
 ---
 
